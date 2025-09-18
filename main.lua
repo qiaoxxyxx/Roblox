@@ -2,7 +2,7 @@
 -- 作者: XXYXX
 -- 版本: v2
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/koboyads/qiaoxxyxx/Roblox/main.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/edit/main/main.lua"))()
 
 -- 防AFK机制
 local VirtualUser = game:GetService("VirtualUser")
@@ -288,3 +288,4 @@ end)
 Library:Notify("Welcome", "脚本加载成功！")
 
 print("XXYXX GOD 已加载")
+
