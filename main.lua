@@ -1,294 +1,463 @@
--- 脚本名称: 忍者传奇自动榜单
--- 作者: XXYXX
--- 版本: v2
+local vu = game:GetService("VirtualUser")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/fluxlib/main/lib.lua"))()
-
--- 防AFK机制
-local VirtualUser = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:Connect(function()
-    VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-    task.wait(1)
-    VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    vu:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    wait(1)
+    vu:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
 end)
 
--- 格式化函数
-local numberSuffixes = {"", "K", "M", "B", "T", "Qa", "Qi"}
-local function FormatNumber(value, decimalPlaces)
-    local exponent = math.floor(math.log(math.max(1, math.abs(value)), 1000))
-    local suffix = numberSuffixes[1 + exponent] or ("e+" .. exponent)
-    local formatted = math.floor(value * ((10 ^ decimalPlaces) / (1000 ^ exponent))) / (10 ^ decimalPlaces)
-    return ("%." .. decimalPlaces .. "f%s"):format(formatted, suffix)
-end
-
--- 创建主窗口
-local MainWindow = Library:CreateWindow({
-    Title = "God",
+local Window = WindUI:CreateWindow({
+    Title = "柯丽χ极速脚本",
     Icon = "rbxassetid://139743288604595",
-    Author = "koboyads",
-    Folder = "Roblox脚本",
-    Size = UDim2.fromOffset(350, 450),
+    Author = "by kolilxi",
+    Size = UDim2.fromOffset(300, 400),
     Transparent = true,
     Theme = "Dark",
-    SideBarWidth = 140,
-    HasOutline = true
+    SideBarWidth = 100,
+    HasOutline = true,
+    FontSize = 10,
+    ItemHeight = 25
 })
 
--- 自定义打开按钮
-MainWindow:EditOpenButton({
-    Title = "打开菜单",
-    Icon = "settings",
-    CornerRadius = UDim.new(0, 12),
-    StrokeThickness = 2,
+Window:EditOpenButton({
+    Title = "柯丽χ极速脚本",
+    Icon = "zap",
+    CornerRadius = UDim.new(0, 5),
+    StrokeThickness = 1,
     Color = ColorSequence.new(
         Color3.fromHex("FF0F7B"),
         Color3.fromHex("F89B29")
     )
 })
 
--- 玩家功能标签页
-local PlayerTab = MainWindow:Tab({
-    Title = "玩家功能",
-    Icon = "👤",
-})
+_G.EffectRemover = {
+    Enabled = false,
+    OriginalStates = {},
+    RemovedObjects = {},
+    DisabledParticles = {},
+    DisabledLights = {},
+    DisabledPostEffects = {}
+}
 
-PlayerTab:Toggle({
-    Title = "全图吸人",
-    Value = false,
-    Callback = function(State)
-        _G.AttractPlayers = State
-        if State then
-            task.spawn(function()
-                while _G.AttractPlayers do
-                    task.wait()
-                    for _, player in ipairs(game.Players:GetPlayers()) do
-                        if player ~= game.Players.LocalPlayer and player.Character then
-                            local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
-                            if humanoidRootPart then
-                                humanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                            end
-                        end
-                    end
-                end
-            end)
-        end
+local function saveOriginalState(object)
+    if not _G.EffectRemover.OriginalStates[object] then
+        _G.EffectRemover.OriginalStates[object] = {
+            Enabled = object.Enabled,
+            Visible = if object:IsA("BasePart") then object.Visible else nil,
+            Transparency = if object:IsA("BasePart") then object.Transparency else nil
+        }
     end
-})
+end
 
-PlayerTab:Toggle({
-    Title = "位置锁定",
-    Value = false,
-    Callback = function(State)
-        _G.LockPosition = State
-        local initialPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-        if State then
-            game:GetService("RunService").RenderStepped:Connect(function()
-                if _G.LockPosition then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(initialPosition)
-                end
-            end)
-        end
-    end
-})
-
-PlayerTab:Button({
-    Title = "传送到安全点",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(239.56, 90.95, -284.14)
-    end
-})
-
--- 宠物管理标签页
-local PetsTab = MainWindow:Tab({
-    Title = "宠物管理",
-    Icon = "🐱",
-})
-
--- 克隆设置
-_G.AutoClone = false
-_G.CloneRate = 70
-
-PetsTab:Toggle({
-    Title = "自动克隆宠物",
-    Value = false,
-    Callback = function(State)
-        _G.AutoClone = State
-    end
-})
-
-PetsTab:Slider({
-    Title = "克隆速度 (只/秒)",
-    Value = 70,
-    Min = 1,
-    Max = 100,
-    Callback = function(Value)
-        _G.CloneRate = Value
-    end
-})
-
--- 出售设置
-_G.AutoSell = false
-_G.KeepOnePet = true
-
-PetsTab:Toggle({
-    Title = "自动出售宠物",
-    Value = false,
-    Callback = function(State)
-        _G.AutoSell = State
-    end
-})
-
-PetsTab:Toggle({
-    Title = "保留一个宠物",
-    Value = true,
-    Callback = function(State)
-        _G.KeepOnePet = State
-    end
-})
-
-PetsTab:Button({
-    Title = "立即出售多余宠物",
-    Callback = function()
-        local petsFolder = game.Players.LocalPlayer:FindFirstChild("petsFolder")
-        if petsFolder then
-            local redKitties = {}
-            for _, pet in ipairs(petsFolder:GetChildren()) do
-                if pet.Name == "Red Kitty" then
-                    table.insert(redKitties, pet)
-                end
-            end
-            
-            if #redKitties > 1 then
-                for i = 2, #redKitties do
-                    game:GetService("ReplicatedStorage").rEvents.sellPetEvent:FireServer("sellPet", redKitties[i])
-                end
-       
-                Library:Notify("出售完成", "已出售 " .. (#redKitties - 1) .. " 只宠物")
-            else
-                Library:Notify("提示", "没有多余的宠物可出售")
-            end
-        end
-    end
-})
-
--- 战斗功能标签页
-local CombatTab = MainWindow:Tab({
-    Title = "战斗功能",
-    Icon = "⚔️",
-})
-
-CombatTab:Toggle({
-    Title = "自动攻击",
-    Value = false,
-    Callback = function(State)
-        _G.AutoAttack = State
-        if State then
-            task.spawn(function()
-                while _G.AutoAttack do
-                    local args = {[1] = "swingKatana"}
-                    game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(unpack(args))
-                    task.wait(0.1)
-                end
-            end)
-        end
-    end
-})
-
-CombatTab:Toggle({
-    Title = "连击模式",
-    Value = false,
-    Callback = function(State)
-        _G.ComboMode = State
-    end
-})
-
--- 设置标签页
-local SettingsTab = MainWindow:Tab({
-    Title = "设置",
-    Icon = "⚙️",
-})
-
-SettingsTab:Button({
-    Title = "保存设置",
-    Callback = function()
-        Library:Notify("设置已保存", "您的偏好设置已保存")
-    end
-})
-
-SettingsTab:Button({
-    Title = "重置设置",
-    Callback = function()
-        Library:Notify("设置已重置", "所有设置已恢复默认")
-    end
-})
-
-SettingsTab:Toggle({
-    Title = "自动更新",
-    Value = true,
-    Callback = function(State)
-        _G.AutoUpdate = State
-    end
-})
-
--- 状态显示
-local StatusLabel = SettingsTab:Label({
-    Title = "状态: 脚本加载成功",
-    Color = Color3.fromRGB(0, 255, 0)
-})
-
--- 后台任务
-task.spawn(function()
-    local lastCloneTime = tick()
+local function removeEffects()
+    if _G.EffectRemover.Enabled then return end
     
-    while task.wait() do
-        -- 自动克隆任务
-        if _G.AutoClone then
-            pcall(function()
-                local redKitty = game.Players.LocalPlayer.petsFolder:FindFirstChild("Red Kitty")
-                if redKitty then
-                    local currentTime = tick()
-                    local elapsed = currentTime - lastCloneTime
-                    local targetClones = math.floor(elapsed * _G.CloneRate)
-                    
-                    if targetClones > 0 then
-                        for i = 1, targetClones do
-                            game:GetService("ReplicatedStorage").rEvents.petCloneEvent:FireServer("clonePet", redKitty)
-                        end
-                        lastCloneTime = currentTime
-                    end
+    _G.EffectRemover.Enabled = true
+    
+    for _, obj in pairs(workspace:GetDescendants()) do
+        if obj:IsA("ParticleEmitter") or obj:IsA("Fire") or obj:IsA("Smoke") or 
+           obj:IsA("Sparkles") or obj:IsA("Beam") or obj:IsA("Trail") then
+            saveOriginalState(obj)
+            obj.Enabled = false
+            table.insert(_G.EffectRemover.DisabledParticles, obj)
+            
+        elseif obj:IsA("PointLight") or obj:IsA("SurfaceLight") or obj:IsA("SpotLight") then
+            saveOriginalState(obj)
+            obj.Enabled = false
+            table.insert(_G.EffectRemover.DisabledLights, obj)
+            
+        elseif obj:IsA("Decal") or obj:IsA("Texture") then
+            if obj.Name:lower():find("effect") or obj.Name:lower():find("glow") then
+                saveOriginalState(obj)
+                obj.Transparency = 1
+                table.insert(_G.EffectRemover.RemovedObjects, obj)
+            end
+        end
+    end
+    
+    local plr = Players.LocalPlayer
+    if plr.Character then
+        for _, obj in pairs(plr.Character:GetDescendants()) do
+            if obj:IsA("ParticleEmitter") or obj:IsA("Fire") or obj:IsA("Smoke") or 
+               obj:IsA("Sparkles") or obj:IsA("Beam") or obj.Name:find("Effect") then
+                saveOriginalState(obj)
+                if obj:IsA("ParticleEmitter") then
+                    obj.Enabled = false
+                elseif obj:IsA("BasePart") then
+                    obj.Transparency = 1
                 end
-            end)
+                table.insert(_G.EffectRemover.RemovedObjects, obj)
+            end
+        end
+    end
+    
+    local uiElementsToRemove = {
+        "sweatPart", "airPart", "breathPart", "energyPart",
+        "strengthFrame", "durabilityFrame", "agilityFrame",
+        "EffectGui", "ParticleGui", "GlowEffect", "ShineEffect"
+    }
+    
+    for _, elementName in pairs(uiElementsToRemove) do
+        local element = workspace:FindFirstChild(elementName)
+        if element then
+            saveOriginalState(element)
+            element:Destroy()
+            table.insert(_G.EffectRemover.RemovedObjects, element)
         end
         
-        -- 自动出售任务
-        if _G.AutoSell then
-            pcall(function()
-                local petsFolder = game.Players.LocalPlayer:FindFirstChild("petsFolder")
-                if petsFolder then
-                    local redKitties = {}
-                    for _, pet in ipairs(petsFolder:GetChildren()) do
-                        if pet.Name == "Red Kitty" then
-                            table.insert(redKitties, pet)
-                        end
-                    end
-                    
-                    if #redKitties > (_G.KeepOnePet and 1 or 0) then
-                        for i = (_G.KeepOnePet and 2 or 1), #redKitties do
-                            game:GetService("ReplicatedStorage").rEvents.sellPetEvent:FireServer("sellPet", redKitties[i])
-                        end
-                    end
-                end
-                task.wait(0.8)
-            end)
+        if plr.Character then
+            local charElement = plr.Character:FindFirstChild(elementName)
+            if charElement then
+                saveOriginalState(charElement)
+                charElement:Destroy()
+                table.insert(_G.EffectRemover.RemovedObjects, charElement)
+            end
         end
     end
-end)
+    
+    local repStorage = game:GetService("ReplicatedStorage")
+    for _, elementName in pairs(uiElementsToRemove) do
+        local element = repStorage:FindFirstChild(elementName)
+        if element then
+            saveOriginalState(element)
+            element:Destroy()
+            table.insert(_G.EffectRemover.RemovedObjects, element)
+        end
+    end
+    
+    local lightingEffects = {
+        "Blur", "ColorCorrection", "SunRays", "DepthOfField",
+        "Bloom", "Atmosphere", "Sky"
+    }
+    
+    for _, effectName in pairs(lightingEffects) do
+        local effect = Lighting:FindFirstChild(effectName)
+        if effect then
+            saveOriginalState(effect)
+            if effect:IsA("BlurEffect") or effect:IsA("ColorCorrectionEffect") or 
+               effect:IsA("SunRaysEffect") or effect:IsA("BloomEffect") then
+                effect.Enabled = false
+                table.insert(_G.EffectRemover.DisabledPostEffects, effect)
+            end
+        end
+    end
+    
+    if Lighting:FindFirstChildOfClass("Sky") then
+        local sky = Lighting:FindFirstChildOfClass("Sky")
+        saveOriginalState(sky)
+        sky.SkyboxBk = "rbxasset://textures/sky/sky_512_bk.tex"
+        sky.SkyboxDn = "rbxasset://textures/sky/sky_512_dn.tex"
+        sky.SkyboxFt = "rbxasset://textures/sky/sky_512_ft.tex"
+        sky.SkyboxLf = "rbxasset://textures/sky/sky_512_lf.tex"
+        sky.SkyboxRt = "rbxasset://textures/sky/sky_512_rt.tex"
+        sky.SkyboxUp = "rbxasset://textures/sky/sky_512_up.tex"
+    end
+end
 
--- 初始化完成
-Library:Notify("Welcome", "脚本加载成功！")
+local function restoreEffects()
+    if not _G.EffectRemover.Enabled then return end
+    
+    for _, obj in pairs(_G.EffectRemover.DisabledParticles) do
+        if obj and obj.Parent then
+            local original = _G.EffectRemover.OriginalStates[obj]
+            if original then
+                obj.Enabled = original.Enabled
+            end
+        end
+    end
+    
+    for _, obj in pairs(_G.EffectRemover.DisabledLights) do
+        if obj and obj.Parent then
+            local original = _G.EffectRemover.OriginalStates[obj]
+            if original then
+                obj.Enabled = original.Enabled
+            end
+        end
+    end
+    
+    for _, obj in pairs(_G.EffectRemover.DisabledPostEffects) do
+        if obj and obj.Parent then
+            local original = _G.EffectRemover.OriginalStates[obj]
+            if original then
+                obj.Enabled = original.Enabled
+            end
+        end
+    end
+    
+    for _, obj in pairs(_G.EffectRemover.RemovedObjects) do
+        if obj and obj.Parent then
+            local original = _G.EffectRemover.OriginalStates[obj]
+            if original then
+                if obj:IsA("BasePart") then
+                    obj.Transparency = original.Transparency or 0
+                    if original.Visible ~= nil then
+                        obj.Visible = original.Visible
+                    end
+                elseif obj:IsA("ParticleEmitter") then
+                    obj.Enabled = original.Enabled
+                end
+            end
+        end
+    end
+    
+    _G.EffectRemover.Enabled = false
+    _G.EffectRemover.RemovedObjects = {}
+    _G.EffectRemover.DisabledParticles = {}
+    _G.EffectRemover.DisabledLights = {}
+    _G.EffectRemover.DisabledPostEffects = {}
+end
 
-print("XXYXX GOD 已加载")
+_G.fpsBoost = false
+_G.removeEffects = false
 
+local optimizeTab = Window:Tab({Title = "优化", Icon = "cpu"})
 
+optimizeTab:Toggle({
+    Title = "黑屏",
+    Value = false,
+    Callback = function(state)
+        _G.fpsBoost = state
+        if not _G.blackScreen then
+            _G.blackScreen = Instance.new("ScreenGui")
+            local blackFrame = Instance.new("Frame")
+            blackFrame.Size = UDim2.new(1, 0, 1, 0)
+            blackFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+            blackFrame.BorderSizePixel = 0
+            blackFrame.Parent = _G.blackScreen
+            _G.blackScreen.Parent = Players.LocalPlayer.PlayerGui
+        end
+        
+        _G.blackScreen.Enabled = state
+        
+        if state then
+            RunService:Set3dRenderingEnabled(false)
+        else
+            RunService:Set3dRenderingEnabled(true)
+        end
+    end
+})
 
+optimizeTab:Toggle({
+    Title = "删除特效",
+    Value = false,
+    Callback = function(state)
+        _G.removeEffects = state
+        if state then
+            removeEffects()
+        else
+            restoreEffects()
+        end
+    end
+})
 
+optimizeTab:Button({
+    Title = "强力删除特效",
+    Callback = function()
+        for _, obj in pairs(workspace:GetDescendants()) do
+            if obj:IsA("ParticleEmitter") or obj:IsA("Fire") or obj:IsA("Smoke") or 
+               obj:IsA("Sparkles") or obj:IsA("Beam") or obj:IsA("Trail") then
+                obj:Destroy()
+            end
+        end
+        
+        local plr = Players.LocalPlayer
+        if plr.Character then
+            for _, obj in pairs(plr.Character:GetDescendants()) do
+                if obj:IsA("ParticleEmitter") or obj.Name:find("Effect") then
+                    obj:Destroy()
+                end
+            end
+        end
+        
+        local uiElements = {"sweatPart", "airPart", "strengthFrame", "durabilityFrame", "agilityFrame"}
+        for _, element in pairs(uiElements) do
+            local found = workspace:FindFirstChild(element)
+            if found then found:Destroy() end
+            
+            if plr.Character then
+                local charElement = plr.Character:FindFirstChild(element)
+                if charElement then charElement:Destroy() end
+            end
+        end
+    end
+})
+
+optimizeTab:Button({
+    Title = "恢复默认",
+    Callback = function()
+        _G.fpsBoost = false
+        _G.removeEffects = false
+        
+        if _G.blackScreen then
+            _G.blackScreen.Enabled = false
+        end
+        RunService:Set3dRenderingEnabled(true)
+        
+        restoreEffects()
+    end
+})
+
+local function createOrbCollector(orbType, location)
+    return function()
+        for i = 1, 70 do
+            local args = {[1] = "collectOrb", [2] = orbType, [3] = location}
+            game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer(unpack(args))
+        end
+    end
+end
+
+local teleportTab = Window:Tab({Title = "传送", Icon = "navigation"})
+
+local teleportLocations = {
+    {name = "丛林", coords = Vector3.new(-15269.2353515625, 399.1441955566406, 5571.48583984375)},
+    {name = "传奇公路", coords = Vector3.new(-13096.9658203125, 217.78936767578125, 5910.5673828125)},
+    {name = "雪地", coords = Vector3.new(-11044.193359375, 59.82936477661133, 4071.960205078125)},
+    {name = "岩浆城", coords = Vector3.new(-13079.0673828125, 59.82936477661133, 4074.359619140625)}
+}
+
+local function safeTeleport(position)
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        if character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 then
+            character.HumanoidRootPart.CFrame = CFrame.new(position)
+        end
+    end
+end
+
+for _, location in ipairs(teleportLocations) do
+    teleportTab:Button({
+        Title = location.name,
+        Callback = function()
+            safeTeleport(location.coords)
+        end
+    })
+end
+
+local regions = {
+    {
+        name = "雪地",
+        icon = "cloud-snow",
+        location = "Snow City",
+        orbs = {"红", "橙", "黄"}
+    },
+    {
+        name = "丛林", 
+        icon = "tree",
+        location = "Speed Jungle",
+        orbs = {"蓝", "红", "以太", "橙", "黄"}
+    },
+    {
+        name = "岩浆城",
+        icon = "flame", 
+        location = "Magma City",
+        orbs = {"黄", "橙", "红", "以太"}
+    },
+    {
+        name = "传奇公路",
+        icon = "award",
+        location = "Legends Highway", 
+        orbs = {"以太", "橙", "蓝", "黄", "红"}
+    }
+}
+
+for _, region in ipairs(regions) do
+    local tab = Window:Tab({Title = region.name, Icon = region.icon})
+    
+    local orbMapping = {
+        ["红"] = "Red Orb",
+        ["橙"] = "Orange Orb", 
+        ["黄"] = "Yellow Orb",
+        ["蓝"] = "Blue Orb",
+        ["以太"] = "Ethereal Orb"
+    }
+    
+    for _, orbName in ipairs(region.orbs) do
+        local orbType = orbMapping[orbName]
+        local toggleName = "auto" .. orbType:gsub(" ", "") .. region.name:gsub(" ", "")
+        
+        _G[toggleName] = false
+        
+        local function autoCollect()
+            while _G[toggleName] do
+                local success, err = pcall(function()
+                    createOrbCollector(orbType, region.location)()
+                end)
+                if not success then
+                    _G[toggleName] = false
+                    break
+                end
+                wait(0.1)
+            end
+        end
+        
+        tab:Toggle({
+            Title = orbName,
+            Value = false,
+            Callback = function(state)
+                _G[toggleName] = state
+                if state then
+                    spawn(autoCollect)
+                end
+            end
+        })
+    end
+end
+
+local petShopTab = Window:Tab({Title = "宠物", Icon = "shopping-bag"})
+
+local petsToBuy = {
+    "Hypersonic",
+    "1st Trail"
+}
+
+for _, petName in ipairs(petsToBuy) do
+    petShopTab:Button({
+        Title = petName,
+        Callback = function()
+            local fullName = petName
+            if petName == "Hypersonic" then
+                fullName = "Hypersonic Pegasus"
+            end
+            local pet = game:GetService("ReplicatedStorage").cPetShopFolder:FindFirstChild(fullName)
+            if pet then
+                local success, err = pcall(function()
+                    local args = {[1] = pet}
+                    game:GetService("ReplicatedStorage").cPetShopRemote:InvokeServer(unpack(args))
+                end)
+            end
+        end
+    })
+end
+
+local rebirthTab = Window:Tab({Title = "重生", Icon = "refresh-cw"})
+
+_G.autoRebirth = false
+
+function autoRebirthFunction()
+    while _G.autoRebirth do
+        local success, err = pcall(function()
+            local args = {[1] = "rebirthRequest"}
+            game:GetService("ReplicatedStorage").rEvents.rebirthEvent:FireServer(unpack(args))
+        end)
+        if not success then
+            _G.autoRebirth = false
+            break
+        end
+        wait(0.5)
+    end
+end
+
+rebirthTab:Toggle({
+    Title = "自动重生",
+    Value = false,
+    Callback = function(state)
+        _G.autoRebirth = state
+        if state then
+            spawn(autoRebirthFunction)
+        end
+    end
+})
