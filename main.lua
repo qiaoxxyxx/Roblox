@@ -1,3 +1,5 @@
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/iyoulin/iyoulin/refs/heads/main/ato"))()
+
 local vu = game:GetService("VirtualUser")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
