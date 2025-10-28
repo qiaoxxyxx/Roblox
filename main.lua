@@ -5,7 +5,7 @@ local Whitelist = {
     Users = {
         "1mgmp",
         "ha1234_4", 
-        "YourUsername",
+        "zxcccgjl",
         "TrustedUser123"
     },
     Enabled = true
