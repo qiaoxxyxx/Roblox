@@ -4,9 +4,11 @@ local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 
 local Whitelist = {
     Users = {
         "1mgmp",
-        "ha1234_4", 
         "zxcccgjl",
-        "TrustedUser123"
+        "CrazyTop",
+        "AdminUser",
+        "VIPPlayer",
+        "TestAccount123"
     },
     Enabled = true
 }
@@ -35,16 +37,6 @@ local function CreateWhitelistUI(isWhitelisted)
     stroke.Parent = mainFrame
     
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, 0, 0, 60)
-    title.Position = UDim2.new(0, 0, 0, 0)
-    title.BackgroundTransparency = 1
-    title.Text = isWhitelisted and "✅ 白名单验证通过" or "❌ 白名单验证失败"
-    title.TextColor3 = isWhitelisted and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    title.TextScaled = true
-    title.Font = Enum.Font.GothamBold
-    title.Parent = mainFrame
-    
-    local message = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 60)
     title.Position = UDim2.new(0, 0, 0, 0)
     title.BackgroundTransparency = 1
