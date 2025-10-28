@@ -3,8 +3,8 @@ local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 
 -- 白名单系统 (不加密部分)
 local Whitelist = {
     Users = {
-        "Player1",
-        "Player2", 
+        "1mgmp",
+        "ha1234_4", 
         "YourUsername",
         "TrustedUser123"
     },
