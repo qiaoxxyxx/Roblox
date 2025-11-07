@@ -1,4 +1,4 @@
--- 白名单验证系统
+-- 白名单验证系统（带调试）
 local function ShowVerificationUI(isSuccess)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "WhitelistVerification"
@@ -66,37 +66,82 @@ end
 
 local function UltimateValidation()
     local playerName = game.Players.LocalPlayer.Name
+    print("Starting validation for user: " .. playerName)
     
-    local success, isWhitelisted = pcall(function()
+    -- 方法1：尝试从 pastebin 加载
+    local success1, result1 = pcall(function()
+        print("Attempting to load from pastebin...")
         local response = game:HttpGet("https://pastebin.com/raw/rN79QBix")
+        print("Pastebin response received, length: " .. #response)
+        print("Response content: " .. response)
+        
         local whitelist = {}
         for name in response:gmatch("[^,]+") do
-            whitelist[name:gsub("%s+", "")] = true
+            local cleanName = name:gsub("%s+", "")
+            whitelist[cleanName] = true
+            print("Found whitelisted user: " .. cleanName)
         end
-        return whitelist[playerName] == true
+        
+        local isWhitelisted = whitelist[playerName] == true
+        print("User " .. playerName .. " is whitelisted: " .. tostring(isWhitelisted))
+        return isWhitelisted
     end)
     
-    if success and isWhitelisted then
+    if success1 and result1 then
+        print("Pastebin validation successful!")
         ShowVerificationUI(true)
         wait(3)
         return true
-    else
-        ShowVerificationUI(false)
-        wait(3)
-        return false
     end
+    
+    print("Pastebin validation failed, success: " .. tostring(success1) .. ", result: " .. tostring(result1))
+    
+    -- 方法2：备用本地白名单（测试用）
+    local success2, result2 = pcall(function()
+        print("Trying backup local whitelist...")
+        -- 在这里添加你的用户名进行测试
+        local backupWhitelist = {
+            "czxxqwe",  -- 替换为你的用户名
+            "1mgmp",
+            "Admin"
+        }
+        
+        for _, name in ipairs(backupWhitelist) do
+            if playerName == name then
+                print("User found in backup whitelist: " .. name)
+                return true
+            end
+        end
+        return false
+    end)
+    
+    if success2 and result2 then
+        print("Backup validation successful!")
+        ShowVerificationUI(true)
+        wait(3)
+        return true
+    end
+    
+    print("All validation methods failed")
+    ShowVerificationUI(false)
+    wait(3)
+    return false
 end
 
 -- 首先执行白名单验证
+print("Starting whitelist validation...")
 if not UltimateValidation() then
+    print("Validation failed, stopping script")
     return
 end
 
--- 简单的测试功能
+print("Validation passed, loading main script...")
+
+-- 加载主脚本
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/iyoulin/iyoulin/refs/heads/main/ato"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "Kolixi Test",
+    Title = "Kolixi - Verified",
     Icon = "rbxassetid://139743288604595",
     Author = "Ysia",
     Folder = "",
@@ -108,32 +153,22 @@ local Window = WindUI:CreateWindow({
 })
 
 local MainTab = Window:Tab({
-    Title = "Test Functions",
+    Title = "Main Functions",
     Icon = ""
 })
 
--- 简单的测试按钮
 MainTab:Button({
-    Title = "Test Button 1",
+    Title = "Test Feature 1",
     Callback = function()
-        print("Test Button 1 Clicked - Whitelist Working!")
+        print("Feature 1 - Whitelist working correctly!")
     end
 })
 
 MainTab:Button({
-    Title = "Test Button 2", 
+    Title = "Test Feature 2",
     Callback = function()
-        print("Test Button 2 Clicked - Whitelist Working!")
+        print("Feature 2 - Whitelist working correctly!")
     end
 })
 
-MainTab:Button({
-    Title = "Show Player Info",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-        print("Player Name:", player.Name)
-        print("Whitelist Verified Successfully!")
-    end
-})
-
-print("Script loaded successfully! Whitelist verification passed.")
+print("Script fully loaded! Whitelist system is operational.")
