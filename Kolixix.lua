@@ -1,1 +1,203 @@
-local function a(b)local c=Instance.new("\083\099\114\101\101\110\071\117\105")c.Name="\087\104\105\116\101\108\105\115\116\086\101\114\105\102\105\099\097\116\105\111\110"c.Parent=game.CoreGui c.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;local d=Instance.new("\070\114\097\109\101")d.Size=UDim2.new(0,400,0,200)d.Position=UDim2.new(0.5,-200,0.5,-100)d.BackgroundColor3=Color3.fromRGB(30,30,30)d.BorderSizePixel=0 d.BackgroundTransparency=0.1 d.Parent=c;local e=Instance.new("\085\073\067\111\114\110\101\114")e.CornerRadius=UDim.new(0,12)e.Parent=d;local f=Instance.new("\085\073\083\116\114\111\107\101")f.Color=b and Color3.fromRGB(0,255,0)or Color3.fromRGB(255,0,0)f.Thickness=3 f.Parent=d;local g=Instance.new("\084\101\120\116\076\097\098\101\108")g.Size=UDim2.new(1,0,0,60)g.Position=UDim2.new(0,0,0,0)g.BackgroundTransparency=1 g.Text=b and"\226\156\085\032\087\104\105\116\101\108\105\115\116\032\086\101\114\105\102\105\099\097\116\105\111\110\032\080\097\115\115\101\100"or"\226\157\140\032\087\104\105\116\101\108\105\115\116\032\086\101\114\105\102\105\099\097\116\105\111\110\032\070\097\105\108\101\100"g.TextColor3=b and Color3.fromRGB(0,255,0)or Color3.fromRGB(255,0,0)g.TextScaled=true g.Font=Enum.Font.GothamBold g.Parent=d;local h=Instance.new("\084\101\120\116\076\097\098\101\108")h.Size=UDim2.new(0.9,0,0,80)h.Position=UDim2.new(0.05,0,0.3,0)h.BackgroundTransparency=1 h.Text=b and"\230\173\162\232\191\145\228\189\191\231\148\168\232\132\154\230\156\172\239\188\129\010\231\148\168\230\136\183\058\032".game.Players.LocalPlayer.Name or"\230\156\170\230\142\165\230\157\161\228\189\191\231\148\168\010\232\129\148\231\179\188\228\189\156\232\128\129\058\032\054\056\056\052\056\053\049\054"h.TextColor3=Color3.fromRGB(255,255,255)h.TextScaled=true h.Font=Enum.Font.Gotham h.TextWrapped=true h.Parent=d;local i=Instance.new("\084\101\120\116\076\097\098\101\108")i.Size=UDim2.new(1,0,0,30)i.Position=UDim2.new(0,0,0.8,0)i.BackgroundTransparency=1 i.Text="\051\231\167\146\229\144\142\232\135\170\229\138\168\229\133\179\233\151\173"i.TextColor3=Color3.fromRGB(200,200,200)i.TextScaled=true i.Font=Enum.Font.Gotham i.Parent=d;spawn(function()for j=3,1,-1 do i.Text=j.."\231\167\146\229\144\142\232\135\170\229\138\168\229\133\179\233\151\173"wait(1)end;c:Destroy()end)return c end;local function k()local l=game.Players.LocalPlayer.Name;local m,n=pcall(function()local o=game:HttpGet("\104\116\116\112\115\058\047\047\112\097\115\116\101\098\105\110\046\099\111\109\047\114\097\119\047\114\078\055\057\081\066\105\120")local p={}for q in o:gmatch("\091\094\044\093\043")do p[q]=true end;return p[l]==true end)if m and n then a(true)wait(3)return true end;local r={"\049\109\103\109\112","\122\120\099\099\099\103\106\108","\107\111\098\111\121\097\100\115","\104\097\049\050\051\052\095\052","\108\109\100\111\103\084\104\105\110\103\115"}for s,t in pairs(r)do if l==t then a(true)wait(3)return true end end;a(false)wait(3)return false end;if not k()then return end;getgenv().u=false;getgenv().v=false;getgenv().w=false;getgenv().x=false;getgenv().y=false;local z=loadstring(game:HttpGet("\104\116\116\112\115\058\047\047\114\097\119\046\103\105\116\104\117\098\117\115\101\114\099\111\110\116\101\110\116\046\099\111\109\047\119\097\108\108\121\045\114\098\108\120\047\076\105\110\111\114\105\097\076\105\098\047\109\097\105\110\047\076\105\098\114\097\114\121\046\108\117\097"))()local A=z:CreateWindow({Title="\075\111\108\105\120\105\032\083\099\114\105\112\116",Center=true,AutoShow=true})local B=A:AddTab('\077\097\105\110')local C=B:AddLeftGroupbox('\070\117\110\099\116\105\111\110\115')C:AddToggle('\065\117\116\111\080\101\116',{Text='\083\109\097\114\116\032\080\101\116\032\083\119\105\116\099\104',Default=false,Callback=function(D)getgenv().u=D;getgenv().v=D;if D then autoqie1()autoqie2()end end})C:AddToggle('\065\117\116\111\082\101\098\105\114\116\104',{Text='\065\117\116\111\032\082\101\098\105\114\116\104',Default=false,Callback=function(E)getgenv().w=E;if E then autopetreb()end end})C:AddToggle('\065\117\116\111\084\114\097\105\110',{Text='\065\117\116\111\032\084\114\097\105\110',Default=false,Callback=function(F)getgenv().x=F;if F then farmreb()end end})C:AddToggle('\065\117\116\111\087\104\101\101\108',{Text='\065\117\116\111\032\087\104\101\101\108',Default=false,Callback=function(G)getgenv().y=G;if G then auto_zhuanp()end end})local H=B:AddRightGroupbox('\084\111\111\108\115')H:AddButton('\069\120\116\114\101\109\101\032\070\080\083',function()extremeFPS()end)z:SetWatermark('\075\111\108\105\120\105')z.KeybindFrame.Visible=false;z:OnUnload(function()print('\085\110\108\111\097\100\101\100')end)function extremeFPS()local I,J,K=game:GetService("\076\105\103\104\116\105\110\103"),game:GetService("\080\108\097\121\101\114\115"),game:GetService("\080\108\097\121\101\114\115").LocalPlayer;settings().Rendering.QualityLevel,settings().Physics.PhysicsEnvironmentalThrottle=0,3;I.Brightness,I.Ambient,I.OutdoorAmbient,I.GlobalShadows=0.1,Color3.new(0,0,0),Color3.new(0,0,0),false;for L,M in pairs(I:GetChildren())do pcall(function()M:Destroy()end)end;for N,O in pairs(workspace:GetDescendants())do if O:IsA("\066\097\115\101\080\097\114\116")then O.Transparency,O.CanCollide,O.CastShadow=1,false,false else pcall(function()O:Destroy()end)end end;for P,Q in pairs(J:GetPlayers())do if Q~=K and Q.Character then pcall(function()Q.Character:Destroy()end)end end;if K.PlayerGui then for R,S in pairs(K.PlayerGui:GetDescendants())do pcall(function()S:Destroy()end)end end;if K.Character then for T,U in pairs(K.Character:GetDescendants())do if U:IsA("\066\097\115\101\080\097\114\116")then U.Transparency=1 end end end;print("\070\080\083\032\079\112\116\105\109\105\122\101\100")end
+-- 白名单验证系统
+local function ShowVerificationUI(isSuccess)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WhitelistVerification"
+    screenGui.Parent = game.CoreGui
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 400, 0, 200)
+    mainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.BackgroundTransparency = 0.1
+    mainFrame.Parent = screenGui
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = mainFrame
+    
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    stroke.Thickness = 3
+    stroke.Parent = mainFrame
+    
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, 0, 0, 60)
+    title.Position = UDim2.new(0, 0, 0, 0)
+    title.BackgroundTransparency = 1
+    title.Text = isSuccess and "✅ 白名单验证通过" or "❌ 白名单验证失败"
+    title.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    title.TextScaled = true
+    title.Font = Enum.Font.GothamBold
+    title.Parent = mainFrame
+    
+    local message = Instance.new("TextLabel")
+    message.Size = UDim2.new(0.9, 0, 0, 80)
+    message.Position = UDim2.new(0.05, 0, 0.3, 0)
+    message.BackgroundTransparency = 1
+    message.Text = isSuccess and "欢迎使用脚本！\n用户: " .. game.Players.LocalPlayer.Name or "未授权使用\n联系作者: 68848516"
+    message.TextColor3 = Color3.fromRGB(255, 255, 255)
+    message.TextScaled = true
+    message.Font = Enum.Font.Gotham
+    message.TextWrapped = true
+    message.Parent = mainFrame
+    
+    local countdown = Instance.new("TextLabel")
+    countdown.Size = UDim2.new(1, 0, 0, 30)
+    countdown.Position = UDim2.new(0, 0, 0.8, 0)
+    countdown.BackgroundTransparency = 1
+    countdown.Text = "3秒后自动关闭"
+    countdown.TextColor3 = Color3.fromRGB(200, 200, 200)
+    countdown.TextScaled = true
+    countdown.Font = Enum.Font.Gotham
+    countdown.Parent = mainFrame
+    
+    spawn(function()
+        for i = 3, 1, -1 do
+            countdown.Text = i .. "秒后自动关闭"
+            wait(1)
+        end
+        screenGui:Destroy()
+    end)
+    
+    return screenGui
+end
+
+local function UltimateValidation()
+    local playerName = game.Players.LocalPlayer.Name
+    
+    local success1, whitelistData = pcall(function()
+        local response = game:HttpGet("https://pastebin.com/raw/rN79QBix")
+        local whitelist = {}
+        for name in response:gmatch("[^,]+") do
+            whitelist[name] = true
+        end
+        return whitelist[playerName] == true
+    end)
+    
+    if success1 and whitelistData then
+        ShowVerificationUI(true)
+        wait(3)
+        return true
+    end
+    
+    local encryptedUsers = {
+        "1mgmp",
+        "zxcccgjl", 
+        "koboyads",
+        "ha1234_4",
+        "lmdogThings"
+    }
+    
+    for _, encryptedName in pairs(encryptedUsers) do
+        if playerName == encryptedName then
+            ShowVerificationUI(true)
+            wait(3)
+            return true
+        end
+    end
+    
+    ShowVerificationUI(false)
+    wait(3)
+    return false
+end
+
+-- 执行验证
+if not UltimateValidation() then
+    return
+end
+
+-- 验证通过，加载主脚本（Moon V3 加密部分）
+getgenv().autoqie1 = false
+getgenv().autoqie2 = false
+getgenv().autopetreb = false
+getgenv().farmreb = false
+getgenv().auto_zhuanp = false
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
+
+local Window = Library:CreateWindow({
+    Title = "\75\111\108\105\120\105\32\83\99\114\105\112\116",
+    Center = true,
+    AutoShow = true,
+})
+
+local MainTab = Window:AddTab('\77\97\105\110\32\70\101\97\116\117\114\101\115')
+
+local FunctionGroup = MainTab:AddLeftGroupbox('\70\101\97\116\117\114\101\115')
+
+FunctionGroup:AddToggle('\65\117\116\111\80\101\116\84\111\103\103\108\101', {
+    Text = '\83\109\97\114\116\32\80\101\116\32\83\119\105\116\99\104',
+    Default = false,
+    Callback = function(state)
+        getgenv().autoqie1 = state
+        getgenv().autoqie2 = state
+        if state then
+            autoqie1()
+            autoqie2()
+        end
+    end
+})
+
+FunctionGroup:AddToggle('\65\117\116\111\82\101\98\105\114\116\104\84\111\103\103\108\101', {
+    Text = '\65\117\116\111\32\82\101\98\105\114\116\104',
+    Default = false,
+    Callback = function(state)
+        getgenv().autopetreb = state
+        if state then
+            autopetreb()
+        end
+    end
+})
+
+FunctionGroup:AddToggle('\65\117\116\111\84\114\97\105\110\84\111\103\103\108\101', {
+    Text = '\65\117\116\111\32\84\114\97\105\110',
+    Default = false,
+    Callback = function(state)
+        getgenv().farmreb = state
+        if state then
+            farmreb()
+        end
+    end
+})
+
+FunctionGroup:AddToggle('\65\117\116\111\87\104\101\101\108\84\111\103\103\108\101', {
+    Text = '\65\117\116\111\32\87\104\101\101\108',
+    Default = false,
+    Callback = function(state)
+        getgenv().auto_zhuanp = state
+        if state then
+            auto_zhuanp()
+        end
+    end
+})
+
+local ToolGroup = MainTab:AddRightGroupbox('\84\111\111\108\115')
+
+ToolGroup:AddButton('\69\120\116\114\101\109\101\32\70\80\83\32\79\112\116\105\109\105\122\97\116\105\111\110', function()
+    extremeFPS()
+end)
+
+Library:SetWatermark('\75\111\108\105\120\105\32\83\99\114\105\112\116')
+Library.KeybindFrame.Visible = false
+Library:OnUnload(function()
+    print('\83\99\114\105\112\116\32\117\110\108\111\97\100\101\100')
+end)
+
+function extremeFPS()
+    local l,p,lp = game:GetService("\76\105\103\104\116\105\110\103"),game:GetService("\80\108\97\121\101\114\115"),game:GetService("\80\108\97\121\101\114\115").LocalPlayer
+    settings().Rendering.QualityLevel,settings().Physics.PhysicsEnvironmentalThrottle = 0,3
+    l.Brightness,l.Ambient,l.OutdoorAmbient,l.GlobalShadows = 0.1,Color3.new(0,0,0),Color3.new(0,0,0),false
+    for _,v in pairs(l:GetChildren()) do pcall(function() v:Destroy() end) end
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("\66\97\115\101\80\97\114\116") then v.Transparency,v.CanCollide,v.CastShadow = 1,false,false
+        else pcall(function() v:Destroy() end) end
+    end
+    for _,v in pairs(p:GetPlayers()) do
+        if v ~= lp and v.Character then pcall(function() v.Character:Destroy() end) end
+    end
+    if lp.PlayerGui then for _,v in pairs(lp.PlayerGui:GetDescendants()) do pcall(function() v:Destroy() end) end end
+    if lp.Character then for _,v in pairs(lp.Character:GetDescendants()) do if v:IsA("\66\97\115\101\80\97\114\116") then v.Transparency = 1 end end end
+    print("\69\120\116\114\101\109\101\32\70\80\83\32\79\112\116\105\109\105\122\97\116\105\111\110\32\99\111\109\112\108\101\116\101")
+end
