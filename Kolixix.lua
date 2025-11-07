@@ -1,4 +1,4 @@
--- 白名单验证系统（带调试）
+-- 白名单验证系统
 local function ShowVerificationUI(isSuccess)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "WhitelistVerification"
@@ -66,90 +66,57 @@ end
 
 local function UltimateValidation()
     local playerName = game.Players.LocalPlayer.Name
-    print("Starting validation for user: " .. playerName)
     
-    -- 方法1：尝试从 pastebin 加载
-    local success1, result1 = pcall(function()
-        print("Attempting to load from pastebin...")
-        local response = game:HttpGet("https://pastebin.com/raw/rN79QBix")
-        print("Pastebin response received, length: " .. #response)
-        print("Response content: " .. response)
-        
+    local success, isWhitelisted = pcall(function()
+        -- 使用你的 GitHub Raw 链接
+        local response = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
         local whitelist = {}
         for name in response:gmatch("[^,]+") do
-            local cleanName = name:gsub("%s+", "")
-            whitelist[cleanName] = true
-            print("Found whitelisted user: " .. cleanName)
+            whitelist[name:gsub("%s+", "")] = true
         end
-        
-        local isWhitelisted = whitelist[playerName] == true
-        print("User " .. playerName .. " is whitelisted: " .. tostring(isWhitelisted))
-        return isWhitelisted
+        return whitelist[playerName] == true
     end)
     
-    if success1 and result1 then
-        print("Pastebin validation successful!")
+    if success and isWhitelisted then
         ShowVerificationUI(true)
         wait(3)
         return true
-    end
-    
-    print("Pastebin validation failed, success: " .. tostring(success1) .. ", result: " .. tostring(result1))
-    
-    -- 方法2：备用本地白名单（测试用）
-    local success2, result2 = pcall(function()
-        print("Trying backup local whitelist...")
-        -- 在这里添加你的用户名进行测试
-        local backupWhitelist = {
-            "czxxqwe",  -- 替换为你的用户名
-            "1mgmp",
-            "Admin"
-        }
-        
-        for _, name in ipairs(backupWhitelist) do
-            if playerName == name then
-                print("User found in backup whitelist: " .. name)
-                return true
-            end
-        end
+    else
+        ShowVerificationUI(false)
+        wait(3)
         return false
-    end)
-    
-    if success2 and result2 then
-        print("Backup validation successful!")
-        ShowVerificationUI(true)
-        wait(3)
-        return true
     end
-    
-    print("All validation methods failed")
-    ShowVerificationUI(false)
-    wait(3)
-    return false
 end
 
 -- 首先执行白名单验证
-print("Starting whitelist validation...")
 if not UltimateValidation() then
-    print("Validation failed, stopping script")
     return
 end
-
-print("Validation passed, loading main script...")
 
 -- 加载主脚本
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/iyoulin/iyoulin/refs/heads/main/ato"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "Kolixi - Verified",
+    Title = "Kolixi",
     Icon = "rbxassetid://139743288604595",
     Author = "Ysia",
     Folder = "",
-    Size = UDim2.fromOffset(290, 200),
+    Size = UDim2.fromOffset(290, 340),
     Transparent = true,
     Theme = "Dark",
     SideBarWidth = 130,
     HasOutline = true
+})
+
+Window:EditOpenButton({
+    Title = " Cr4zy",
+    Icon = "image-upscale",
+    CornerRadius = UDim.new(0, 10),
+    StrokeThickness = 3,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"),
+        Color3.fromHex("F89B29")
+    )
 })
 
 local MainTab = Window:Tab({
@@ -157,18 +124,141 @@ local MainTab = Window:Tab({
     Icon = ""
 })
 
-MainTab:Button({
-    Title = "Test Feature 1",
-    Callback = function()
-        print("Feature 1 - Whitelist working correctly!")
+_G.autoqie1 = false
+_G.autoqie2 = false
+_G.autopetreb = false
+_G.farmreb = false
+_G.auto_zhuanp = false
+
+function autoqie1()
+    while _G.autoqie1 do
+        wait(0.3)
+        pcall(function()
+            local fi = 1000 + 5000 * game.Players.LocalPlayer.leaderstats.Rebirths.Value / 2
+            if game.Players.LocalPlayer.leaderstats.Strength.Value >= fi then
+                for _, v in pairs(game.Players.LocalPlayer.petsFolder.Unique:GetChildren()) do
+                    if v.Name == "Tribal Overlord" then
+                        game:GetService("ReplicatedStorage").rEvents.equipPetEvent:FireServer("equipPet", v)
+                    end
+                end
+            end
+        end)
+    end
+end
+
+function autoqie2()
+    while _G.autoqie2 do
+        wait(0.3)
+        pcall(function()
+            local fi = 1000 + 5000 * game.Players.LocalPlayer.leaderstats.Rebirths.Value / 2
+            if game.Players.LocalPlayer.leaderstats.Strength.Value < fi then
+                for _, v in pairs(game.Players.LocalPlayer.petsFolder.Unique:GetChildren()) do
+                    if v.Name == "Swift Samurai" then
+                        game:GetService("ReplicatedStorage").rEvents.equipPetEvent:FireServer("equipPet", v)
+                    end
+                end
+            end
+        end)
+    end
+end
+
+MainTab:Toggle({
+    Title = "Auto Pet Switch",
+    Value = false,
+    Callback = function(state)
+        _G.autoqie1 = state
+        _G.autoqie2 = state
+        if state then
+            autoqie1()
+            autoqie2()
+        end
     end
 })
 
-MainTab:Button({
-    Title = "Test Feature 2",
-    Callback = function()
-        print("Feature 2 - Whitelist working correctly!")
+function autopetreb()
+    while _G.autopetreb do
+        wait()
+        pcall(function()
+            if tostring(game.Players.LocalPlayer.equippedPets.pet1.Value) == "Tribal Overlord" then
+                game:GetService("ReplicatedStorage").rEvents.rebirthRemote:InvokeServer("rebirthRequest")
+            end
+        end)
+    end
+end
+
+MainTab:Toggle({
+    Title = "Auto Rebirth",
+    Value = false,
+    Callback = function(state)
+        _G.autopetreb = state
+        autopetreb()
     end
 })
 
-print("Script fully loaded! Whitelist system is operational.")
+function farmreb()
+    while _G.farmreb do
+        wait()
+        pcall(function()
+            if tostring(game.Players.LocalPlayer.equippedPets.pet1.Value) == "Swift Samurai" then
+                for _ = 1, 10 do
+                    game:GetService("Players").LocalPlayer.muscleEvent:FireServer("rep")
+                end
+            end
+        end)
+    end
+end
+
+MainTab:Toggle({
+    Title = "Auto Train",
+    Value = false,
+    Callback = function(state)
+        _G.farmreb = state
+        farmreb()
+    end
+})
+
+function auto_zhuanp()
+    while _G.auto_zhuanp do
+        wait()
+        pcall(function()
+            local args = {
+                [1] = "openFortuneWheel",
+                [2] = game:GetService("ReplicatedStorage").fortuneWheelChances:FindFirstChild("Fortune Wheel")
+            }
+            game:GetService("ReplicatedStorage").rEvents.openFortuneWheelRemote:InvokeServer(unpack(args))
+        end)
+    end
+end
+
+MainTab:Toggle({
+    Title = "Auto Wheel",
+    Value = false,
+    Callback = function(state)
+        _G.auto_zhuanp = state
+        auto_zhuanp()
+    end
+})
+
+function extremeFPS()
+    local l,p,lp = game:GetService("Lighting"),game:GetService("Players"),game:GetService("Players").LocalPlayer
+    settings().Rendering.QualityLevel,settings().Physics.PhysicsEnvironmentalThrottle = 0,3
+    l.Brightness,l.Ambient,l.OutdoorAmbient,l.GlobalShadows = 0.1,Color3.new(0,0,0),Color3.new(0,0,0),false
+    for _,v in pairs(l:GetChildren()) do pcall(function() v:Destroy() end) end
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") then v.Transparency,v.CanCollide,v.CastShadow = 1,false,false
+        else pcall(function() v:Destroy() end) end
+    end
+    for _,v in pairs(p:GetPlayers()) do
+        if v ~= lp and v.Character then pcall(function() v.Character:Destroy() end) end
+    end
+    if lp.PlayerGui then for _,v in pairs(lp.PlayerGui:GetDescendants()) do pcall(function() v:Destroy() end) end end
+    if lp.Character then for _,v in pairs(lp.Character:GetDescendants()) do if v:IsA("BasePart") then v.Transparency = 1 end end end
+    print("FPS Optimized")
+end
+
+MainTab:Button({
+    Title = "Extreme FPS",
+    Callback = function()
+        extremeFPS()
+    end
+})
