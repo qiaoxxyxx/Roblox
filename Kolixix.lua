@@ -83,6 +83,7 @@ local function UltimateValidation()
     end
     
     local encryptedUsers = {
+        "lzs2009111",
         "1mgmp",
         "zxcccgjl", 
         "koboyads",
