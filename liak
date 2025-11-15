@@ -1,0 +1,121 @@
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/157nb/qie/refs/heads/main/fuck157"))()
+local Window = WindUI:CreateWindow({Title = "Cr4zy_JoeyxLsia", Icon = "rbxassetid://139743288604595", Author = "Cr4zy_JoeyxLsia", Size = UDim2.fromOffset(290, 380), Theme = "Dark", SideBarWidth = 130})
+Window:EditOpenButton({Title = "Cr4zy_JoeyxLsia", Icon = "image-upscale"})
+
+local tabs = {
+    yb = Window:Tab({Title = "区域传送", Icon = ""}),
+    upgrade = Window:Tab({Title = "自动升级", Icon = ""}),
+    perk = Window:Tab({Title = "自动Perk", Icon = ""}),
+    atom = Window:Tab({Title = "自动Atom", Icon = ""}),
+    gem = Window:Tab({Title = "自动Gem", Icon = ""}),
+    nuclear = Window:Tab({Title = "自动Nuclear", Icon = ""})
+}
+
+-- 区域设置
+local cornerPoints = {
+    Vector3.new(-16.9075927734375, 5.291194915771484, 16.302892684936523),
+    Vector3.new(50.711219787597656, 5.291193962097168, -53.55198669433594),
+    Vector3.new(-19.637977600097656, 5.291193962097168, -53.94948196411133),
+    Vector3.new(51.46889114379883, 5.291193962097168, 15.967647552490234)
+}
+
+local minX, maxX = math.min(cornerPoints[1].X, cornerPoints[2].X, cornerPoints[3].X, cornerPoints[4].X), math.max(cornerPoints[1].X, cornerPoints[2].X, cornerPoints[3].X, cornerPoints[4].X)
+local minZ, maxZ = math.min(cornerPoints[1].Z, cornerPoints[2].Z, cornerPoints[3].Z, cornerPoints[4].Z), math.max(cornerPoints[1].Z, cornerPoints[2].Z, cornerPoints[3].Z, cornerPoints[4].Z)
+local yHeight = 5.291193962097168
+
+-- 传送功能
+local function teleportToPosition(position)
+    pcall(function()
+        local character = game.Players.LocalPlayer.Character
+        local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+        if rootPart then rootPart.CFrame = CFrame.new(position) end
+    end)
+end
+
+tabs.yb:Button({Title = "传送到随机位置", Callback = function()
+    local randomPos = Vector3.new(math.random() * (maxX - minX) + minX, yHeight, math.random() * (maxZ - minZ) + minZ)
+    teleportToPosition(randomPos)
+    print("已传送到随机位置: " .. tostring(randomPos))
+end})
+
+tabs.yb:Button({Title = "传送到中心", Callback = function()
+    local centerPos = Vector3.new((minX + maxX) / 2, yHeight, (minZ + maxZ) / 2)
+    teleportToPosition(centerPos)
+    print("已传送到中心: " .. tostring(centerPos))
+end})
+
+_G.autoRandomTeleport = false
+tabs.yb:Toggle({Title = "自动随机传送 (无间隔)", Desc = "极限速度随机传送", Value = false, Callback = function(state) _G.autoRandomTeleport = state end})
+
+-- 自动功能配置
+local autoConfigs = {
+    upgrade = {count = 4, event = "Upgrade"},
+    perk = {count = 6, event = "Perk", priority = 4},
+    atomUpgrade = {count = 6, event = "AtomUpgrade"},
+    gem = {count = 4, event = "GemUpgrade"},
+    nuclearUpgrade = {count = 5, event = "NuclearUpgrade"}
+}
+
+-- 创建自动功能
+for name, config in pairs(autoConfigs) do
+    _G["autoAll" .. name:gsub("^%l", string.upper)] = false
+    local tab = tabs[name:match("atomUpgrade") and "atom" or name:match("nuclearUpgrade") and "nuclear" or name]
+    
+    tab:Toggle({
+        Title = "自动全部" .. (name == "atomUpgrade" and "Atom升级" or name == "nuclearUpgrade" and "Nuclear升级" or name:gsub("^%l", string.upper)),
+        Desc = "同时自动" .. (name == "atomUpgrade" and "升级所有6个Atom项目" or name == "nuclearUpgrade" and "升级所有5个Nuclear项目" or "激活所有" .. config.count .. "个项目"),
+        Value = false,
+        Callback = function(state) _G["autoAll" .. name:gsub("^%l", string.upper)] = state end
+    })
+end
+
+-- 单独功能
+_G.autoAtom = false
+tabs.atom:Toggle({Title = "自动Atom", Desc = "自动执行Atom功能", Value = false, Callback = function(state) _G.autoAtom = state end})
+
+_G.autoNuclear = false
+tabs.nuclear:Toggle({Title = "自动Nuclear", Desc = "自动执行Nuclear功能", Value = false, Callback = function(state) _G.autoNuclear = state end})
+
+-- 自动执行逻辑
+spawn(function()
+    local RunService = game:GetService("RunService")
+    local connection
+    
+    while wait(0.1) do
+        -- 无间隔传送
+        if _G.autoRandomTeleport and not connection then
+            connection = RunService.Heartbeat:Connect(function()
+                if _G.autoRandomTeleport then
+                    local randomPos = Vector3.new(math.random() * (maxX - minX) + minX, yHeight, math.random() * (maxZ - minZ) + minZ)
+                    teleportToPosition(randomPos)
+                else
+                    if connection then connection:Disconnect() connection = nil end
+                end
+            end)
+        end
+        
+        -- 各种升级功能
+        pcall(function()
+            -- 基础功能
+            if _G.autoAtom then game:GetService("ReplicatedStorage").Events.Atom:FireServer() end
+            if _G.autoNuclear then game:GetService("ReplicatedStorage").Events.Nuclear:FireServer() end
+            
+            -- 其他升级功能
+            for name, config in pairs(autoConfigs) do
+                if _G["autoAll" .. name:gsub("^%l", string.upper)] then
+                    if name == "perk" and config.priority then
+                        game:GetService("ReplicatedStorage").Events.Perk:FireServer(unpack({[1] = config.priority, [2] = false}))
+                    end
+                    
+                    for id = 1, config.count do
+                        if name ~= "perk" or id ~= config.priority then
+                            game:GetService("ReplicatedStorage").Events[config.event]:FireServer(unpack({[1] = id, [2] = false}))
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+print("脚本加载完成 - 所有功能已就绪")
