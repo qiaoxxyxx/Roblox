@@ -27,7 +27,7 @@ local function ShowVerificationUI(isSuccess)
     title.Size = UDim2.new(1, 0, 0, 60)
     title.Position = UDim2.new(0, 0, 0, 0)
     title.BackgroundTransparency = 1
-    title.Text = isSuccess and "✅ 白名单验证通过" or "❌ 白名单验证失败"
+    title.Text = isSuccess and "✅ 验证通过" or "❌ 验证失败"
     title.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     title.TextScaled = true
     title.Font = Enum.Font.GothamBold
