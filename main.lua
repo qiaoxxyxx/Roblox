@@ -48,190 +48,60 @@ end
 
 if not o()then return end
 
+if false then local _=0.07558854258647796 end
+local lOEkNN={[1]="",[2]="\75",[3]="\77",[4]="\66",[5]="\84",[6]="\81\97",[7]="\81\105"}local einACz w(x,y)local lSNWmD=math.floor(math.log(math.max(1,math.abs(x)),1000))local dISBPt=lOEkNN[lSNWmD+1]or("\101\43"..lSNWmD)local blxoxe=math.floor(x*((10^y)/(1000^lSNWmD)))/(10^y)return string.format("\37\46"..y.."\102\37\115",blxoxe,dISBPt)end;local TyiFrG,D,E,F=0,{},0,0;local LHkTEJ=20;local fDGdtt=6;local einACz I()return pcall(einACz()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local einACz J()if#D==0 then return 0 end;local peIiTE=0;for L,M in next,D do peIiTE=peIiTE+(M or 0)end;return peIiTE/#D end;local mQyhrG=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})mQyhrG:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local dNSjhv=mQyhrG:Tab({Title="\77\97\105\110",Icon=""})local PnMlYP=dNSjhv:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(einACz()while wait(1)do pcall(einACz()local iOISnY=e.leaderstats.Strength.Value;local SaDNWp=tick()if TyiFrG>0 then local iIPeLX=(iOISnY-TyiFrG)/(SaDNWp-E)if SaDNWp-F>=LHkTEJ then table.insert(D,iIPeLX)if#D>fDGdtt then table.remove(D,1)end;F=SaDNWp end end;TyiFrG=iOISnY;E=SaDNWp;local ciisxz=J()local IqUxun=I()PnMlYP:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(iOISnY,1).."\10\65\118\103\32\71\97\105\110\58\32"..w(ciisxz,1).."\47\115\10\68\97\105\108\121\58\32"..w(ciisxz*86400,1).."\10\77\111\110\116\104\108\121\58\32"..w(ciisxz*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..fDGdtt.."\10"..(IqUxun and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=false;local einACz W()while _G.V do wait()pcall(einACz()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;dNSjhv:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=einACz(Y)_G.V=Y;W()end})_G.Z=false;local einACz _()while _G.Z do wait(0.2)pcall(einACz()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local ZyBxAJ=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if ZyBxAJ then e.Character.Humanoid:EquipTool(ZyBxAJ)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;dNSjhv:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=einACz(a1)_G.Z=a1;_()end})
+
+local einACz a2()
+local QazMhu=game:GetService("\67\111\114\101\71\117\105")
+if false then local _=0.07558854258647796 end
+local FTyAFi=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+local oUbpGd={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
+local itwNQF={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
+for a7,a8 in ipairs(QazMhu:GetChildren())do
+for _=1,0 do end
+if a8:IsA("\83\99\114\101\101\110\71\117\105")then
+local cRaZpF=false
+for aa,ab in ipairs(itwNQF)do if a8.Name:find(ab)then cRaZpF=true break end end
+if cRaZpF then continue end
+if false then local _=0.07558854258647796 end
+local XlJeOz=false
+for ad,ae in ipairs(a8:GetDescendants())do
+if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
+local HqeKqU=ae.Text
 do local _=function() end end
-local eBhJma={[1]=(function() return end)(),[2]=(function() return string.char(92)..string.char(55)..string.char(53) end)(),[3]=(function() return string.char(92)..string.char(55)..string.char(55) end)(),[4]=(function() return string.char(92)..string.char(54)..string.char(54) end)(),[5]=(function() return string.char(92)..string.char(56)..string.char(52) end)(),[6]=(function() return string.char(92)..string.char(56)..string.char(49)..string.char(92)..string.char(57)..string.char(55) end)(),[7]=(function() return string.char(92)..string.char(56)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)()}
-
-local function w(x,y)
-    local APkyuz=math.floor(math.log(math.max(1,math.abs(x)),1000))
-    local tbmsEI=eBhJma[APkyuz+1]or((function() return string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(52)..string.char(51) end)()..APkyuz)
-    local XMWwQg=math.floor(x*((10^y)/(1000^APkyuz)))/(10^y)
-    return string.format((function() return string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(52)..string.char(54) end)()..y..(function() return string.char(92)..string.char(49)..string.char(48)..string.char(50)..string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(53) end)(),XMWwQg,tbmsEI)
+for ag,ah in ipairs(oUbpGd)do if HqeKqU:find(ah)or HqeKqU:find("\37\43\37\100\43")then XlJeOz=true break end end
+if XlJeOz then break end
+end
+end
+if math.random() > 1 then return nil end
+if XlJeOz then a8:Destroy()end
+end
+end
+if FTyAFi then
+if math.random() > 1 then return nil end
+for a7,a8 in ipairs(FTyAFi:GetChildren())do
+if a8:IsA("\83\99\114\101\101\110\71\117\105")then
+local cRaZpF=false
+for aa,ab in ipairs(itwNQF)do if a8.Name:find(ab)then cRaZpF=true break end end
+if math.random() > 1 then return nil end
+if cRaZpF then continue end
+local XlJeOz=false
+for ad,ae in ipairs(a8:GetDescendants())do
+if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
+if math.random() > 1 then return nil end
+local HqeKqU=ae.Text
+for ag,ah in ipairs(oUbpGd)do if HqeKqU:find(ah)or HqeKqU:find("\37\43\37\100\43")then XlJeOz=true break end end
+if XlJeOz then break end
+end
+if false then local _=0.07558854258647796 end
+end
+if XlJeOz then a8:Destroy()end
+end
+end
+if math.random() > 1 then return nil end
+end
 end
 
-local QBVkQW,D,E,F=0,{},0,0
-local VWPUAU=20
-local PIeFKC=6
-
-local function I()
-    return pcall(function()
-        return e.boostTimersFolder:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)())
-    end)
-end
-
-local function J()
-    if#D==0 then return 0 end
-    local HTIgap=0
-    for L,M in next,D do HTIgap=HTIgap+(M or 0)end
-    return HTIgap/#D 
-end
-
-local unhomX=c:CreateWindow({
-    Title=(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(50)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(50) end)(),
-    Icon=(function() return string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(56)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(52)..string.char(55)..string.char(92)..string.char(52)..string.char(55)..string.char(92)..string.char(52)..string.char(57)..string.char(92)..string.char(53)..string.char(51)..string.char(92)..string.char(53)..string.char(55)..string.char(92)..string.char(53)..string.char(53)..string.char(92)..string.char(53)..string.char(50)..string.char(92)..string.char(53)..string.char(49)..string.char(92)..string.char(53)..string.char(48)..string.char(92)..string.char(53)..string.char(54)..string.char(92)..string.char(53)..string.char(54)..string.char(92)..string.char(53)..string.char(52)..string.char(92)..string.char(52)..string.char(56)..string.char(92)..string.char(53)..string.char(50)..string.char(92)..string.char(53)..string.char(51)..string.char(92)..string.char(53)..string.char(55)..string.char(92)..string.char(53)..string.char(51) end)(),
-    Size=UDim2.fromOffset(290,340),
-    Transparent=true,
-    Theme=(function() return string.char(92)..string.char(54)..string.char(56)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(55) end)(),
-    SideBarWidth=130,
-    HasOutline=d
-})
-
-unhomX:EditOpenButton({
-    Title=(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(50)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(50) end)(),
-    Icon=(function() return string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(57)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(52)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49) end)(),
-    CornerRadius=UDim.new(0,10),
-    StrokeThickness=3,
-    Color=ColorSequence.new(Color3.fromHex((function() return string.char(92)..string.char(55)..string.char(48)..string.char(92)..string.char(55)..string.char(48)..string.char(92)..string.char(52)..string.char(56)..string.char(92)..string.char(55)..string.char(48)..string.char(92)..string.char(53)..string.char(53)..string.char(92)..string.char(54)..string.char(54) end)()),Color3.fromHex((function() return string.char(92)..string.char(55)..string.char(48)..string.char(92)..string.char(53)..string.char(54)..string.char(92)..string.char(53)..string.char(55)..string.char(92)..string.char(54)..string.char(54)..string.char(92)..string.char(53)..string.char(48)..string.char(92)..string.char(53)..string.char(55) end)()))
-})
-
-local iqrOBn=unhomX:Tab({
-    Title=(function() return string.char(92)..string.char(55)..string.char(55)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(48) end)(),
-    Icon=(function() return end)()
-})
-
-local IpgRwu=iqrOBn:Paragraph({
-    Title=(function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(55) end)(),
-    Desc=(function() return string.char(92)..string.char(55)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(52)..string.char(54)..string.char(92)..string.char(52)..string.char(54)..string.char(92)..string.char(52)..string.char(54) end)(),
-    Image=(function() return string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(55) end)(),
-    ImageSize=25
-})
-
-coroutine.wrap(function()
-    while wait(1)do 
-        pcall(function()
-            local zUqREq=e.leaderstats.Strength.Value
-            local iXzLnh=tick()
-            if QBVkQW>0 then 
-                local oFKXzH=(zUqREq-QBVkQW)/(iXzLnh-E)
-                if iXzLnh-F>=VWPUAU then 
-                    table.insert(D,oFKXzH)
-                    if#D>PIeFKC then table.remove(D,1)end
-                    F=iXzLnh 
-                end 
-            end
-            QBVkQW=zUqREq
-            E=iXzLnh
-            local RvZPwx=J()
-            local tbgzIp=I()
-            IpgRwu:SetDesc((function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(52)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(51)..string.char(50) end)()..w(zUqREq,1)..(function() return string.char(92)..string.char(49)..string.char(48)..string.char(92)..string.char(54)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(51)..string.char(50) end)()..w(RvZPwx,1)..(function() return string.char(92)..string.char(52)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(92)..string.char(54)..string.char(56)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(51)..string.char(50) end)()..w(RvZPwx*86400,1)..(function() return string.char(92)..string.char(49)..string.char(48)..string.char(92)..string.char(55)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(51)..string.char(50) end)()..w(RvZPwx*2592000,1)..(function() return string.char(92)..string.char(49)..string.char(48)..string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(57)..string.char(92)..string.char(49)..string.char(49)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(53)..string.char(56)..string.char(92)..string.char(51)..string.char(50) end)()..#D..(function() return string.char(92)..string.char(52)..string.char(55) end)()..PIeFKC..(function() return string.char(92)..string.char(49)..string.char(48) end)()..(tbgzIp and(function() return string.char(92)..string.char(50)..string.char(50)..string.char(54)..string.char(92)..string.char(49)..string.char(53)..string.char(54)..string.char(92)..string.char(56)..string.char(53)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(53)..string.char(48) end)()or(function() return string.char(92)..string.char(50)..string.char(50)..string.char(54)..string.char(92)..string.char(49)..string.char(53)..string.char(55)..string.char(92)..string.char(49)..string.char(52)..string.char(48)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(55)..string.char(56)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54) end)()))
-        end)
-    end 
-end)()
-
-_G.V=false
-
-local function W()
-    while _G.V do 
-        wait()
-        pcall(function()
-            if tostring(e.equippedPets.pet1.Value)==(function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)()then 
-                for X=0,19 do 
-                    e.muscleEvent:FireServer((function() return string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(50) end)())
-                end 
-            end 
-        end)
-    end 
-end
-
-iqrOBn:Toggle({
-    Title=(function() return string.char(92)..string.char(54)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(48) end)(),
-    Desc=(function() return string.char(92)..string.char(54)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(52)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)(),
-    Value=false,
-    Callback=function(Y)
-        _G.V=Y
-        W()
-    end
-})
-
-_G.Z=false
-
-local function _()
-    while _G.Z do 
-        wait(0.2)
-        pcall(function()
-            if not e.boostTimersFolder:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)())then 
-                local KQekME=e.Backpack:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)())
-                if KQekME then 
-                    e.Character.Humanoid:EquipTool(KQekME)
-                    wait(0.1)
-                    if e.Character:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(114)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)())then 
-                        e.muscleEvent:FireServer((function() return string.char(92)..string.char(49)..string.char(49)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)(),e.Character:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(48)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)()))
-                        wait(0.1)
-                        e.Character.Humanoid:UnequipTools()
-                    end 
-                end 
-            end 
-        end)
-    end 
-end
-
-iqrOBn:Toggle({
-    Title=(function() return string.char(92)..string.char(54)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)(),
-    Desc=(function() return string.char(92)..string.char(54)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(51) end)(),
-    Value=false,
-    Callback=function(a1)
-        _G.Z=a1
-        _()
-    end
-})
-
-local function a2()
-    local CVMrCd=game:GetService((function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)())
-    for _=1,0 do end
-    local yqnkHF=game:GetService((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(55) end)()).LocalPlayer:FindFirstChild((function() return string.char(92)..string.char(56)..string.char(48)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)())
-    local TIsBZq={(function() return string.char(92)..string.char(52)..string.char(51) end)(),(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(53) end)(),(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49) end)(),(function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(52) end)(),(function() return string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(50) end)(),(function() return string.char(92)..string.char(54)..string.char(57)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(49)..string.char(48)..string.char(49) end)(),(function() return string.char(92)..string.char(55)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(56) end)(),(function() return string.char(92)..string.char(54)..string.char(56)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(57)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(49)..string.char(48)..string.char(49) end)(),(function() return string.char(92)..string.char(55)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(52) end)()}
-    local BjljCL={(function() return string.char(92)..string.char(56)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(56)..string.char(53)..string.char(92)..string.char(55)..string.char(51) end)(),(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(50)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(50) end)(),(function() return string.char(92)..string.char(56)..string.char(50)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(50)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(48) end)()}
-    
-    for a7,a8 in ipairs(CVMrCd:GetChildren())do
-        if a8:IsA((function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)())then
-            local xiztEm=false
-            for aa,ab in ipairs(BjljCL)do if a8.Name:find(ab)then xiztEm=true break end end
-            if xiztEm then continue end
-            local Mflotw=false
-            for ad,ae in ipairs(a8:GetDescendants())do
-                if(ae:IsA((function() return string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(55)..string.char(54)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(57)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(56) end)())or ae:IsA((function() return string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(54)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49) end)()))and ae.Text then
-                local eisLqn=ae.Text
-                for ag,ah in ipairs(TIsBZq)do if eisLqn:find(ah)or eisLqn:find((function() return string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(52)..string.char(51)..string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(52)..string.char(51) end)())then Mflotw=true break end end
-                if Mflotw then break end
-            end
-            end
-            if Mflotw then a8:Destroy()end
-        end
-    end
-    
-    if yqnkHF then
-        for a7,a8 in ipairs(yqnkHF:GetChildren())do
-            if a8:IsA((function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53) end)())then
-                local xiztEm=false
-                for aa,ab in ipairs(BjljCL)do if a8.Name:find(ab)then xiztEm=true break end end
-                if xiztEm then continue end
-                local Mflotw=false
-                for ad,ae in ipairs(a8:GetDescendants())do
-                    if(ae:IsA((function() return string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(55)..string.char(54)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(57)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(56) end)())or ae:IsA((function() return string.char(92)..string.char(56)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(50)..string.char(48)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(54)..string.char(54)..string.char(92)..string.char(49)..string.char(49)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49) end)()))and ae.Text then
-                    local eisLqn=ae.Text
-                    for ag,ah in ipairs(TIsBZq)do if eisLqn:find(ah)or eisLqn:find((function() return string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(52)..string.char(51)..string.char(92)..string.char(51)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(52)..string.char(51) end)())then Mflotw=true break end end
-                    if Mflotw then break end
-                end
-                end
-                if Mflotw then a8:Destroy()end
-            end
-        end
-    end
-end
-
-iqrOBn:Button({
-    Title=(function() return string.char(92)..string.char(54)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(55)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(56)..string.char(53)..string.char(92)..string.char(55)..string.char(51) end)(),
-    Desc=(function() return string.char(92)..string.char(56)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(57)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(51)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(48)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(49)..string.char(49)..string.char(53) end)(),
-    Callback=a2
-})
-
-print((function() return string.char(92)..string.char(56)..string.char(51)..string.char(92)..string.char(57)..string.char(57)..string.char(92)..string.char(49)..string.char(49)..string.char(52)..string.char(92)..string.char(49)..string.char(48)..string.char(53)..string.char(92)..string.char(49)..string.char(49)..string.char(50)..string.char(92)..string.char(49)..string.char(49)..string.char(54)..string.char(92)..string.char(51)..string.char(50)..string.char(92)..string.char(49)..string.char(48)..string.char(56)..string.char(92)..string.char(49)..string.char(49)..string.char(49)..string.char(92)..string.char(57)..string.char(55)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(49)..string.char(48)..string.char(49)..string.char(92)..string.char(49)..string.char(48)..string.char(48)..string.char(92)..string.char(51)..string.char(51) end)())
+dNSjhv:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a2})
+local _=979;if _ == 0 then _=1 end
+print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
