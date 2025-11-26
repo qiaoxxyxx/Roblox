@@ -15,7 +15,7 @@ local function f(g)
     mainContainer.Parent = h
     
     local blurEffect = Instance.new("BlurEffect")
-    blurEffect.Size = 8
+    blurEffect.Size = 5
     blurEffect.Parent = mainContainer
     
     local UICorner = Instance.new("UICorner")
