@@ -23,48 +23,60 @@ end
 
 if not o()then return end
 
-local jJTbbZ={[1]="",[2]="\75",[3]="\77",[4]="\66",[5]="\84",[6]="\81\97",[7]="\81\105"}local uWRbbZ w(x,y)local giFuHG=math.floor(math.log(math.max(1,math.abs(x)),1000))local Zxzirj=jJTbbZ[giFuHG+1]or("\101\43"..giFuHG)local gdeMnG=math.floor(x*((10^y)/(1000^giFuHG)))/(10^y)return string.format("\37\46"..y.."\102\37\115",gdeMnG,Zxzirj)end;local Euuato,D,E,F=0,{},0,0;local dDhcBS=20;local PncLFT=6;local uWRbbZ I()return pcall(uWRbbZ()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local uWRbbZ J()if#D==0 then return 0 end;local NftedJ=0;for L,M in next,D do NftedJ=NftedJ+(M or 0)end;return NftedJ/#D end;local yprZab=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})yprZab:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local JwOIDE=yprZab:Tab({Title="\77\97\105\110",Icon=""})local TzesUq=JwOIDE:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(uWRbbZ()while wait(1)do pcall(uWRbbZ()local LHhUnH=e.leaderstats.Strength.Value;local YFLAcq=tick()if Euuato>0 then local utXigy=(LHhUnH-Euuato)/(YFLAcq-E)if YFLAcq-F>=dDhcBS then table.insert(D,utXigy)if#D>PncLFT then table.remove(D,1)end;F=YFLAcq end end;Euuato=LHhUnH;E=YFLAcq;local LdeSMT=J()local qRjFyQ=I()TzesUq:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(LHhUnH,1).."\10\65\118\103\32\71\97\105\110\58\32"..w(LdeSMT,1).."\47\115\10\68\97\105\108\121\58\32"..w(LdeSMT*86400,1).."\10\77\111\110\116\104\108\121\58\32"..w(LdeSMT*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..PncLFT.."\10"..(qRjFyQ and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=false;local uWRbbZ W()while _G.V do wait()pcall(uWRbbZ()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;JwOIDE:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=uWRbbZ(Y)_G.V=Y;W()end})_G.Z=false;local uWRbbZ _()while _G.Z do wait(0.2)pcall(uWRbbZ()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local lSDVZq=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if lSDVZq then e.Character.Humanoid:EquipTool(lSDVZq)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;JwOIDE:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=uWRbbZ(a1)_G.Z=a1;_()end})
+if 1 ~= 1 then return nil end
+local v={[1]="",[2]="\75",[3]="\77",[4]="\66",[5]="\84",[6]="\81\97",[7]="\81\105"}local function XxLsXY(x,y)local z=math.floor(math.log(math.max(1,math.abs(x)),1000))local A=v[z+1]or("\101\43"..z)local B=math.floor(x*((10^y)/(1000^z)))/(10^y)return string.format("\37\46"..y.."\102\37\115",B,A)end;local C,D,E,F=0,{},0,0;local G=20;local H=6;local function nIeRoJ()return pcall(function()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function iWcuDE()if#D==0 then return 0 end;local K=0;for L,M in next,D do K=K+(M or 0)end;return K/#D end;local N=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})N:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local O=N:Tab({Title="\77\97\105\110",Icon=""})local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(function()while wait(1)do pcall(function()local Q=e.leaderstats.Strength.Value;local R=tick()if C>0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,1)end;F=R end end;C=Q;E=R;local T=iWcuDE()local U=nIeRoJ()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..XxLsXY(Q,1).."\10\65\118\103\32\71\97\105\110\58\32"..XxLsXY(T,1).."\47\115\10\68\97\105\108\121\58\32"..XxLsXY(T*86400,1).."\10\77\111\110\116\104\108\121\58\32"..XxLsXY(T*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=false;local function kciIpI()while _G.V do wait()pcall(function()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=function(Y)_G.V=Y;kciIpI()end})_G.Z=false;local function SaEwnG()while _G.Z do wait(0.2)pcall(function()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local a0=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if a0 then e.Character.Humanoid:EquipTool(a0)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;O:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=function(a1)_G.Z=a1;SaEwnG()end})
 
-local uWRbbZ a2()
-    local yRqHNd=game:GetService("\67\111\114\101\71\117\105")
-    local xmkHTq=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
-    local WYTOxK={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
-    local WOefNs={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
-    for a7,a8 in ipairs(yRqHNd:GetChildren())do
-        if a8:IsA("\83\99\114\101\101\110\71\117\105")then
-            local nCKALw=false
-            for aa,ab in ipairs(WOefNs)do if a8.Name:find(ab)then nCKALw=true break end end
-            if nCKALw then continue end
-            local ylxfoc=false
-            for ad,ae in ipairs(a8:GetDescendants())do
-                if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
-                    local zQjlll=ae.Text
-                    for ag,ah in ipairs(WYTOxK)do if zQjlll:find(ah)or zQjlll:find("\37\43\37\100\43")then ylxfoc=true break end end
-                    if ylxfoc then break end
-                end
-            end
-            if ylxfoc then a8:Destroy()end
-        end
-    end
-    if xmkHTq then
-        for a7,a8 in ipairs(xmkHTq:GetChildren())do
-            if a8:IsA("\83\99\114\101\101\110\71\117\105")then
-                local nCKALw=false
-                for aa,ab in ipairs(WOefNs)do if a8.Name:find(ab)then nCKALw=true break end end
-                if nCKALw then continue end
-                local ylxfoc=false
-                for ad,ae in ipairs(a8:GetDescendants())do
-                    if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
-                        local zQjlll=ae.Text
-                        for ag,ah in ipairs(WYTOxK)do if zQjlll:find(ah)or zQjlll:find("\37\43\37\100\43")then ylxfoc=true break end end
-                        if ylxfoc then break end
-                    end
-                end
-                if ylxfoc then a8:Destroy()end
-            end
-        end
-    end
+local function ktHzvN()
+local a3=game:GetService("\67\111\114\101\71\117\105")
+if math.random() > 1 then return nil end
+local a4=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+local a5={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
+local a6={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
+for a7,a8 in ipairs(a3:GetChildren())do
+for _=1,0 do end
+if a8:IsA("\83\99\114\101\101\110\71\117\105")then
+local a9=false
+for aa,ab in ipairs(a6)do if a8.Name:find(ab)then a9=true break end end
+if a9 then continue end
+if math.random() > 1 then return nil end
+local ac=false
+for ad,ae in ipairs(a8:GetDescendants())do
+if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
+local af=ae.Text
+if false then local _=0.06309327464444658 end
+for ag,ah in ipairs(a5)do if af:find(ah)or af:find("\37\43\37\100\43")then ac=true break end end
+if ac then break end
+end
+end
+if false then local _=0.06309327464444658 end
+if ac then a8:Destroy()end
+end
+end
+if a4 then
+local _=288;if _ == 0 then _=1 end
+for a7,a8 in ipairs(a4:GetChildren())do
+if a8:IsA("\83\99\114\101\101\110\71\117\105")then
+local a9=false
+for aa,ab in ipairs(a6)do if a8.Name:find(ab)then a9=true break end end
+if false then local _=0.06309327464444658 end
+if a9 then continue end
+local ac=false
+for ad,ae in ipairs(a8:GetDescendants())do
+if(ae:IsA("\84\101\120\116\76\97\98\101\108")or ae:IsA("\84\101\120\116\66\117\116\116\111\110"))and ae.Text then
+if math.random() > 1 then return nil end
+local af=ae.Text
+for ag,ah in ipairs(a5)do if af:find(ah)or af:find("\37\43\37\100\43")then ac=true break end end
+if ac then break end
+end
+for _=1,0 do end
+end
+if ac then a8:Destroy()end
+end
+end
+if 1 ~= 1 then return nil end
+end
 end
 
-JwOIDE:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a2})
+O:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a2})
+do local _=function() end end
 print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
