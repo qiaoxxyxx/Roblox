@@ -57,7 +57,7 @@ local function f(g)
     statusIcon.Size = UDim2.new(0, 80, 0, 80)
     statusIcon.Position = UDim2.new(0.5, -40, 0.15, 0)
     statusIcon.BackgroundTransparency = 1
-    statusIcon.Image = "rbxassetid://" .. (g and "11684537432" or "11684537654") -- 科技风图标
+    statusIcon.Image = "rbxassetid://" .. (g and "11684537432" or "11684537654")
     statusIcon.ImageColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
     statusIcon.Parent = mainContainer
     
