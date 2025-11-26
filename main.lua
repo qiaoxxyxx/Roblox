@@ -7,56 +7,145 @@ local function ShowVerificationUI(isSuccess)
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
     local mainFrame = Instance.new("Frame")
-    mainFrame.Size = UDim2.new(0, 400, 0, 200)
-    mainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    mainFrame.Size = UDim2.new(0, 500, 0, 350)
+    mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
     mainFrame.BorderSizePixel = 0
-    mainFrame.BackgroundTransparency = 0.1
+    mainFrame.BackgroundTransparency = 0
     mainFrame.Parent = screenGui
     
     local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 12)
+    corner.CornerRadius = UDim.new(0, 20)
     corner.Parent = mainFrame
     
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 30, 45)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 35))
+    })
+    gradient.Rotation = 45
+    gradient.Parent = mainFrame
+    
     local stroke = Instance.new("UIStroke")
-    stroke.Color = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    stroke.Thickness = 3
+    stroke.Color = isSuccess and Color3.fromRGB(0, 255, 150) or Color3.fromRGB(255, 80, 80)
+    stroke.Thickness = 4
+    stroke.Transparency = 0.3
     stroke.Parent = mainFrame
     
+    local glow = Instance.new("UIStroke")
+    glow.Color = isSuccess and Color3.fromRGB(0, 255, 200) or Color3.fromRGB(255, 100, 100)
+    glow.Thickness = 8
+    glow.Transparency = 0.8
+    glow.Parent = mainFrame
+    
+    local header = Instance.new("Frame")
+    header.Size = UDim2.new(1, 0, 0, 80)
+    header.Position = UDim2.new(0, 0, 0, 0)
+    header.BackgroundColor3 = Color3.fromRGB(25, 25, 40)
+    header.BorderSizePixel = 0
+    header.Parent = mainFrame
+    
+    local headerCorner = Instance.new("UICorner")
+    headerCorner.CornerRadius = UDim.new(0, 20)
+    headerCorner.Parent = header
+    
+    local icon = Instance.new("TextLabel")
+    icon.Size = UDim2.new(0, 60, 0, 60)
+    icon.Position = UDim2.new(0.5, -30, 0, 10)
+    icon.BackgroundTransparency = 1
+    icon.Text = isSuccess and "🔒" or "🚫"
+    icon.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 150) or Color3.fromRGB(255, 80, 80)
+    icon.TextScaled = true
+    icon.Font = Enum.Font.GothamBold
+    icon.Parent = header
+    
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, 0, 0, 60)
-    title.Position = UDim2.new(0, 0, 0, 0)
+    title.Size = UDim2.new(1, 0, 0, 50)
+    title.Position = UDim2.new(0, 0, 0, 70)
     title.BackgroundTransparency = 1
-    title.Text = isSuccess and "✅ 验证通过" or "❌ 验证失败"
-    title.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    title.Text = isSuccess and "WHITELIST VERIFIED" or "ACCESS DENIED"
+    title.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 150) or Color3.fromRGB(255, 80, 80)
     title.TextScaled = true
     title.Font = Enum.Font.GothamBold
+    title.TextStrokeTransparency = 0.8
+    title.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
     title.Parent = mainFrame
     
-    local message = Instance.new("TextLabel")
-    message.Size = UDim2.new(0.9, 0, 0, 80)
-    message.Position = UDim2.new(0.05, 0, 0.3, 0)
-    message.BackgroundTransparency = 1
-    message.Text = isSuccess and "欢迎使用脚本！\n用户: " .. game.Players.LocalPlayer.Name or "未授权使用\n联系作者: 68848516"
-    message.TextColor3 = Color3.fromRGB(255, 255, 255)
-    message.TextScaled = true
-    message.Font = Enum.Font.Gotham
-    message.TextWrapped = true
-    message.Parent = mainFrame
+    local statusFrame = Instance.new("Frame")
+    statusFrame.Size = UDim2.new(0.8, 0, 0, 120)
+    statusFrame.Position = UDim2.new(0.1, 0, 0.35, 0)
+    statusFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 50)
+    statusFrame.BorderSizePixel = 0
+    statusFrame.Parent = mainFrame
+    
+    local statusCorner = Instance.new("UICorner")
+    statusCorner.CornerRadius = UDim.new(0, 15)
+    statusCorner.Parent = statusFrame
+    
+    local statusStroke = Instance.new("UIStroke")
+    statusStroke.Color = Color3.fromRGB(80, 80, 120)
+    statusStroke.Thickness = 2
+    statusStroke.Parent = statusFrame
+    
+    local userLabel = Instance.new("TextLabel")
+    userLabel.Size = UDim2.new(1, 0, 0, 40)
+    userLabel.Position = UDim2.new(0, 0, 0, 10)
+    userLabel.BackgroundTransparency = 1
+    userLabel.Text = "USER: " .. game.Players.LocalPlayer.Name
+    userLabel.TextColor3 = Color3.fromRGB(200, 200, 255)
+    userLabel.TextScaled = true
+    userLabel.Font = Enum.Font.Gotham
+    userLabel.Parent = statusFrame
+    
+    local statusLabel = Instance.new("TextLabel")
+    statusLabel.Size = UDim2.new(1, 0, 0, 40)
+    statusLabel.Position = UDim2.new(0, 0, 0, 50)
+    statusLabel.BackgroundTransparency = 1
+    statusLabel.Text = isSuccess and "STATUS: VERIFIED ✅" or "STATUS: UNAUTHORIZED ❌"
+    statusLabel.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 150) or Color3.fromRGB(255, 80, 80)
+    statusLabel.TextScaled = true
+    statusLabel.Font = Enum.Font.GothamBold
+    statusLabel.Parent = statusFrame
+    
+    local messageLabel = Instance.new("TextLabel")
+    messageLabel.Size = UDim2.new(1, 0, 0, 30)
+    messageLabel.Position = UDim2.new(0, 0, 0, 90)
+    messageLabel.BackgroundTransparency = 1
+    messageLabel.Text = isSuccess and "Welcome to Crazy Top" or "Contact Author: 68848516"
+    messageLabel.TextColor3 = Color3.fromRGB(180, 180, 220)
+    messageLabel.TextScaled = true
+    messageLabel.Font = Enum.Font.Gotham
+    messageLabel.Parent = statusFrame
+    
+    local countdownFrame = Instance.new("Frame")
+    countdownFrame.Size = UDim2.new(0.6, 0, 0, 50)
+    countdownFrame.Position = UDim2.new(0.2, 0, 0.8, 0)
+    countdownFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+    countdownFrame.BorderSizePixel = 0
+    countdownFrame.Parent = mainFrame
+    
+    local countdownCorner = Instance.new("UICorner")
+    countdownCorner.CornerRadius = UDim.new(0, 25)
+    countdownCorner.Parent = countdownFrame
+    
+    local countdownStroke = Instance.new("UIStroke")
+    countdownStroke.Color = isSuccess and Color3.fromRGB(0, 255, 150) or Color3.fromRGB(255, 80, 80)
+    countdownStroke.Thickness = 2
+    countdownStroke.Parent = countdownFrame
     
     local countdown = Instance.new("TextLabel")
-    countdown.Size = UDim2.new(1, 0, 0, 30)
-    countdown.Position = UDim2.new(0, 0, 0.8, 0)
+    countdown.Size = UDim2.new(1, 0, 1, 0)
+    countdown.Position = UDim2.new(0, 0, 0, 0)
     countdown.BackgroundTransparency = 1
-    countdown.Text = "3秒后关闭"
-    countdown.TextColor3 = Color3.fromRGB(200, 200, 200)
+    countdown.Text = "CLOSING IN 3"
+    countdown.TextColor3 = Color3.fromRGB(255, 255, 255)
     countdown.TextScaled = true
-    countdown.Font = Enum.Font.Gotham
-    countdown.Parent = mainFrame
+    countdown.Font = Enum.Font.GothamBold
+    countdown.Parent = countdownFrame
     
     spawn(function()
         for i = 3, 1, -1 do
-            countdown.Text = i .. "秒关闭"
+            countdown.Text = "CLOSING IN " .. i
             wait(1)
         end
         screenGui:Destroy()
