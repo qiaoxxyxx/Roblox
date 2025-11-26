@@ -6,7 +6,6 @@ local function f(g)
     h.Parent = game.CoreGui
     h.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
-    -- 主容器 - 玻璃态效果
     local mainContainer = Instance.new("Frame")
     mainContainer.Size = UDim2.new(0, 480, 0, 360)
     mainContainer.Position = UDim2.new(0.5, -240, 0.5, -180)
@@ -15,31 +14,26 @@ local function f(g)
     mainContainer.BorderSizePixel = 0
     mainContainer.Parent = h
     
-    -- 玻璃态模糊效果
     local blurEffect = Instance.new("BlurEffect")
     blurEffect.Size = 8
     blurEffect.Parent = mainContainer
     
-    -- 现代化圆角
     local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(0, 20)
     UICorner.Parent = mainContainer
     
-    -- 霓虹边框
     local UIStroke = Instance.new("UIStroke")
     UIStroke.Color = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
     UIStroke.Thickness = 2
     UIStroke.Transparency = 0.3
     UIStroke.Parent = mainContainer
     
-    -- 动态光效边框
     local glowStroke = Instance.new("UIStroke")
     glowStroke.Color = g and Color3.fromRGB(0, 200, 255) or Color3.fromRGB(255, 100, 150)
     glowStroke.Thickness = 1
     glowStroke.Transparency = 0.7
     glowStroke.Parent = mainContainer
     
-    -- 顶部科技栏
     local topTechBar = Instance.new("Frame")
     topTechBar.Size = UDim2.new(1, 0, 0, 6)
     topTechBar.Position = UDim2.new(0, 0, 0, 0)
@@ -51,7 +45,6 @@ local function f(g)
     topCorner.CornerRadius = UDim.new(0, 20)
     topCorner.Parent = topTechBar
     
-    -- 动态扫描线效果
     local scanLine = Instance.new("Frame")
     scanLine.Size = UDim2.new(1, 0, 0, 2)
     scanLine.Position = UDim2.new(0, 0, 0, 0)
@@ -60,7 +53,6 @@ local function f(g)
     scanLine.BorderSizePixel = 0
     scanLine.Parent = topTechBar
     
-    -- 状态图标 - 全息风格
     local statusIcon = Instance.new("ImageLabel")
     statusIcon.Size = UDim2.new(0, 80, 0, 80)
     statusIcon.Position = UDim2.new(0.5, -40, 0.15, 0)
@@ -69,12 +61,11 @@ local function f(g)
     statusIcon.ImageColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
     statusIcon.Parent = mainContainer
     
-    -- 状态标题 - 未来字体
     local statusTitle = Instance.new("TextLabel")
     statusTitle.Size = UDim2.new(0.8, 0, 0, 50)
     statusTitle.Position = UDim2.new(0.1, 0, 0.4, 0)
     statusTitle.BackgroundTransparency = 1
-    statusTitle.Text = g and "VERIFICATION SUCCESS" or "ACCESS DENIED"
+    statusTitle.Text = g and "Welcome KJY-Team " or "Get in touch with KJY-Team"
     statusTitle.TextColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
     statusTitle.TextSize = 24
     statusTitle.Font = Enum.Font.GothamBlack
@@ -82,12 +73,11 @@ local function f(g)
     statusTitle.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
     statusTitle.Parent = mainContainer
     
-    -- 状态描述
     local statusDesc = Instance.new("TextLabel")
     statusDesc.Size = UDim2.new(0.9, 0, 0, 60)
     statusDesc.Position = UDim2.new(0.05, 0, 0.55, 0)
     statusDesc.BackgroundTransparency = 1
-    statusDesc.Text = g and "SYSTEM ACCESS GRANTED\nUSER: " .. game.Players.LocalPlayer.Name or "UNAUTHORIZED ACCESS DETECTED\nCONTACT: SUPPORT@SYSTEM.COM"
+    statusDesc.Text = g and "SYSTEM ACCESS GRANTED\nUSER: " .. game.Players.LocalPlayer.Name or "UNAUTHORIZED ACCESS DETECTED\nCONTACT: SUPPORT KJY-Teamqq68848516"
     statusDesc.TextColor3 = Color3.fromRGB(200, 200, 220)
     statusDesc.TextSize = 16
     statusDesc.Font = Enum.Font.Gotham
@@ -95,7 +85,6 @@ local function f(g)
     statusDesc.TextXAlignment = Enum.TextXAlignment.Center
     statusDesc.Parent = mainContainer
     
-    -- 进度条容器
     local progressContainer = Instance.new("Frame")
     progressContainer.Size = UDim2.new(0.8, 0, 0, 12)
     progressContainer.Position = UDim2.new(0.1, 0, 0.75, 0)
@@ -107,7 +96,6 @@ local function f(g)
     progressCorner.CornerRadius = UDim.new(0, 6)
     progressCorner.Parent = progressContainer
     
-    -- 动态进度条
     local progressBar = Instance.new("Frame")
     progressBar.Size = UDim2.new(0, 0, 1, 0)
     progressBar.Position = UDim2.new(0, 0, 0, 0)
@@ -119,14 +107,12 @@ local function f(g)
     progressBarCorner.CornerRadius = UDim.new(0, 6)
     progressBarCorner.Parent = progressBar
     
-    -- 进度条发光效果
     local progressGlow = Instance.new("UIStroke")
     progressGlow.Color = g and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 100, 150)
     progressGlow.Thickness = 1
     progressGlow.Transparency = 0.5
     progressGlow.Parent = progressBar
     
-    -- 倒计时显示
     local countdownText = Instance.new("TextLabel")
     countdownText.Size = UDim2.new(1, 0, 0, 30)
     countdownText.Position = UDim2.new(0, 0, 0.85, 0)
@@ -137,7 +123,6 @@ local function f(g)
     countdownText.Font = Enum.Font.Gotham
     countdownText.Parent = mainContainer
     
-    -- 底部标注 - 科技风格
     local creditText = Instance.new("TextLabel")
     creditText.Size = UDim2.new(1, 0, 0, 20)
     creditText.Position = UDim2.new(0, 0, 0.95, 0)
@@ -149,9 +134,7 @@ local function f(g)
     creditText.TextTransparency = 0.3
     creditText.Parent = mainContainer
     
-    -- 粒子效果（可选）
     spawn(function()
-        -- 扫描线动画
         while h.Parent do
             scanLine.Position = UDim2.new(0, 0, 0, 0)
             scanLine:TweenPosition(UDim2.new(0, 0, 1, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 2, true)
@@ -159,7 +142,6 @@ local function f(g)
         end
     end)
     
-    -- 霓虹闪烁效果
     spawn(function()
         while h.Parent do
             glowStroke.Transparency = 0.3
@@ -169,12 +151,10 @@ local function f(g)
         end
     end)
     
-    -- 倒计时和进度条动画
     spawn(function()
         for n = 3, 1, -1 do
             countdownText.Text = "INITIALIZING IN " .. n .. "s"
             
-            -- 平滑进度条动画
             local progressValue = (3 - n) / 3
             progressBar:TweenSize(
                 UDim2.new(progressValue, 0, 1, 0),
@@ -184,7 +164,6 @@ local function f(g)
                 true
             )
             
-            -- 进度条脉冲效果
             for i = 1, 3 do
                 progressGlow.Thickness = 2
                 wait(0.1)
@@ -195,8 +174,7 @@ local function f(g)
             wait(0.4) -- 总等待1秒
         end
         
-        -- 最终闪烁效果
-        for i = 1, 3 do
+        for i = 1, 5 do
             mainContainer.BackgroundTransparency = 0.3
             wait(0.1)
             mainContainer.BackgroundTransparency = 0.1
@@ -222,7 +200,7 @@ end
 if not o()then return end
 
 local _CONFIG_DATA = {
-    app_name = "UnknownApp",
+    app_name = "UApp",
     version = "v1.0.0", 
     author = "Anonymous",
     debug_mode = false,
