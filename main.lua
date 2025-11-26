@@ -1,1 +1,171 @@
-local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/iyoulin/iyoulin/refs/heads/main/ato"))()local b=game:GetService("Players").LocalPlayer b.Idled:Connect(function()game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)wait(1)game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)end)local function c(d)local e=Instance.new("ScreenGui")e.Name="WhitelistVerification"e.Parent=game.CoreGui e.ZIndexBehavior=Enum.ZIndexBehavior.Sibling local f=Instance.new("Frame")f.Size=UDim2.new(0,500,0,350)f.Position=UDim2.new(0.5,-250,0.5,-175)f.BackgroundColor3=Color3.fromRGB(15,15,25)f.BorderSizePixel=0 f.BackgroundTransparency=0 f.Parent=e Instance.new("UICorner",f).CornerRadius=UDim.new(0,20)local g=Instance.new("UIGradient")g.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(30,30,45)),ColorSequenceKeypoint.new(1,Color3.fromRGB(20,20,35))})g.Rotation=45 g.Parent=f local h=Instance.new("UIStroke")h.Color=d and Color3.fromRGB(0,255,150)or Color3.fromRGB(255,80,80)h.Thickness=4 h.Transparency=0.3 h.Parent=f local i=Instance.new("UIStroke")i.Color=d and Color3.fromRGB(0,255,200)or Color3.fromRGB(255,100,100)i.Thickness=8 i.Transparency=0.8 i.Parent=f local j=Instance.new("Frame")j.Size=UDim2.new(1,0,0,80)j.Position=UDim2.new(0,0,0,0)j.BackgroundColor3=Color3.fromRGB(25,25,40)j.BorderSizePixel=0 j.Parent=f Instance.new("UICorner",j).CornerRadius=UDim.new(0,20)local k=Instance.new("TextLabel")k.Size=UDim2.new(0,60,0,60)k.Position=UDim2.new(0.5,-30,0,10)k.BackgroundTransparency=1 k.Text=d and"🔒"or"🚫"k.TextColor3=d and Color3.fromRGB(0,255,150)or Color3.fromRGB(255,80,80)k.TextScaled=true k.Font=Enum.Font.GothamBold k.Parent=j local l=Instance.new("TextLabel")l.Size=UDim2.new(1,0,0,50)l.Position=UDim2.new(0,0,0,70)l.BackgroundTransparency=1 l.Text=d and"WHITELIST VERIFIED"or"ACCESS DENIED"l.TextColor3=d and Color3.fromRGB(0,255,150)or Color3.fromRGB(255,80,80)l.TextScaled=true l.Font=Enum.Font.GothamBold l.TextStrokeTransparency=0.8 l.TextStrokeColor3=Color3.fromRGB(255,255,255)l.Parent=f local m=Instance.new("Frame")m.Size=UDim2.new(0.8,0,0,120)m.Position=UDim2.new(0.1,0,0.35,0)m.BackgroundColor3=Color3.fromRGB(35,35,50)m.BorderSizePixel=0 m.Parent=f Instance.new("UICorner",m).CornerRadius=UDim.new(0,15)Instance.new("UIStroke",m).Color=Color3.fromRGB(80,80,120)local n=Instance.new("TextLabel")n.Size=UDim2.new(1,0,0,40)n.Position=UDim2.new(0,0,0,10)n.BackgroundTransparency=1 n.Text="USER: "..game.Players.LocalPlayer.Name n.TextColor3=Color3.fromRGB(200,200,255)n.TextScaled=true n.Font=Enum.Font.Gotham n.Parent=m local o=Instance.new("TextLabel")o.Size=UDim2.new(1,0,0,40)o.Position=UDim2.new(0,0,0,50)o.BackgroundTransparency=1 o.Text=d and"STATUS: VERIFIED ✅"or"STATUS: UNAUTHORIZED ❌"o.TextColor3=d and Color3.fromRGB(0,255,150)or Color3.fromRGB(255,80,80)o.TextScaled=true o.Font=Enum.Font.GothamBold o.Parent=m local p=Instance.new("TextLabel")p.Size=UDim2.new(1,0,0,30)p.Position=UDim2.new(0,0,0,90)p.BackgroundTransparency=1 p.Text=d and"Welcome to Crazy Top"or"Contact Author: 68848516"p.TextColor3=Color3.fromRGB(180,180,220)p.TextScaled=true p.Font=Enum.Font.Gotham p.Parent=m local q=Instance.new("Frame")q.Size=UDim2.new(0.6,0,0,50)q.Position=UDim2.new(0.2,0,0.8,0)q.BackgroundColor3=Color3.fromRGB(40,40,60)q.BorderSizePixel=0 q.Parent=f Instance.new("UICorner",q).CornerRadius=UDim.new(0,25)local r=Instance.new("UIStroke")r.Color=d and Color3.fromRGB(0,255,150)or Color3.fromRGB(255,80,80)r.Thickness=2 r.Parent=q local s=Instance.new("TextLabel")s.Size=UDim2.new(1,0,1,0)s.Position=UDim2.new(0,0,0,0)s.BackgroundTransparency=1 s.Text="CLOSING IN 3"s.TextColor3=Color3.fromRGB(255,255,255)s.TextScaled=true s.Font=Enum.Font.GothamBold s.Parent=q spawn(function()for t=3,1,-1 do s.Text="CLOSING IN "..t wait(1)end e:Destroy()if not d then game.Players.LocalPlayer:Kick("你是未授权的用户，请联系作者：68848516")end end)return e end local function u()local v=game.Players.LocalPlayer.Name local w,x=pcall(function()local y=game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")local z={}for A in y:gmatch("[^,]+")do z[A:gsub("%s+","")]=true end return z[v]==true end)if w and x then c(true)wait(3)return true else c(false)return false end end if not u()then return end local B={[1]="",[2]="K",[3]="M",[4]="B",[5]="T",[6]="Qa",[7]="Qi"}local function C(D,E)local F=math.floor(math.log(math.max(1,math.abs(D)),1000))local G=B[F+1]or("e+"..F)local H=math.floor(D*((10^E)/(1000^F)))/(10^E)return string.format("%."..E.."f%s",H,G)end local I,J,K,L=0,{},0,0 local M=20 local N=6 local function O()return pcall(function()return b.boostTimersFolder:FindFirstChild("Protein Egg")end)end local function P()if#J==0 then return 0 end local Q=0 for R,S in next,J do Q=Q+(S or 0)end return Q/#J end local T=a:CreateWindow({Title="Crazy Top",Icon="rbxassetid://139743288604595",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="Dark",SideBarWidth=130,HasOutline=true})T:EditOpenButton({Title="Crazy Top",Icon="image-upscale",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("FF0F7B"),Color3.fromHex("F89B29"))})local U=T:Tab({Title="Main",Icon=""})local V=U:Paragraph({Title="Stats",Desc="Loading...",Image="users",ImageSize=25})coroutine.wrap(function()while wait(1)do pcall(function()local W=b.leaderstats.Strength.Value local X=tick()if I>0 then local Y=(W-I)/(X-K)if X-L>=M then table.insert(J,Y)if#J>N then table.remove(J,1)end L=X end end I=W K=X local Z=P()local _=O()V:SetDesc("Strength: "..C(W,1).."\nAvg Gain: "..C(Z,1).."/s\nDaily: "..C(Z*86400,1).."\nMonthly: "..C(Z*2592000,1).."\nSamples: "..#J.."/"..N.."\n"..(_ and"✔ Protein Egg x2"or"✘ No Boost"))end)end end)()_G.aa=false local function ab()while _G.aa do wait()pcall(function()if tostring(b.equippedPets.pet1.Value)=="Swift Samurai"then for ac=0,19 do b.muscleEvent:FireServer("rep")end end end)end end U:Toggle({Title="Auto Train",Desc="Auto strength training",Value=false,Callback=function(ad)_G.aa=ad ab()end})_G.ae=false local function af()while _G.ae do wait(0.2)pcall(function()if not b.boostTimersFolder:FindFirstChild("Protein Egg")then local ag=b.Backpack:FindFirstChild("Protein Egg")if ag then b.Character.Humanoid:EquipTool(ag)wait(0.1)if b.Character:FindFirstChild("Protein Egg")then b.muscleEvent:FireServer("proteinEgg",b.Character:FindFirstChild("Protein Egg"))wait(0.1)b.Character.Humanoid:UnequipTools()end end end end)end end U:Toggle({Title="Auto Egg",Desc="Auto use Protein Egg",Value=false,Callback=function(ah)_G.ae=ah af()end})local function ai()local aj=game:GetService("CoreGui")local ak=game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")local al={"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}local am={"WindUI","Crazy Top","Rayfield"}for an,ao in ipairs(aj:GetChildren())do if ao:IsA("ScreenGui")then local ap=false for aq,ar in ipairs(am)do if ao.Name:find(ar)then ap=true break end end if ap then continue end local as=false for at,au in ipairs(ao:GetDescendants())do if(au:IsA("TextLabel")or au:IsA("TextButton"))and au.Text then local av=au.Text for aw,ax in ipairs(al)do if av:find(ax)or av:find("%+%d+")then as=true break end end if as then break end end end if as then ao:Destroy()end end end if ak then for an,ao in ipairs(ak:GetChildren())do if ao:IsA("ScreenGui")then local ap=false for aq,ar in ipairs(am)do if ao.Name:find(ar)then ap=true break end end if ap then continue end local as=false for at,au in ipairs(ao:GetDescendants())do if(au:IsA("TextLabel")or au:IsA("TextButton"))and au.Text then local av=au.Text for aw,ax in ipairs(al)do if av:find(ax)or av:find("%+%d+")then as=true break end end if as then break end end end if as then ao:Destroy()end end end end U:Button({Title="Clear Gain UI",Desc="Remove all gain notifications",Callback=ai})
+local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())local c=loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\105\121\111\117\108\105\110\47\105\121\111\117\108\105\110\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\97\116\111"))()local d=true;local e=game:GetService("\80\108\97\121\101\114\115").LocalPlayer;e.Idled:Connect(function()game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)wait(1)game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)end)
+
+local function ShowVerificationUI(isSuccess)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WhitelistVerification"
+    screenGui.Parent = game.CoreGui
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 400, 0, 200)
+    mainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.BackgroundTransparency = 0.1
+    mainFrame.Parent = screenGui
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = mainFrame
+    
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    stroke.Thickness = 3
+    stroke.Parent = mainFrame
+    
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, 0, 0, 60)
+    title.Position = UDim2.new(0, 0, 0, 0)
+    title.BackgroundTransparency = 1
+    title.Text = isSuccess and "✅ 验证通过" or "❌ 验证失败"
+    title.TextColor3 = isSuccess and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    title.TextScaled = true
+    title.Font = Enum.Font.GothamBold
+    title.Parent = mainFrame
+    
+    local message = Instance.new("TextLabel")
+    message.Size = UDim2.new(0.9, 0, 0, 80)
+    message.Position = UDim2.new(0.05, 0, 0.3, 0)
+    message.BackgroundTransparency = 1
+    message.Text = isSuccess and "欢迎使用脚本！\n用户: " .. game.Players.LocalPlayer.Name or "未授权使用\n联系作者: 68848516"
+    message.TextColor3 = Color3.fromRGB(255, 255, 255)
+    message.TextScaled = true
+    message.Font = Enum.Font.Gotham
+    message.TextWrapped = true
+    message.Parent = mainFrame
+    
+    local countdown = Instance.new("TextLabel")
+    countdown.Size = UDim2.new(1, 0, 0, 30)
+    countdown.Position = UDim2.new(0, 0, 0.8, 0)
+    countdown.BackgroundTransparency = 1
+    countdown.Text = "3秒后关闭"
+    countdown.TextColor3 = Color3.fromRGB(200, 200, 200)
+    countdown.TextScaled = true
+    countdown.Font = Enum.Font.Gotham
+    countdown.Parent = mainFrame
+    
+    spawn(function()
+        for i = 3, 1, -1 do
+            countdown.Text = i .. "秒关闭"
+            wait(1)
+        end
+        screenGui:Destroy()
+        if not isSuccess then
+            game.Players.LocalPlayer:Kick("你是未授权的用户，请联系作者：68848516")
+        end
+    end)
+    
+    return screenGui
+end
+
+local function UltimateValidation()
+    local playerName = game.Players.LocalPlayer.Name
+    
+    local success, isWhitelisted = pcall(function()
+        local response = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
+        local whitelist = {}
+        for name in response:gmatch("[^,]+") do
+            whitelist[name:gsub("%s+", "")] = true
+        end
+        return whitelist[playerName] == true
+    end)
+    
+    if success and isWhitelisted then
+        ShowVerificationUI(true)
+        wait(3)
+        return true
+    else
+        ShowVerificationUI(false)
+        wait(3)
+        return false
+    end
+end
+
+-- 立即验证并踢出未授权玩家
+if not UltimateValidation() then
+    return
+end
+
+local f={[1]="",[2]="K",[3]="M",[4]="B",[5]="T",[6]="Qa",[7]="Qi"}local function g(h,i)local j=math.floor(math.log(math.max(1,math.abs(h)),1000))local k=f[j+1]or("\101\43"..j)local l=math.floor(h*((10^i)/(1000^j)))/(10^i)return string.format("\37\46"..i.."\102\37\115",l,k)end;local m,n,o,p=0,{},0,0;local q=20;local r=6;local function s()return pcall(function()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function t()if#n==0 then return 0 end;local u=0;for v,w in next,n do u=u+(w or 0)end;return u/#n end;local x=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})x:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local y=x:Tab({Title="\77\97\105\110",Icon=""})local z=y:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(function()while wait(1)do pcall(function()local A=e.leaderstats.Strength.Value;local B=tick()if m>0 then local C=(A-m)/(B-o)if B-p>=q then table.insert(n,C)if#n>r then table.remove(n,1)end;p=B end end;m=A;o=B;local D=t()local E=s()z:SetDesc("\83\116\114\101\110\103\116\104\58\32"..g(A,1).."\10\65\118\103\32\71\97\105\110\58\32"..g(D,1).."\47\115\10\68\97\105\108\121\58\32"..g(D*86400,1).."\10\77\111\110\116\104\108\121\58\32"..g(D*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#n.."\47"..r.."\10"..(E and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.F=false;local function G()while _G.F do wait()pcall(function()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for H=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;y:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=function(I)_G.F=I;G()end})_G.J=false;local function K()while _G.J do wait(0.2)pcall(function()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local L=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if L then e.Character.Humanoid:EquipTool(L)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;y:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=function(M)_G.J=M;K()end})
+
+local function Z()
+    local _=game:GetService("\67\111\114\101\71\117\105")
+    local a0=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+    local a1={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
+    local a2={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
+    for a3,a4 in ipairs(_:GetChildren())do
+        if a4:IsA("\83\99\114\101\101\110\71\117\105")then
+            local a5=false
+            for a6,a7 in ipairs(a2)do
+                if a4.Name:find(a7)then
+                    a5=true
+                    break
+                end
+            end
+            if a5 then
+                continue
+            end
+            local a8=false
+            for a9,aa in ipairs(a4:GetDescendants())do
+                if(aa:IsA("\84\101\120\116\76\97\98\101\108")or aa:IsA("\84\101\120\116\66\117\116\116\111\110"))and aa.Text then
+                    local ab=aa.Text
+                    for ac,ad in ipairs(a1)do
+                        if ab:find(ad)or ab:find("\37\43\37\100\43")then
+                            a8=true
+                            break
+                        end
+                    end
+                    if a8 then break end
+                end
+            end
+            if a8 then
+                a4:Destroy()
+            end
+        end
+    end
+    if a0 then
+        for a3,a4 in ipairs(a0:GetChildren())do
+            if a4:IsA("\83\99\114\101\101\110\71\117\105")then
+                local a5=false
+                for a6,a7 in ipairs(a2)do
+                    if a4.Name:find(a7)then
+                        a5=true
+                        break
+                    end
+                end
+                if a5 then
+                    continue
+                end
+                local a8=false
+                for a9,aa in ipairs(a4:GetDescendants())do
+                    if(aa:IsA("\84\101\120\116\76\97\98\101\108")or aa:IsA("\84\101\120\116\66\117\116\116\111\110"))and aa.Text then
+                        local ab=aa.Text
+                        for ac,ad in ipairs(a1)do
+                            if ab:find(ad)or ab:find("\37\43\37\100\43")then
+                                a8=true
+                                break
+                            end
+                        end
+                        if a8 then break end
+                    end
+                end
+                if a8 then
+                    a4:Destroy()
+                end
+            end
+        end
+    end
+end
+
+y:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=Z})
+print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
