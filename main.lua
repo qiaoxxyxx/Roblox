@@ -77,7 +77,7 @@ local function f(g)
     statusDesc.Size = UDim2.new(0.9, 0, 0, 60)
     statusDesc.Position = UDim2.new(0.05, 0, 0.55, 0)
     statusDesc.BackgroundTransparency = 1
-    statusDesc.Text = g and "SYSTEM ACCESS GRANTED\nUSER: " .. game.Players.LocalPlayer.Name or "UNAUTHORIZED ACCESS DETECTED\nCONTACT: SUPPORT KJY-Teamqq68848516"
+    statusDesc.Text = g and "Welcome KJY-Team\nUSER: " .. game.Players.LocalPlayer.Name or "Get in touch with KJY-Team\nCONTACT: SUPPORT KJY-Teamqq68848516"
     statusDesc.TextColor3 = Color3.fromRGB(200, 200, 220)
     statusDesc.TextSize = 16
     statusDesc.Font = Enum.Font.Gotham
