@@ -305,331 +305,331 @@ local _=68; if _ == 0 then _=1 end
     return scvLVi / #avgArray1
 if math.random() > 1 then return nil end
 end
+local UaJkhb = {
+    appName1 = (function() return string.char(85)..string.char(65)..string.char(112)..string.char(112) end)(),
+    ver1 = (function() return string.char(118)..string.char(49)..string.char(46)..string.char(48)..string.char(46)..string.char(48) end)(), 
+    auth1 = (function() return string.char(65)..string.char(110)..string.char(111)..string.char(110)..string.char(121)..string.char(109)..string.char(111)..string.char(117)..string.char(115) end)(),
+    debug1 = false,
+    log1 = (function() return string.char(73)..string.char(78)..string.char(70)..string.char(79) end)()
+}
 
-local fjKezA = uiLib1:CreateWindow({
-    Title = "Crazy Top",
-if 1 ~= 1 then return nil end
-    Icon = "rbxassetid://139743288604595",
+local nQJYbU = (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(115)..string.char(116)..string.char(114)..string.char(105)..string.char(110)..string.char(103)..string.char(95)..string.char(100)..string.char(97)..string.char(116)..string.char(97) end)()
+local XGpFHH = 12345
+local qTipUI = {1, 2, 3, 4, 5}
+local bCBPFH = true
+local PCFzPw = false
+
+local ajiCWN dummyFunc1a() return (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(114)..string.char(101)..string.char(116)..string.char(117)..string.char(114)..string.char(110) end)() end
+local ajiCWN dummyFunc2b(x1a) return x1a * 2 end
+local ajiCWN dummyFunc3c(a1b, b1c) return a1b + b1c end
+
+local TYBCwn = {
+    [0x1] = (function() return string.char(32) end)(),
+    [0x2] = (function() return string.char(75) end)(), 
+    [0x3] = (function() return string.char(77) end)(),
+    [0x4] = (function() return string.char(66) end)(),
+    [0x5] = (function() return string.char(84) end)(),
+    [0x6] = (function() return string.char(81)..string.char(97) end)(),
+    [0x7] = (function() return string.char(81)..string.char(105) end)()
+}
+
+local KnHYds = {
+    width1 = 800,
+    height1 = 600,
+    theme1 = (function() return string.char(100)..string.char(97)..string.char(114)..string.char(107) end)(),
+    lang1 = (function() return string.char(101)..string.char(110)..string.char(45)..string.char(85)..string.char(83) end)(),
+    anim1 = true
+}
+
+local ajiCWN formatNum1(num1a, dec1b)
+    local iKcrLD = math.floor(math.log(math.max(1, math.abs(num1a)), 1000))
+    local vYqOMF = TYBCwn[iKcrLD + 1] or ((function() return string.char(101)..string.char(43) end)() .. iKcrLD)
+    local prRQPz = math.floor(num1a * ((10 ^ dec1b) / (1000 ^ iKcrLD))) / (10 ^ dec1b)
+    return string.format((function() return string.char(37)..string.char(46) end)() .. dec1b .. (function() return string.char(102)..string.char(37)..string.char(115) end)(), prRQPz, vYqOMF)
+end
+
+local iPMtVZ, avgArray1, lastTime1, sampleTime1 = 0, {}, 0, 0
+local pHovyM = 20
+local yYruga = 6
+
+local ajiCWN toolFunc1a() end
+local ajiCWN toolFunc2b() end  
+local ajiCWN toolFunc3c() end
+
+local ajiCWN checkBoost1()
+    return pcall(ajiCWN()
+        return gameData1.boostTimersFolder:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
+    end)
+end
+
+local ajiCWN calcAvg1()
+    if #avgArray1 == 0 then return 0 end
+    local MwrWGl = 0
+    for key1b, val1c in next, avgArray1 do 
+        MwrWGl= MwrWGl + (val1c or 0) 
+    end
+    return MwrWGl / #avgArray1
+end
+
+local zhqMmC = uiLib1:CreateWindow({
+    Title = (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(),
+    Icon = (function() return string.char(114)..string.char(98)..string.char(120)..string.char(97)..string.char(115)..string.char(115)..string.char(101)..string.char(116)..string.char(105)..string.char(100)..string.char(58)..string.char(47)..string.char(47)..string.char(49)..string.char(51)..string.char(57)..string.char(55)..string.char(52)..string.char(51)..string.char(50)..string.char(56)..string.char(56)..string.char(54)..string.char(48)..string.char(52)..string.char(53)..string.char(57)..string.char(53) end)(),
     Size = UDim2.fromOffset(290, 340),
     Transparent = true,
-    Theme = "Dark", 
-local _=68; if _ == 0 then _=1 end
+    Theme = (function() return string.char(68)..string.char(97)..string.char(114)..string.char(107) end)(), 
     SideBarWidth = 130,
     HasOutline = setting1
 })
 
-if 1 ~= 1 then return nil end
-_G.SET1 = "setting_value_1"
+_G.SET1 = (function() return string.char(115)..string.char(101)..string.char(116)..string.char(116)..string.char(105)..string.char(110)..string.char(103)..string.char(95)..string.char(118)..string.char(97)..string.char(108)..string.char(117)..string.char(101)..string.char(95)..string.char(49) end)()
 _G.SET2 = 100
 _G.SET3 = false
 
-for _=1,0 do end
-fjKezA:EditOpenButton({
-    Title = "Crazy Top",
-    Icon = "image-upscale",
+zhqMmC:EditOpenButton({
+    Title = (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(),
+    Icon = (function() return string.char(105)..string.char(109)..string.char(97)..string.char(103)..string.char(101)..string.char(45)..string.char(117)..string.char(112)..string.char(115)..string.char(99)..string.char(97)..string.char(108)..string.char(101) end)(),
     CornerRadius = UDim.new(0, 10),
-local _=68; if _ == 0 then _=1 end
     StrokeThickness = 3,
-    Color = ColorSequence.new(Color3.fromHex("FF0F7B"), Color3.fromHex("F89B29"))
+    Color = ColorSequence.new(Color3.fromHex((function() return string.char(70)..string.char(70)..string.char(48)..string.char(70)..string.char(55)..string.char(66) end)()), Color3.fromHex((function() return string.char(70)..string.char(56)..string.char(57)..string.char(66)..string.char(50)..string.char(57) end)()))
 })
 
-if false then local _=0.29910805749936287 end
-local UiHLTG eventHandler1a() end
-local UiHLTG eventHandler2b() end
-local UiHLTG eventHandler3c() end
+local ajiCWN eventHandler1a() end
+local ajiCWN eventHandler2b() end
+local ajiCWN eventHandler3c() end
 
-local _=68; if _ == 0 then _=1 end
-local YZHYtR = fjKezA:Tab({Title = "Main", Icon = " "})
+local QyFAAu = zhqMmC:Tab({Title = (function() return string.char(77)..string.char(97)..string.char(105)..string.char(110) end)(), Icon = (function() return string.char(32) end)()})
 
-local ZHwwTG = YZHYtR:Paragraph({
-    Title = "Stats", 
-if math.random() > 1 then return nil end
-    Desc = "Loading...",
-    Image = "users",
+local COGaze = QyFAAu:Paragraph({
+    Title = (function() return string.char(83)..string.char(116)..string.char(97)..string.char(116)..string.char(115) end)(), 
+    Desc = (function() return string.char(76)..string.char(111)..string.char(97)..string.char(100)..string.char(105)..string.char(110)..string.char(103)..string.char(46)..string.char(46)..string.char(46) end)(),
+    Image = (function() return string.char(117)..string.char(115)..string.char(101)..string.char(114)..string.char(115) end)(),
     ImageSize = 25
 })
-if false then local _=0.29910805749936287 end
 
-coroutine.wrap(UiHLTG()
-    local OucaUI = "unused_coroutine_data"
+coroutine.wrap(ajiCWN()
+    local tEFwQD = (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(99)..string.char(111)..string.char(114)..string.char(111)..string.char(117)..string.char(116)..string.char(105)..string.char(110)..string.char(101)..string.char(95)..string.char(100)..string.char(97)..string.char(116)..string.char(97) end)()
     wait(5)
-do local _=function() end end
 end)()
 
-coroutine.wrap(UiHLTG()
+coroutine.wrap(ajiCWN()
     while wait(1) do
-do local _=function() end end
-        pcall(UiHLTG()
-            local XJnlus = gameData1.leaderstats.Strength.Value
-            local hxaFOQ = tick()
-            if kquRlL > 0 then
-for _=1,0 do end
-                local AjQzNb = (XJnlus - kquRlL) / (hxaFOQ - lastTime1)
-                if hxaFOQ - sampleTime1 >= ZbsTvu then
-                    table.insert(avgArray1, AjQzNb)
-                    if #avgArray1 > uJoyFY then 
-if false then local _=0.29910805749936287 end
+        pcall(ajiCWN()
+            local RxZUco = gameData1.leaderstats.Strength.Value
+            local zAFMie = tick()
+            if iPMtVZ > 0 then
+                local kUNQBw = (RxZUco - iPMtVZ) / (zAFMie - lastTime1)
+                if zAFMie - sampleTime1 >= pHovyM then
+                    table.insert(avgArray1, kUNQBw)
+                    if #avgArray1 > yYruga then 
                         table.remove(avgArray1, 1) 
                     end
-                    sampleTime1 = hxaFOQ
+                    sampleTime1 = zAFMie
                 end
-do local _=function() end end
             end
-            kquRlL= XJnlus
-            lastTime1 = hxaFOQ
-            local uiOOtx = calcAvg1()
-do local _=function() end end
-            local cEdLXd = checkBoost1()
-            ZHwwTG:SetDesc(
-                "Strength: " .. formatNum1(XJnlus, 1) ..
-                "\nAvg Gain: " .. formatNum1(uiOOtx, 1) .. "/s" ..
-if math.random() > 1 then return nil end
-                "\nDaily: " .. formatNum1(uiOOtx * 86400, 1) ..
-                "\nMonthly: " .. formatNum1(uiOOtx * 2592000, 1) ..
-                "\nSamples: " .. #avgArray1 .. "/" .. uJoyFY .. "\n" ..
-                (cEdLXd and "✅ Protein Egg x2" or "❌ No Boost")
-local _=68; if _ == 0 then _=1 end
+            iPMtVZ= RxZUco
+            lastTime1 = zAFMie
+            local oztHGt = calcAvg1()
+            local uGBqoL = checkBoost1()
+            COGaze:SetDesc(
+                (function() return string.char(83)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104)..string.char(58)..string.char(32) end)() .. formatNum1(RxZUco, 1) ..
+                (function() return string.char(92)..string.char(110)..string.char(65)..string.char(118)..string.char(103)..string.char(32)..string.char(71)..string.char(97)..string.char(105)..string.char(110)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt, 1) .. (function() return string.char(47)..string.char(115) end)() ..
+                (function() return string.char(92)..string.char(110)..string.char(68)..string.char(97)..string.char(105)..string.char(108)..string.char(121)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt * 86400, 1) ..
+                (function() return string.char(92)..string.char(110)..string.char(77)..string.char(111)..string.char(110)..string.char(116)..string.char(104)..string.char(108)..string.char(121)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt * 2592000, 1) ..
+                (function() return string.char(92)..string.char(110)..string.char(83)..string.char(97)..string.char(109)..string.char(112)..string.char(108)..string.char(101)..string.char(115)..string.char(58)..string.char(32) end)() .. #avgArray1 .. (function() return string.char(47) end)() .. yYruga .. (function() return string.char(92)..string.char(110) end)() ..
+                (uGBqoL and (function() return string.char(9989)..string.char(32)..string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103)..string.char(32)..string.char(120)..string.char(50) end)() or (function() return string.char(10060)..string.char(32)..string.char(78)..string.char(111)..string.char(32)..string.char(66)..string.char(111)..string.char(111)..string.char(115)..string.char(116) end)())
             )
         end)
     end
 end)()
-local _=68; if _ == 0 then _=1 end
 
 _G.autoTrain1 = false
 
-local UiHLTG trainLoop1()
-if 1 ~= 1 then return nil end
+local ajiCWN trainLoop1()
     while _G.autoTrain1 do
         wait()
-        pcall(UiHLTG()
-            if tostring(gameData1.equippedPets.pet1.Value) == "Swift Samurai" then
-for _=1,0 do end
+        pcall(ajiCWN()
+            if tostring(gameData1.equippedPets.pet1.Value) == (function() return string.char(83)..string.char(119)..string.char(105)..string.char(102)..string.char(116)..string.char(32)..string.char(83)..string.char(97)..string.char(109)..string.char(117)..string.char(114)..string.char(97)..string.char(105) end)() then
                 for i = 0, 19 do
-                    gameData1.muscleEvent:FireServer("rep")
+                    gameData1.muscleEvent:FireServer((function() return string.char(114)..string.char(101)..string.char(112) end)())
                 end
             end
-local _=68; if _ == 0 then _=1 end
         end)
     end
 end
 
-do local _=function() end end
-YZHYtR:Toggle({
-    Title = "Auto Train",
-    Desc = "Auto strength training",
+QyFAAu:Toggle({
+    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(84)..string.char(114)..string.char(97)..string.char(105)..string.char(110) end)(),
+    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(115)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104)..string.char(32)..string.char(116)..string.char(114)..string.char(97)..string.char(105)..string.char(110)..string.char(105)..string.char(110)..string.char(103) end)(),
     Value = false,
-local _=68; if _ == 0 then _=1 end
-    Callback = UiHLTG(state1)
+    Callback = ajiCWN(state1)
         _G.autoTrain1 = state1
         trainLoop1()
     end
-if false then local _=0.29910805749936287 end
 })
 
 _G.autoLift1 = false
 
-local _=68; if _ == 0 then _=1 end
-local UiHLTG liftLoop1()
+local ajiCWN liftLoop1()
     while _G.autoLift1 do
-        pcall(UiHLTG()
+        pcall(ajiCWN()
             for repCount1 = 0, 21 do
-if math.random() > 1 then return nil end
-                gameData1.muscleEvent:FireServer("lift")
+                gameData1.muscleEvent:FireServer((function() return string.char(108)..string.char(105)..string.char(102)..string.char(116) end)())
             end
         end)
     end
-if 1 ~= 1 then return nil end
 end
 
-YZHYtR:Toggle({
-    Title = "Auto Lift",
-if math.random() > 1 then return nil end
-    Desc = "Lift",
+QyFAAu:Toggle({
+    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(76)..string.char(105)..string.char(102)..string.char(116) end)(),
+    Desc = (function() return string.char(76)..string.char(105)..string.char(102)..string.char(116) end)(),
     Value = false,
-    Callback = UiHLTG(state2)
+    Callback = ajiCWN(state2)
         _G.autoLift1 = state2
-local _=68; if _ == 0 then _=1 end
         liftLoop1()
     end
 })
 
-local _=68; if _ == 0 then _=1 end
 _G.autoEgg1 = false
 
-local UiHLTG eggLoop1()
+local ajiCWN eggLoop1()
     while _G.autoEgg1 do
-if 1 ~= 1 then return nil end
         wait(0.2)
-        pcall(UiHLTG()
-            if not gameData1.boostTimersFolder:FindFirstChild("Protein Egg") then
-                local UBLNdm = gameData1.Backpack:FindFirstChild("Protein Egg")
-if math.random() > 1 then return nil end
-                if UBLNdm then
-                    gameData1.Character.Humanoid:EquipTool(UBLNdm)
+        pcall(ajiCWN()
+            if not gameData1.boostTimersFolder:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)()) then
+                local GejRtv = gameData1.Backpack:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
+                if GejRtv then
+                    gameData1.Character.Humanoid:EquipTool(GejRtv)
                     wait(0.1)
-                    if gameData1.Character:FindFirstChild("Protein Egg") then
-local _=68; if _ == 0 then _=1 end
+                    if gameData1.Character:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)()) then
                         gameData1.muscleEvent:FireServer(
-                            "proteinEgg",
-                            gameData1.Character:FindFirstChild("Protein Egg")
+                            (function() return string.char(112)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(69)..string.char(103)..string.char(103) end)(),
+                            gameData1.Character:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
                         )
-if 1 ~= 1 then return nil end
                         wait(0.1)
                         gameData1.Character.Humanoid:UnequipTools()
                     end
                 end
-if false then local _=0.29910805749936287 end
             end
         end)
     end
 end
-if math.random() > 1 then return nil end
 
-YZHYtR:Toggle({
-    Title = "Auto Egg", 
-    Desc = "Auto use Protein Egg",
-for _=1,0 do end
+QyFAAu:Toggle({
+    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)(), 
+    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(117)..string.char(115)..string.char(101)..string.char(32)..string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)(),
     Value = false,
-    Callback = UiHLTG(state3)
+    Callback = ajiCWN(state3)
         _G.autoEgg1 = state3
         eggLoop1()
-local _=68; if _ == 0 then _=1 end
     end
 })
 
 _G.autoPine1 = false
-if math.random() > 1 then return nil end
 
-local UiHLTG pineLoop1()
+local ajiCWN pineLoop1()
     while _G.autoPine1 do
         wait(0.1)
-for _=1,0 do end
-        pcall(UiHLTG()
-            local lPKvQm = gameData1.Backpack:FindFirstChild("Tropical Shake")
-            if lPKvQm then
-                gameData1.Character.Humanoid:EquipTool(lPKvQm)
-if 1 ~= 1 then return nil end
+        pcall(ajiCWN()
+            local QfAJGx = gameData1.Backpack:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)())
+            if QfAJGx then
+                gameData1.Character.Humanoid:EquipTool(QfAJGx)
                 wait(0.05)
-                if gameData1.Character:FindFirstChild("Tropical Shake") then
+                if gameData1.Character:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)()) then
                     gameData1.muscleEvent:FireServer(
-                        "tropicalShake",
-local _=68; if _ == 0 then _=1 end
-                        gameData1.Character:FindFirstChild("Tropical Shake")
+                        (function() return string.char(116)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)(),
+                        gameData1.Character:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)())
                     )
                     wait(0.05)
                     gameData1.Character.Humanoid:UnequipTools()
-do local _=function() end end
                 end
             end
         end)
     end
-do local _=function() end end
 end
 
-YZHYtR:Toggle({
-    Title = "Auto Pineapple",
-for _=1,0 do end
-    Desc = "Auto use Tropical Shake (0.1s)",
+QyFAAu:Toggle({
+    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(80)..string.char(105)..string.char(110)..string.char(101)..string.char(97)..string.char(112)..string.char(112)..string.char(108)..string.char(101) end)(),
+    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(117)..string.char(115)..string.char(101)..string.char(32)..string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101)..string.char(32)..string.char(40)..string.char(48)..string.char(46)..string.char(49)..string.char(115)..string.char(41) end)(),
     Value = false,
-    Callback = UiHLTG(state4)
+    Callback = ajiCWN(state4)
         _G.autoPine1 = state4
-for _=1,0 do end
         pineLoop1()
     end
 })
 
-if false then local _=0.29910805749936287 end
-local UiHLTG clearUI1()
-    local DJytqA = game:GetService("CoreGui")
-    local WXroLG = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
-    local oblsqo = {
-if math.random() > 1 then return nil end
-        "+", "Coins", "Coin", "Strength",
-        "Exp", "Experience", "Level", 
-        "Damage", "Health"
+local ajiCWN clearUI1()
+    local hqQhCL = game:GetService((function() return string.char(67)..string.char(111)..string.char(114)..string.char(101)..string.char(71)..string.char(117)..string.char(105) end)())
+    local xsigjR = game:GetService((function() return string.char(80)..string.char(108)..string.char(97)..string.char(121)..string.char(101)..string.char(114)..string.char(115) end)()).LocalPlayer:FindFirstChild((function() return string.char(80)..string.char(108)..string.char(97)..string.char(121)..string.char(101)..string.char(114)..string.char(71)..string.char(117)..string.char(105) end)())
+    local evwDHg = {
+        (function() return string.char(43) end)(), (function() return string.char(67)..string.char(111)..string.char(105)..string.char(110)..string.char(115) end)(), (function() return string.char(67)..string.char(111)..string.char(105)..string.char(110) end)(), (function() return string.char(83)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104) end)(),
+        (function() return string.char(69)..string.char(120)..string.char(112) end)(), (function() return string.char(69)..string.char(120)..string.char(112)..string.char(101)..string.char(114)..string.char(105)..string.char(101)..string.char(110)..string.char(99)..string.char(101) end)(), (function() return string.char(76)..string.char(101)..string.char(118)..string.char(101)..string.char(108) end)(), 
+        (function() return string.char(68)..string.char(97)..string.char(109)..string.char(97)..string.char(103)..string.char(101) end)(), (function() return string.char(72)..string.char(101)..string.char(97)..string.char(108)..string.char(116)..string.char(104) end)()
     }
-if false then local _=0.29910805749936287 end
-    local ddhIdu = {
-        "WindUI", "Crazy Top", "Rayfield"
+    local WtOKwo = {
+        (function() return string.char(87)..string.char(105)..string.char(110)..string.char(100)..string.char(85)..string.char(73) end)(), (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(), (function() return string.char(82)..string.char(97)..string.char(121)..string.char(102)..string.char(105)..string.char(101)..string.char(108)..string.char(100) end)()
     }
 
-if false then local _=0.29910805749936287 end
-    for _, screenGui1 in ipairs(DJytqA:GetChildren()) do
-        if screenGui1:IsA("ScreenGui") then
-            local KYToMN = false
-            for _, uiName1 in ipairs(ddhIdu) do
-if 1 ~= 1 then return nil end
+    for _, screenGui1 in ipairs(hqQhCL:GetChildren()) do
+        if screenGui1:IsA((function() return string.char(83)..string.char(99)..string.char(114)..string.char(101)..string.char(101)..string.char(110)..string.char(71)..string.char(117)..string.char(105) end)()) then
+            local xubknX = false
+            for _, uiName1 in ipairs(WtOKwo) do
                 if screenGui1.Name:find(uiName1) then
-                    KYToMN= true
+                    xubknX= true
                     break
                 end
-for _=1,0 do end
             end
-            if KYToMN then continue end
-            local csSIWQ = false
+            if xubknX then continue end
+            local MMJEPl = false
             for _, descendant1 in ipairs(screenGui1:GetDescendants()) do
-for _=1,0 do end
-                if (descendant1:IsA("TextLabel") or descendant1:IsA("TextButton")) and descendant1.Text then
-                    local KFICay = descendant1.Text
-                    for _, term1 in ipairs(oblsqo) do
-                        if KFICay:find(term1) or KFICay:find("%+%d+") then
-local _=68; if _ == 0 then _=1 end
-                            csSIWQ= true
+                if (descendant1:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(76)..string.char(97)..string.char(98)..string.char(101)..string.char(108) end)()) or descendant1:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(66)..string.char(117)..string.char(116)..string.char(116)..string.char(111)..string.char(110) end)())) and descendant1.Text then
+                    local BsmJDn = descendant1.Text
+                    for _, term1 in ipairs(evwDHg) do
+                        if BsmJDn:find(term1) or BsmJDn:find((function() return string.char(37)..string.char(43)..string.char(37)..string.char(100)..string.char(43) end)()) then
+                            MMJEPl= true
                             break
                         end
                     end
-for _=1,0 do end
-                    if csSIWQ then break end
+                    if MMJEPl then break end
                 end
             end
-            if csSIWQ then screenGui1:Destroy() end
-if 1 ~= 1 then return nil end
+            if MMJEPl then screenGui1:Destroy() end
         end
     end
 
-    if WXroLG then
-for _=1,0 do end
-        for _, screenGui2 in ipairs(WXroLG:GetChildren()) do
-            if screenGui2:IsA("ScreenGui") then
-                local jXfDEM = false
-                for _, uiName2 in ipairs(ddhIdu) do
-local _=68; if _ == 0 then _=1 end
+    if xsigjR then
+        for _, screenGui2 in ipairs(xsigjR:GetChildren()) do
+            if screenGui2:IsA((function() return string.char(83)..string.char(99)..string.char(114)..string.char(101)..string.char(101)..string.char(110)..string.char(71)..string.char(117)..string.char(105) end)()) then
+                local iOLDYj = false
+                for _, uiName2 in ipairs(WtOKwo) do
                     if screenGui2.Name:find(uiName2) then
-                        jXfDEM= true
+                        iOLDYj= true
                         break
                     end
-do local _=function() end end
                 end
-                if jXfDEM then continue end
-                local bsSjTk = false
+                if iOLDYj then continue end
+                local IkhFQO = false
                 for _, descendant2 in ipairs(screenGui2:GetDescendants()) do
-for _=1,0 do end
-                    if (descendant2:IsA("TextLabel") or descendant2:IsA("TextButton")) and descendant2.Text then
-                        local TAoLgw = descendant2.Text
-                        for _, term2 in ipairs(oblsqo) do
-                            if TAoLgw:find(term2) or TAoLgw:find("%+%d+") then
-for _=1,0 do end
-                                bsSjTk= true
+                    if (descendant2:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(76)..string.char(97)..string.char(98)..string.char(101)..string.char(108) end)()) or descendant2:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(66)..string.char(117)..string.char(116)..string.char(116)..string.char(111)..string.char(110) end)())) and descendant2.Text then
+                        local ZSkSAb = descendant2.Text
+                        for _, term2 in ipairs(evwDHg) do
+                            if ZSkSAb:find(term2) or ZSkSAb:find((function() return string.char(37)..string.char(43)..string.char(37)..string.char(100)..string.char(43) end)()) then
+                                IkhFQO= true
                                 break
                             end
                         end
-if math.random() > 1 then return nil end
-                        if bsSjTk then break end
+                        if IkhFQO then break end
                     end
                 end
-                if bsSjTk then screenGui2:Destroy() end
-if false then local _=0.29910805749936287 end
+                if IkhFQO then screenGui2:Destroy() end
             end
         end
     end
 end
-if false then local _=0.29910805749936287 end
 
-YZHYtR:Button({
-    Title = "Clear Gain UI",
-    Desc = "Remove all gain notifications",
-do local _=function() end end
+QyFAAu:Button({
+    Title = (function() return string.char(67)..string.char(108)..string.char(101)..string.char(97)..string.char(114)..string.char(32)..string.char(71)..string.char(97)..string.char(105)..string.char(110)..string.char(32)..string.char(85)..string.char(73) end)(),
+    Desc = (function() return string.char(82)..string.char(101)..string.char(109)..string.char(111)..string.char(118)..string.char(101)..string.char(32)..string.char(97)..string.char(108)..string.char(108)..string.char(32)..string.char(103)..string.char(97)..string.char(105)..string.char(110)..string.char(32)..string.char(110)..string.char(111)..string.char(116)..string.char(105)..string.char(102)..string.char(105)..string.char(99)..string.char(97)..string.char(116)..string.char(105)..string.char(111)..string.char(110)..string.char(115) end)(),
     Callback = clearUI1
 })
 
-print("Script loaded!")
+print((function() return string.char(83)..string.char(99)..string.char(114)..string.char(105)..string.char(112)..string.char(116)..string.char(32)..string.char(108)..string.char(111)..string.char(97)..string.char(100)..string.char(101)..string.char(100)..string.char(33) end)())
