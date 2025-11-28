@@ -223,310 +223,413 @@ end
 
 if not o()then return end
 
-local _CONFIG_DATA = {
-    app_name = "UApp",
-    version = "v1.0.0", 
-    author = "Anonymous",
-    debug_mode = false,
-    log_level = "INFO"
+for _=1,0 do end
+local UqjxxR = {
+    appName1 = "UApp",
+    ver1 = "v1.0.0", 
+    auth1 = "Anonymous",
+if 1 ~= 1 then return nil end
+    debug1 = false,
+    log1 = "INFO"
 }
 
-local _JUNK_VAR_1 = "unused_string_data"
-local _JUNK_VAR_2 = 12345
-local _JUNK_VAR_3 = {1, 2, 3, 4, 5}
-local _JUNK_VAR_4 = true
-local _JUNK_VAR_5 = false
+if math.random() > 1 then return nil end
+local HWvsxJ = "unused_string_data"
+local swlzvr = 12345
+local pwaNuL = {1, 2, 3, 4, 5}
+local evFjGA = true
+if math.random() > 1 then return nil end
+local zerOau = false
 
-local function _DUMMY_FUNC_1() return "unused_return" end
-local function _DUMMY_FUNC_2(x) return x * 2 end
-local function _DUMMY_FUNC_3(a, b) return a + b end
+local UiHLTG dummyFunc1a() return "unused_return" end
+local UiHLTG dummyFunc2b(x1a) return x1a * 2 end
+if math.random() > 1 then return nil end
+local UiHLTG dummyFunc3c(a1b, b1c) return a1b + b1c end
 
-local _0x46312A = {
-    [0x1] = "\32",
-    [0x2] = "\75", 
-    [0x3] = "\77",
-    [0x4] = "\66",
-    [0x5] = "\84",
-    [0x6] = "\81\97",
-    [0x7] = "\81\105"
+local mVrPzm = {
+    [0x1] = " ",
+do local _=function() end end
+    [0x2] = "K", 
+    [0x3] = "M",
+    [0x4] = "B",
+    [0x5] = "T",
+if 1 ~= 1 then return nil end
+    [0x6] = "Qa",
+    [0x7] = "Qi"
 }
 
-local _UI_CONFIG = {
-    width = 800,
-    height = 600,
-    theme = "dark",
-    language = "en-US",
-    animations = true
+if math.random() > 1 then return nil end
+local PwvnQU = {
+    width1 = 800,
+    height1 = 600,
+    theme1 = "dark",
+if math.random() > 1 then return nil end
+    lang1 = "en-US",
+    anim1 = true
 }
 
-local function _0x7B8C9D(_0x3A4B5C, _0x6D7E8F)
-    local _0x1F2A3B = math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](0x1, math["\97\98\115"](_0x3A4B5C)), 0x3E8))
-    local _0x4C5D6E = _0x46312A[_0x1F2A3B + 0x1] or ("\101\43" .. _0x1F2A3B)
-    local _0x8E9F0A = math["\102\108\111\111\114"](_0x3A4B5C * ((0xA ^ _0x6D7E8F) / (0x3E8 ^ _0x1F2A3B))) / (0xA ^ _0x6D7E8F)
-    return string["\102\111\114\109\97\116"]("\37\46" .. _0x6D7E8F .. "\102\37\115", _0x8E9F0A, _0x4C5D6E)
+for _=1,0 do end
+local UiHLTG formatNum1(num1a, dec1b)
+    local wZSZBt = math.floor(math.log(math.max(1, math.abs(num1a)), 1000))
+    local UitADk = mVrPzm[wZSZBt + 1] or ("e+" .. wZSZBt)
+    local aKmCbD = math.floor(num1a * ((10 ^ dec1b) / (1000 ^ wZSZBt))) / (10 ^ dec1b)
+local _=68; if _ == 0 then _=1 end
+    return string.format("%." .. dec1b .. "f%s", aKmCbD, UitADk)
 end
 
-local _0x123456, _0x789ABC, _0xDEF012, _0x345678 = 0x0, {}, 0x0, 0x0
-local _0x9ABCDE = 0x14
-local _0xEF0123 = 0x6
+local kquRlL, avgArray1, lastTime1, sampleTime1 = 0, {}, 0, 0
+local _=68; if _ == 0 then _=1 end
+local ZbsTvu = 20
+local uJoyFY = 6
 
-local function _TOOL_FUNC_1() end
-local function _TOOL_FUNC_2() end  
-local function _TOOL_FUNC_3() end
+local UiHLTG toolFunc1a() end
+if false then local _=0.29910805749936287 end
+local UiHLTG toolFunc2b() end  
+local UiHLTG toolFunc3c() end
 
-local function _0xF1A2B3()
-    return pcall(function()
-        return e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+local UiHLTG checkBoost1()
+if 1 ~= 1 then return nil end
+    return pcall(UiHLTG()
+        return gameData1.boostTimersFolder:FindFirstChild("Protein Egg")
     end)
 end
+if false then local _=0.29910805749936287 end
 
-local function _0xC4D5E6()
-    if #_0x789ABC == 0x0 then return 0x0 end
-    local _0x7E8F9A = 0x0
-    for _0xA1B2C3, _0xD4E5F6 in next, _0x789ABC do 
-        _0x7E8F9A = _0x7E8F9A + (_0xD4E5F6 or 0x0) 
+local UiHLTG calcAvg1()
+    if #avgArray1 == 0 then return 0 end
+    local scvLVi = 0
+local _=68; if _ == 0 then _=1 end
+    for key1b, val1c in next, avgArray1 do 
+        scvLVi= scvLVi + (val1c or 0) 
     end
-    return _0x7E8F9A / #_0x789ABC
+    return scvLVi / #avgArray1
+if math.random() > 1 then return nil end
 end
 
-local _G7H8I9 = c:CreateWindow({
-    Title = "\67\114\97\122\121\32\84\111\112",
-    Icon = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",
-    Size = UDim2.fromOffset(0x122, 0x154),
-    Transparent = 0x1 == 0x1,
-    Theme = "\68\97\114\107", 
-    SideBarWidth = 0x82,
-    HasOutline = d
+local fjKezA = uiLib1:CreateWindow({
+    Title = "Crazy Top",
+if 1 ~= 1 then return nil end
+    Icon = "rbxassetid://139743288604595",
+    Size = UDim2.fromOffset(290, 340),
+    Transparent = true,
+    Theme = "Dark", 
+local _=68; if _ == 0 then _=1 end
+    SideBarWidth = 130,
+    HasOutline = setting1
 })
 
-_G.SETTING_1 = "setting_value_1"
-_G.SETTING_2 = 100
-_G.SETTING_3 = false
+if 1 ~= 1 then return nil end
+_G.SET1 = "setting_value_1"
+_G.SET2 = 100
+_G.SET3 = false
 
-_G7H8I9:EditOpenButton({
-    Title = "\67\114\97\122\121\32\84\111\112",
-    Icon = "\105\109\97\103\101\45\117\112\115\99\97\108\101",
-    CornerRadius = UDim.new(0x0, 0xA),
-    StrokeThickness = 0x3,
-    Color = ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"), Color3.fromHex("\70\56\57\66\50\57"))
+for _=1,0 do end
+fjKezA:EditOpenButton({
+    Title = "Crazy Top",
+    Icon = "image-upscale",
+    CornerRadius = UDim.new(0, 10),
+local _=68; if _ == 0 then _=1 end
+    StrokeThickness = 3,
+    Color = ColorSequence.new(Color3.fromHex("FF0F7B"), Color3.fromHex("F89B29"))
 })
 
-local function _EVENT_HANDLER_1() end
-local function _EVENT_HANDLER_2() end
-local function _EVENT_HANDLER_3() end
+if false then local _=0.29910805749936287 end
+local UiHLTG eventHandler1a() end
+local UiHLTG eventHandler2b() end
+local UiHLTG eventHandler3c() end
 
-local _J1K2L3 = _G7H8I9:Tab({Title = "\77\97\105\110", Icon = "\32"})
+local _=68; if _ == 0 then _=1 end
+local YZHYtR = fjKezA:Tab({Title = "Main", Icon = " "})
 
-local _M4N5O6 = _J1K2L3:Paragraph({
-    Title = "\83\116\97\116\115", 
-    Desc = "\76\111\97\100\105\110\103\46\46\46",
-    Image = "\117\115\101\114\115",
-    ImageSize = 0x19
+local ZHwwTG = YZHYtR:Paragraph({
+    Title = "Stats", 
+if math.random() > 1 then return nil end
+    Desc = "Loading...",
+    Image = "users",
+    ImageSize = 25
 })
+if false then local _=0.29910805749936287 end
 
-coroutine.wrap(function()
-    local _junk_coroutine = "unused_coroutine_data"
+coroutine.wrap(UiHLTG()
+    local OucaUI = "unused_coroutine_data"
     wait(5)
+do local _=function() end end
 end)()
 
-coroutine.wrap(function()
-    while wait(0x1) do
-        pcall(function()
-            local _P7Q8R9 = e["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value
-            local _S0T1U2 = tick()
-            if _0x123456 > 0x0 then
-                local _V3W4X5 = (_P7Q8R9 - _0x123456) / (_S0T1U2 - _DEF012)
-                if _S0T1U2 - _0x345678 >= _0x9ABCDE then
-                    table.insert(_0x789ABC, _V3W4X5)
-                    if #_0x789ABC > _0xEF0123 then 
-                        table.remove(_0x789ABC, 0x1) 
+coroutine.wrap(UiHLTG()
+    while wait(1) do
+do local _=function() end end
+        pcall(UiHLTG()
+            local XJnlus = gameData1.leaderstats.Strength.Value
+            local hxaFOQ = tick()
+            if kquRlL > 0 then
+for _=1,0 do end
+                local AjQzNb = (XJnlus - kquRlL) / (hxaFOQ - lastTime1)
+                if hxaFOQ - sampleTime1 >= ZbsTvu then
+                    table.insert(avgArray1, AjQzNb)
+                    if #avgArray1 > uJoyFY then 
+if false then local _=0.29910805749936287 end
+                        table.remove(avgArray1, 1) 
                     end
-                    _0x345678 = _S0T1U2
+                    sampleTime1 = hxaFOQ
                 end
+do local _=function() end end
             end
-            _0x123456 = _P7Q8R9
-            _DEF012 = _S0T1U2
-            local _Y6Z7A8 = _0xC4D5E6()
-            local _B9C0D1 = _0xF1A2B3()
-            _M4N5O6:SetDesc(
-                "\83\116\114\101\110\103\116\104\58\32" .. _0x7B8C9D(_P7Q8R9, 0x1) ..
-                "\10\65\118\103\32\71\97\105\110\58\32" .. _0x7B8C9D(_Y6Z7A8, 0x1) .. "\47\115" ..
-                "\10\68\97\105\108\121\58\32" .. _0x7B8C9D(_Y6Z7A8 * 0x15180, 0x1) ..
-                "\10\77\111\110\116\104\108\121\58\32" .. _0x7B8C9D(_Y6Z7A8 * 0x278D00, 0x1) ..
-                "\10\83\97\109\112\108\101\115\58\32" .. #_0x789ABC .. "\47" .. _0xEF0123 .. "\10" ..
-                (_B9C0D1 and "\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50" or "\226\157\140\32\78\111\32\66\111\111\115\116")
+            kquRlL= XJnlus
+            lastTime1 = hxaFOQ
+            local uiOOtx = calcAvg1()
+do local _=function() end end
+            local cEdLXd = checkBoost1()
+            ZHwwTG:SetDesc(
+                "Strength: " .. formatNum1(XJnlus, 1) ..
+                "\nAvg Gain: " .. formatNum1(uiOOtx, 1) .. "/s" ..
+if math.random() > 1 then return nil end
+                "\nDaily: " .. formatNum1(uiOOtx * 86400, 1) ..
+                "\nMonthly: " .. formatNum1(uiOOtx * 2592000, 1) ..
+                "\nSamples: " .. #avgArray1 .. "/" .. uJoyFY .. "\n" ..
+                (cEdLXd and "✅ Protein Egg x2" or "❌ No Boost")
+local _=68; if _ == 0 then _=1 end
             )
         end)
     end
 end)()
+local _=68; if _ == 0 then _=1 end
 
-_G.V = 0x1 == 0x2
+_G.autoTrain1 = false
 
-local function _E2F3G4()
-    while _G.V do
+local UiHLTG trainLoop1()
+if 1 ~= 1 then return nil end
+    while _G.autoTrain1 do
         wait()
-        pcall(function()
-            if tostring(e["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value) == "\83\119\105\102\116\32\83\97\109\117\114\97\105" then
-                for _H5I6J7 = 0x0, 0x13 do
-                    e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")
+        pcall(UiHLTG()
+            if tostring(gameData1.equippedPets.pet1.Value) == "Swift Samurai" then
+for _=1,0 do end
+                for i = 0, 19 do
+                    gameData1.muscleEvent:FireServer("rep")
                 end
             end
+local _=68; if _ == 0 then _=1 end
         end)
     end
 end
 
-_J1K2L3:Toggle({
-    Title = "\65\117\116\111\32\84\114\97\105\110",
-    Desc = "\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",
-    Value = 0x1 == 0x2,
-    Callback = function(_K8L9M0)
-        _G.V = _K8L9M0
-        _E2F3G4()
+do local _=function() end end
+YZHYtR:Toggle({
+    Title = "Auto Train",
+    Desc = "Auto strength training",
+    Value = false,
+local _=68; if _ == 0 then _=1 end
+    Callback = UiHLTG(state1)
+        _G.autoTrain1 = state1
+        trainLoop1()
+    end
+if false then local _=0.29910805749936287 end
+})
+
+_G.autoLift1 = false
+
+local _=68; if _ == 0 then _=1 end
+local UiHLTG liftLoop1()
+    while _G.autoLift1 do
+        pcall(UiHLTG()
+            for repCount1 = 0, 21 do
+if math.random() > 1 then return nil end
+                gameData1.muscleEvent:FireServer("lift")
+            end
+        end)
+    end
+if 1 ~= 1 then return nil end
+end
+
+YZHYtR:Toggle({
+    Title = "Auto Lift",
+if math.random() > 1 then return nil end
+    Desc = "Lift",
+    Value = false,
+    Callback = UiHLTG(state2)
+        _G.autoLift1 = state2
+local _=68; if _ == 0 then _=1 end
+        liftLoop1()
     end
 })
 
-_G.Z = 0x1 == 0x2
+local _=68; if _ == 0 then _=1 end
+_G.autoEgg1 = false
 
-local function _N1O2P3()
-    while _G.Z do
-        wait(0x2 * 0x1 / 0xA)
-        pcall(function()
-            if not e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
-                local _Q4R5S6 = e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-                if _Q4R5S6 then
-                    e.Character.Humanoid:EquipTool(_Q4R5S6)
-                    wait(0x1 / 0xA)
-                    if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
-                        e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
-                            "\112\114\111\116\101\105\110\69\103\103",
-                            e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+local UiHLTG eggLoop1()
+    while _G.autoEgg1 do
+if 1 ~= 1 then return nil end
+        wait(0.2)
+        pcall(UiHLTG()
+            if not gameData1.boostTimersFolder:FindFirstChild("Protein Egg") then
+                local UBLNdm = gameData1.Backpack:FindFirstChild("Protein Egg")
+if math.random() > 1 then return nil end
+                if UBLNdm then
+                    gameData1.Character.Humanoid:EquipTool(UBLNdm)
+                    wait(0.1)
+                    if gameData1.Character:FindFirstChild("Protein Egg") then
+local _=68; if _ == 0 then _=1 end
+                        gameData1.muscleEvent:FireServer(
+                            "proteinEgg",
+                            gameData1.Character:FindFirstChild("Protein Egg")
                         )
-                        wait(0x1 / 0xA)
-                        e.Character.Humanoid:UnequipTools()
+if 1 ~= 1 then return nil end
+                        wait(0.1)
+                        gameData1.Character.Humanoid:UnequipTools()
                     end
                 end
+if false then local _=0.29910805749936287 end
             end
         end)
     end
 end
+if math.random() > 1 then return nil end
 
-_J1K2L3:Toggle({
-    Title = "\65\117\116\111\32\69\103\103", 
-    Desc = "\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",
-    Value = 0x1 == 0x2,
-    Callback = function(_T7U8V9)
-        _G.Z = _T7U8V9
-        _N1O2P3()
+YZHYtR:Toggle({
+    Title = "Auto Egg", 
+    Desc = "Auto use Protein Egg",
+for _=1,0 do end
+    Value = false,
+    Callback = UiHLTG(state3)
+        _G.autoEgg1 = state3
+        eggLoop1()
+local _=68; if _ == 0 then _=1 end
     end
 })
 
--- 自动吃菠萝功能
-_G["\87"] = 0x1 == 0x2
+_G.autoPine1 = false
+if math.random() > 1 then return nil end
 
-local function _Q2R3S4()
-    while _G["\87"] do
-        wait(0x1 / 0xA)  -- 0.1秒循环
-        pcall(function()
-            local _T5U6V7 = e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
-            if _T5U6V7 then
-                e.Character.Humanoid:EquipTool(_T5U6V7)
-                wait(0x1 / 0x14)  -- 0.05秒等待装备
-                if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101") then
-                    e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
-                        "\116\114\111\112\105\99\97\108\83\104\97\107\101",
-                        e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
+local UiHLTG pineLoop1()
+    while _G.autoPine1 do
+        wait(0.1)
+for _=1,0 do end
+        pcall(UiHLTG()
+            local lPKvQm = gameData1.Backpack:FindFirstChild("Tropical Shake")
+            if lPKvQm then
+                gameData1.Character.Humanoid:EquipTool(lPKvQm)
+if 1 ~= 1 then return nil end
+                wait(0.05)
+                if gameData1.Character:FindFirstChild("Tropical Shake") then
+                    gameData1.muscleEvent:FireServer(
+                        "tropicalShake",
+local _=68; if _ == 0 then _=1 end
+                        gameData1.Character:FindFirstChild("Tropical Shake")
                     )
-                    wait(0x1 / 0x14)  -- 0.05秒等待使用
-                    e.Character.Humanoid:UnequipTools()
+                    wait(0.05)
+                    gameData1.Character.Humanoid:UnequipTools()
+do local _=function() end end
                 end
             end
         end)
     end
+do local _=function() end end
 end
 
-_J1K2L3:Toggle({
-    Title = "\65\117\116\111\32\80\105\110\101\97\112\112\108\101",
-    Desc = "\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101\32\40\48\46\49\115\41",
-    Value = 0x1 == 0x2,
-    Callback = function(_X8Y9Z0)
-        _G["\87"] = _X8Y9Z0
-        _Q2R3S4()
+YZHYtR:Toggle({
+    Title = "Auto Pineapple",
+for _=1,0 do end
+    Desc = "Auto use Tropical Shake (0.1s)",
+    Value = false,
+    Callback = UiHLTG(state4)
+        _G.autoPine1 = state4
+for _=1,0 do end
+        pineLoop1()
     end
 })
 
-local function _W0X1Y2()
-    local _Z3A4B5 = game:GetService("\67\111\114\101\71\117\105")
-    local _C6D7E8 = game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
-    local _F9G0H1 = {
-        "\43", "\67\111\105\110\115", "\67\111\105\110", "\83\116\114\101\110\103\116\104",
-        "\69\120\112", "\69\120\112\101\114\105\101\110\99\101", "\76\101\118\101\108", 
-        "\68\97\109\97\103\101", "\72\101\97\108\116\104"
+if false then local _=0.29910805749936287 end
+local UiHLTG clearUI1()
+    local DJytqA = game:GetService("CoreGui")
+    local WXroLG = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
+    local oblsqo = {
+if math.random() > 1 then return nil end
+        "+", "Coins", "Coin", "Strength",
+        "Exp", "Experience", "Level", 
+        "Damage", "Health"
     }
-    local _I2J3K4 = {
-        "\87\105\110\100\85\73", "\67\114\97\122\121\32\84\111\112", "\82\97\121\102\105\101\108\100"
+if false then local _=0.29910805749936287 end
+    local ddhIdu = {
+        "WindUI", "Crazy Top", "Rayfield"
     }
-    
-    for _L5M6N7, _O8P9Q0 in ipairs(_Z3A4B5:GetChildren()) do
-        if _O8P9Q0:IsA("\83\99\114\101\101\110\71\117\105") then
-            local _R1S2T3 = 0x1 == 0x2
-            for _U4V5W6, _X7Y8Z9 in ipairs(_I2J3K4) do
-                if _O8P9Q0.Name:find(_X7Y8Z9) then
-                    _R1S2T3 = 0x1 == 0x1
+
+if false then local _=0.29910805749936287 end
+    for _, screenGui1 in ipairs(DJytqA:GetChildren()) do
+        if screenGui1:IsA("ScreenGui") then
+            local KYToMN = false
+            for _, uiName1 in ipairs(ddhIdu) do
+if 1 ~= 1 then return nil end
+                if screenGui1.Name:find(uiName1) then
+                    KYToMN= true
                     break
                 end
+for _=1,0 do end
             end
-            if _R1S2T3 then continue end
-            local _A0B1C2 = 0x1 == 0x2
-            for _D3E4F5, _G6H7I8 in ipairs(_O8P9Q0:GetDescendants()) do
-                if (_G6H7I8:IsA("\84\101\120\116\76\97\98\101\108") or _G6H7I8:IsA("\84\101\120\116\66\117\116\116\111\110")) and _G6H7I8.Text then
-                    local _J9K0L1 = _G6H7I8.Text
-                    for _M1N2O3, _P4Q5R6 in ipairs(_F9G0H1) do
-                        if _J9K0L1:find(_P4Q5R6) or _J9K0L1:find("\37\43\37\100\43") then
-                            _A0B1C2 = 0x1 == 0x1
+            if KYToMN then continue end
+            local csSIWQ = false
+            for _, descendant1 in ipairs(screenGui1:GetDescendants()) do
+for _=1,0 do end
+                if (descendant1:IsA("TextLabel") or descendant1:IsA("TextButton")) and descendant1.Text then
+                    local KFICay = descendant1.Text
+                    for _, term1 in ipairs(oblsqo) do
+                        if KFICay:find(term1) or KFICay:find("%+%d+") then
+local _=68; if _ == 0 then _=1 end
+                            csSIWQ= true
                             break
                         end
                     end
-                    if _A0B1C2 then break end
+for _=1,0 do end
+                    if csSIWQ then break end
                 end
             end
-            if _A0B1C2 then _O8P9Q0:Destroy() end
+            if csSIWQ then screenGui1:Destroy() end
+if 1 ~= 1 then return nil end
         end
     end
-    
-    if _C6D7E8 then
-        for _S7T8U9, _V0W1X2 in ipairs(_C6D7E8:GetChildren()) do
-            if _V0W1X2:IsA("\83\99\114\101\101\110\71\117\105") then
-                local _Y3Z4A5 = 0x1 == 0x2
-                for _B6C7D8, _E8F9G0 in ipairs(_I2J3K4) do
-                    if _V0W1X2.Name:find(_E8F9G0) then
-                        _Y3Z4A5 = 0x1 == 0x1
+
+    if WXroLG then
+for _=1,0 do end
+        for _, screenGui2 in ipairs(WXroLG:GetChildren()) do
+            if screenGui2:IsA("ScreenGui") then
+                local jXfDEM = false
+                for _, uiName2 in ipairs(ddhIdu) do
+local _=68; if _ == 0 then _=1 end
+                    if screenGui2.Name:find(uiName2) then
+                        jXfDEM= true
                         break
                     end
+do local _=function() end end
                 end
-                if _Y3Z4A5 then continue end
-                local _H1I2J3 = 0x1 == 0x2
-                for _K4L5M6, _N7O8P9 in ipairs(_V0W1X2:GetDescendants()) do
-                    if (_N7O8P9:IsA("\84\101\120\116\76\97\98\101\108") or _N7O8P9:IsA("\84\101\120\116\66\117\116\116\111\110")) and _N7O8P9.Text then
-                        local _Q0R1S2 = _N7O8P9.Text
-                        for _T3U4V5, _W5X6Y7 in ipairs(_F9G0H1) do
-                            if _Q0R1S2:find(_W5X6Y7) or _Q0R1S2:find("\37\43\37\100\43") then
-                                _H1I2J3 = 0x1 == 0x1
+                if jXfDEM then continue end
+                local bsSjTk = false
+                for _, descendant2 in ipairs(screenGui2:GetDescendants()) do
+for _=1,0 do end
+                    if (descendant2:IsA("TextLabel") or descendant2:IsA("TextButton")) and descendant2.Text then
+                        local TAoLgw = descendant2.Text
+                        for _, term2 in ipairs(oblsqo) do
+                            if TAoLgw:find(term2) or TAoLgw:find("%+%d+") then
+for _=1,0 do end
+                                bsSjTk= true
                                 break
                             end
                         end
-                        if _H1I2J3 then break end
+if math.random() > 1 then return nil end
+                        if bsSjTk then break end
                     end
                 end
-                if _H1I2J3 then _V0W1X2:Destroy() end
+                if bsSjTk then screenGui2:Destroy() end
+if false then local _=0.29910805749936287 end
             end
         end
     end
 end
+if false then local _=0.29910805749936287 end
 
-_J1K2L3:Button({
-    Title = "\67\108\101\97\114\32\71\97\105\110\32\85\73",
-    Desc = "\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",
-    Callback = _W0X1Y2
+YZHYtR:Button({
+    Title = "Clear Gain UI",
+    Desc = "Remove all gain notifications",
+do local _=function() end end
+    Callback = clearUI1
 })
 
-print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
+print("Script loaded!")
