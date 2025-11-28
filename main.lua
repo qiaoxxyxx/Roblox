@@ -223,13 +223,13 @@ end
 
 if not o()then return end
 
-local v={[1]="",[2]="\75",[3]="\77",[4]="\66",[5]="\84",[6]="\81\97",[7]="\81\105"}local function w(x,y)local z=math.floor(math.log(math.max(1,math.abs(x)),1000))local A=v[z+1]or("\101\43"..z)local B=math.floor(x*((10^y)/(1000^z)))/(10^y)return string.format("\37\46"..y.."\102\37\115",B,A)end;local C,D,E,F=0,{},0,0;local G=20;local H=6;local function I()return pcall(function()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function J()if#D==0 then return 0 end;local K=0;for L,M in next,D do K=K+(M or 0)end;return K/#D end;local N=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})N:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local O=N:Tab({Title="\77\97\105\110",Icon=""})local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(function()while wait(1)do pcall(function()local Q=e.leaderstats.Strength.Value;local R=tick()if C>0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,1)end;F=R end end;C=Q;E=R;local T=J()local U=I()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(Q,1).."\10\65\118\103\32\71\97\105\110\58\32"..w(T,1).."\47\115\10\68\97\105\108\121\58\32"..w(T*86400,1).."\10\77\111\110\116\104\108\121\58\32"..w(T*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=false;local function W()while _G.V do wait()pcall(function()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=function(Y)_G.V=Y;W()end})
+local v={[0x1]="",[0x2]="\75",[0x3]="\77",[0x4]="\66",[0x5]="\84",[0x6]="\81\97",[0x7]="\81\105"}local function w(x,y)local z=math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](0x1,math["\97\98\115"](x)),0x3E8))local A=v[z+0x1]or("\101\43"..z)local B=math["\102\108\111\111\114"](x*((0xA^y)/(0x3E8^z)))/(0xA^y)return string["\102\111\114\109\97\116"]("\37\46"..y.."\102\37\115",B,A)end;local C,D,E,F=0x0,{},0x0,0x0;local G=0x14;local H=0x6;local function I()return pcall(function()return e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function J()if#D==0x0 then return 0x0 end;local K=0x0;for L,M in next,D do K=K+(M or 0x0)end;return K/#D end;local N=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(0x122,0x154),Transparent=0x1==0x1,Theme="\68\97\114\107",SideBarWidth=0x82,HasOutline=d})N:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0x0,0xA),StrokeThickness=0x3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local O=N:Tab({Title="\77\97\105\110",Icon=""})local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=0x19})coroutine.wrap(function()while wait(0x1)do pcall(function()local Q=e["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value;local R=tick()if C>0x0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,0x1)end;F=R end end;C=Q;E=R;local T=J()local U=I()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(Q,0x1).."\10\65\118\103\32\71\97\105\110\58\32"..w(T,0x1).."\47\115\10\68\97\105\108\121\58\32"..w(T*0x15180,0x1).."\10\77\111\110\116\104\108\121\58\32"..w(T*0x278D00,0x1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=0x1==0x2;local function W()while _G.V do wait()pcall(function()if tostring(e["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0x0,0x13 do e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=0x1==0x2,Callback=function(Y)_G.V=Y;W()end})
 
-_G.L=false;local function Z()while _G.L do wait()pcall(function()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for a0=0,20.5 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110\32\50",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103\32\50",Value=false,Callback=function(a1)_G.L=a1;Z()end})
+_G.L=0x1==0x2;local function Z()while _G.L do wait()pcall(function()if tostring(e["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for a0=0x0,0x14 do e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110\32\50",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103\32\50",Value=0x1==0x2,Callback=function(a1)_G.L=a1;Z()end})
 
-_G.Z=false;local function _()while _G.Z do wait(0.2)pcall(function()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local a0=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if a0 then e.Character.Humanoid:EquipTool(a0)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;O:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=function(a1)_G.Z=a1;_()end})
+_G.Z=0x1==0x2;local function _()while _G.Z do wait(0x2*0x1/0xA)pcall(function()if not e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local a0=e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if a0 then e.Character.Humanoid:EquipTool(a0)wait(0x1/0xA)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0x1/0xA)e.Character.Humanoid:UnequipTools()end end end end)end end;O:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=0x1==0x2,Callback=function(a1)_G.Z=a1;_()end})
 
-_G.W=false;local function a2()while _G.W do wait(0.1)pcall(function()local a3=e.Backpack:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")if a3 then e.Character.Humanoid:EquipTool(a3)wait(0.05)if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")then e.muscleEvent:FireServer("\116\114\111\112\105\99\97\108\83\104\97\107\101",e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101"))wait(0.05)e.Character.Humanoid:UnequipTools()end end end)end end;O:Toggle({Title="\65\117\116\111\32\80\105\110\101\97\112\112\108\101",Desc="\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",Value=false,Callback=function(a4)_G.W=a4;a2()end})
+_G.W=0x1==0x2;local function a2()while _G.W do wait(0x1/0xA)pcall(function()local a3=e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")if a3 then e.Character.Humanoid:EquipTool(a3)wait(0x1/0x14)if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")then e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\116\114\111\112\105\99\97\108\83\104\97\107\101",e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101"))wait(0x1/0x14)e.Character.Humanoid:UnequipTools()end end end)end end;O:Toggle({Title="\65\117\116\111\32\80\105\110\101\97\112\112\108\101",Desc="\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",Value=0x1==0x2,Callback=function(a4)_G.W=a4;a2()end})
 
 local function a5()
     local a6=game:GetService("\67\111\114\101\71\117\105")
@@ -238,14 +238,14 @@ local function a5()
     local a9={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
     for aa,ab in ipairs(a6:GetChildren())do
         if ab:IsA("\83\99\114\101\101\110\71\117\105")then
-            local ac=false
-            for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=true break end end
+            local ac=0x1==0x2
+            for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=0x1==0x1;break end end
             if ac then continue end
-            local af=false
+            local af=0x1==0x2
             for ag,ah in ipairs(ab:GetDescendants())do
                 if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
                     local ai=ah.Text
-                    for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=true break end end
+                    for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=0x1==0x1;break end end
                     if af then break end
                 end
             end
@@ -255,14 +255,14 @@ local function a5()
     if a7 then
         for aa,ab in ipairs(a7:GetChildren())do
             if ab:IsA("\83\99\114\101\101\110\71\117\105")then
-                local ac=false
-                for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=true break end end
+                local ac=0x1==0x2
+                for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=0x1==0x1;break end end
                 if ac then continue end
-                local af=false
+                local af=0x1==0x2
                 for ag,ah in ipairs(ab:GetDescendants())do
                     if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
                         local ai=ah.Text
-                        for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=true break end end
+                        for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=0x1==0x1;break end end
                         if af then break end
                     end
                 end
@@ -272,5 +272,5 @@ local function a5()
     end
 end
 
-O:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\118\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a5})
+O:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a5})
 print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
