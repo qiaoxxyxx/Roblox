@@ -223,232 +223,310 @@ end
 
 if not o()then return end
 
--- 第一部分：基础配置和数学函数（隐藏部分字符串）
-local _0x12A3B4 = (function()
-    local function get_string_1() return "Q3JhenkgVG9w" end -- Crazy Top
-    local function get_string_2() return "TWFpbg==" end     -- Main
-    
-    return function(index)
-        if index == 1 then return get_string_1() end
-        if index == 2 then return get_string_2() end
-        -- 其他字符串通过后续函数获取
-        return ""
-    end
-end)()
-
--- 数学函数配置（隐藏更多字符串）
-local _0x23B4C5 = {
-    [0x1] = function(_0xA1B2C3, _0xD4E5F6)
-        local function get_math_string_1() return "U3RhdHM=" end -- Stats
-        local function get_math_string_2() return "TG9hZGluZy4uLg==" end -- Loading...
-        
-        local _0x7E8F9A = math[_0x12A3B4(0x1)](math[_0x12A3B4(0x2)](math[_0x12A3B4(0x3)](0x1, math[_0x12A3B4(0x4)](_0xA1B2C3)), 0x3E8))
-        local _0xA1B2C4 = {[0x1]="",[0x2]="K",[0x3]="M",[0x4]="B",[0x5]="T",[0x6]="Qa",[0x7]="Qi"}
-        local _0xD4E5F7 = _0xA1B2C4[_0x7E8F9A + 0x1] or ("e+" .. _0x7E8F9A)
-        local _0x7E8F9B = math[_0x12A3B4(0x1)](_0xA1B2C3 * ((0xA ^ _0xD4E5F6) / (0x3E8 ^ _0x7E8F9A))) / (0xA ^ _0xD4E5F6)
-        return string[_0x12A3B4(0x5)]("%." .. _0xD4E5F6 .. "f%s", _0x7E8F9B, _0xD4E5F7)
-    end
+local _CONFIG_DATA = {
+    app_name = "UApp",
+    version = "v1.0.0", 
+    author = "Anonymous",
+    debug_mode = false,
+    log_level = "INFO"
 }
 
--- 全局变量（隐藏字符串）
-local _0x34C5D6, _0x45D6E7, _0x56E7F8, _0x67F8G9 = 0x0, {}, 0x0, 0x0
-local function get_config_string_1() return "QXV0byBUcmFpbg==" end -- Auto Train
-local function get_config_string_2() return "QXV0byBFZ2c=" end     -- Auto Egg
+local _JUNK_VAR_1 = "unused_string_data"
+local _JUNK_VAR_2 = 12345
+local _JUNK_VAR_3 = {1, 2, 3, 4, 5}
+local _JUNK_VAR_4 = true
+local _JUNK_VAR_5 = false
 
--- 窗口创建（分散字符串）
-local _0x9A0I1J = (function()
-    local function get_window_string_1() return "cmJ4YXNzZXRpZDovLzEzOTc0MzI4ODYwNDU5NQ==" end -- rbxassetid
-    local function get_window_string_2() return "RGFyaw==" end -- Dark
-    
-    local _0xK2L3M4 = c[_0x12A3B4(0xE)]({
-        Title = _0x12A3B4(1), -- Crazy Top
-        Icon = get_window_string_1(),
-        Size = UDim2.fromOffset(0x122, 0x154),
-        Transparent = 0x1 == 0x1,
-        Theme = get_window_string_2(), 
-        SideBarWidth = 0x82,
-        HasOutline = d
-    })
-    
-    return _0xK2L3M4
-end)()
+local function _DUMMY_FUNC_1() return "unused_return" end
+local function _DUMMY_FUNC_2(x) return x * 2 end
+local function _DUMMY_FUNC_3(a, b) return a + b end
 
--- UI元素创建（更多分散字符串）
-local _0xAB1J2K = _0x9A0I1J[_0x12A3B4(0x10)]({
-    Title = _0x12A3B4(2), -- Main
-    Icon = "ICAK" -- Space
+local _0x46312A = {
+    [0x1] = "\32",
+    [0x2] = "\75", 
+    [0x3] = "\77",
+    [0x4] = "\66",
+    [0x5] = "\84",
+    [0x6] = "\81\97",
+    [0x7] = "\81\105"
+}
+
+local _UI_CONFIG = {
+    width = 800,
+    height = 600,
+    theme = "dark",
+    language = "en-US",
+    animations = true
+}
+
+local function _0x7B8C9D(_0x3A4B5C, _0x6D7E8F)
+    local _0x1F2A3B = math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](0x1, math["\97\98\115"](_0x3A4B5C)), 0x3E8))
+    local _0x4C5D6E = _0x46312A[_0x1F2A3B + 0x1] or ("\101\43" .. _0x1F2A3B)
+    local _0x8E9F0A = math["\102\108\111\111\114"](_0x3A4B5C * ((0xA ^ _0x6D7E8F) / (0x3E8 ^ _0x1F2A3B))) / (0xA ^ _0x6D7E8F)
+    return string["\102\111\114\109\97\116"]("\37\46" .. _0x6D7E8F .. "\102\37\115", _0x8E9F0A, _0x4C5D6E)
+end
+
+local _0x123456, _0x789ABC, _0xDEF012, _0x345678 = 0x0, {}, 0x0, 0x0
+local _0x9ABCDE = 0x14
+local _0xEF0123 = 0x6
+
+local function _TOOL_FUNC_1() end
+local function _TOOL_FUNC_2() end  
+local function _TOOL_FUNC_3() end
+
+local function _0xF1A2B3()
+    return pcall(function()
+        return e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+    end)
+end
+
+local function _0xC4D5E6()
+    if #_0x789ABC == 0x0 then return 0x0 end
+    local _0x7E8F9A = 0x0
+    for _0xA1B2C3, _0xD4E5F6 in next, _0x789ABC do 
+        _0x7E8F9A = _0x7E8F9A + (_0xD4E5F6 or 0x0) 
+    end
+    return _0x7E8F9A / #_0x789ABC
+end
+
+local _G7H8I9 = c:CreateWindow({
+    Title = "\67\114\97\122\121\32\84\111\112",
+    Icon = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",
+    Size = UDim2.fromOffset(0x122, 0x154),
+    Transparent = 0x1 == 0x1,
+    Theme = "\68\97\114\107", 
+    SideBarWidth = 0x82,
+    HasOutline = d
 })
 
-local _0xBC2K3L = _0xAB1J2K[_0x12A3B4(0x11)]({
-    Title = "U3RhdHM=", -- Stats (直接嵌入)
-    Desc = "TG9hZGluZy4uLg==", -- Loading... (直接嵌入)
-    Image = "dXNlcnM=", -- users (直接嵌入)
+_G.SETTING_1 = "setting_value_1"
+_G.SETTING_2 = 100
+_G.SETTING_3 = false
+
+_G7H8I9:EditOpenButton({
+    Title = "\67\114\97\122\121\32\84\111\112",
+    Icon = "\105\109\97\103\101\45\117\112\115\99\97\108\101",
+    CornerRadius = UDim.new(0x0, 0xA),
+    StrokeThickness = 0x3,
+    Color = ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"), Color3.fromHex("\70\56\57\66\50\57"))
+})
+
+local function _EVENT_HANDLER_1() end
+local function _EVENT_HANDLER_2() end
+local function _EVENT_HANDLER_3() end
+
+local _J1K2L3 = _G7H8I9:Tab({Title = "\77\97\105\110", Icon = "\32"})
+
+local _M4N5O6 = _J1K2L3:Paragraph({
+    Title = "\83\116\97\116\115", 
+    Desc = "\76\111\97\100\105\110\103\46\46\46",
+    Image = "\117\115\101\114\115",
     ImageSize = 0x19
 })
 
--- 协程中隐藏字符串
 coroutine.wrap(function()
-    local function get_coroutine_string_1() return "U3RyZW5ndGg6IA==" end -- Strength: 
-    local function get_coroutine_string_2() return "CkF2ZyBHYWluOiA=" end -- \nAvg Gain: 
-    
+    local _junk_coroutine = "unused_coroutine_data"
+    wait(5)
+end)()
+
+coroutine.wrap(function()
     while wait(0x1) do
         pcall(function()
-            -- ... 统计代码 ...
-            _0xBC2K3L[_0x12A3B4(0x12)](
-                get_coroutine_string_1() .. _0x23B4C5[0x1](_0xCD3L4M, 0x1) ..
-                get_coroutine_string_2() .. _0x23B4C5[0x1](_0xFG6O7P, 0x1) .. "L3M=" -- /s
+            local _P7Q8R9 = e["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value
+            local _S0T1U2 = tick()
+            if _0x123456 > 0x0 then
+                local _V3W4X5 = (_P7Q8R9 - _0x123456) / (_S0T1U2 - _DEF012)
+                if _S0T1U2 - _0x345678 >= _0x9ABCDE then
+                    table.insert(_0x789ABC, _V3W4X5)
+                    if #_0x789ABC > _0xEF0123 then 
+                        table.remove(_0x789ABC, 0x1) 
+                    end
+                    _0x345678 = _S0T1U2
+                end
+            end
+            _0x123456 = _P7Q8R9
+            _DEF012 = _S0T1U2
+            local _Y6Z7A8 = _0xC4D5E6()
+            local _B9C0D1 = _0xF1A2B3()
+            _M4N5O6:SetDesc(
+                "\83\116\114\101\110\103\116\104\58\32" .. _0x7B8C9D(_P7Q8R9, 0x1) ..
+                "\10\65\118\103\32\71\97\105\110\58\32" .. _0x7B8C9D(_Y6Z7A8, 0x1) .. "\47\115" ..
+                "\10\68\97\105\108\121\58\32" .. _0x7B8C9D(_Y6Z7A8 * 0x15180, 0x1) ..
+                "\10\77\111\110\116\104\108\121\58\32" .. _0x7B8C9D(_Y6Z7A8 * 0x278D00, 0x1) ..
+                "\10\83\97\109\112\108\101\115\58\32" .. #_0x789ABC .. "\47" .. _0xEF0123 .. "\10" ..
+                (_B9C0D1 and "\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50" or "\226\157\140\32\78\111\32\66\111\111\115\116")
             )
         end)
     end
 end)()
 
--- 自动训练功能（分散字符串）
-(function()
-    local function get_train_string_1() return "QXV0byBzdHJlbmd0aCB0cmFpbmluZw==" end -- Auto strength training
-    local function get_train_string_2() return "cmVw" end -- rep
-    
-    local _0xHI8Q9R = {V = false, Z = false, W = false, X = false}
-    
-    local _0xIJ9R0S = function()
-        while _0xHI8Q9R.V do
-            wait()
-            pcall(function()
-                if tostring(e[_0x12A3B4(0xA)][_0x12A3B4(0xB)].Value) == "U3dpZnQgU2FtdXJhaQ==" then -- Swift Samurai
-                    for _0xJK0S1T = 0x0, 0x13 do
-                        e[_0x12A3B4(0xC)]:FireServer(get_train_string_2())
-                    end
-                end
-            end)
-        end
-    end
-    
-    _0xAB1J2K[_0x12A3B4(0x13)]({
-        Title = get_config_string_1(), -- Auto Train
-        Desc = get_train_string_1(), -- Auto strength training
-        Value = 0x1 == 0x2,
-        Callback = function(_0xKL1T2U)
-            _0xHI8Q9R.V = _0xKL1T2U
-            _0xIJ9R0S()
-        end
-    })
-end)()
+_G.V = 0x1 == 0x2
 
--- 自动鸡蛋功能（更多分散字符串）
-(function()
-    local function get_egg_string_1() return "QXV0byB1c2UgUHJvdGVpbiBFZ2c=" end -- Auto use Protein Egg
-    local function get_egg_string_2() return "cHJvdGVpbkVnZw==" end -- proteinEgg
-    
-    local _0xLM2U3V = function()
-        while _0xHI8Q9R.Z do
-            wait(0x2 * 0x1 / 0xA)
-            pcall(function()
-                if not e[_0x12A3B4(0x6)]:FindFirstChild("UHJvdGVpbiBFZ2c=") then -- Protein Egg
-                    local _0xMN3V4W = e[_0x12A3B4(0xD)]:FindFirstChild("UHJvdGVpbiBFZ2c=") -- Protein Egg
-                    if _0xMN3V4W then
-                        e.Character.Humanoid:EquipTool(_0xMN3V4W)
+local function _E2F3G4()
+    while _G.V do
+        wait()
+        pcall(function()
+            if tostring(e["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value) == "\83\119\105\102\116\32\83\97\109\117\114\97\105" then
+                for _H5I6J7 = 0x0, 0x13 do
+                    e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")
+                end
+            end
+        end)
+    end
+end
+
+_J1K2L3:Toggle({
+    Title = "\65\117\116\111\32\84\114\97\105\110",
+    Desc = "\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",
+    Value = 0x1 == 0x2,
+    Callback = function(_K8L9M0)
+        _G.V = _K8L9M0
+        _E2F3G4()
+    end
+})
+
+_G.Z = 0x1 == 0x2
+
+local function _N1O2P3()
+    while _G.Z do
+        wait(0x2 * 0x1 / 0xA)
+        pcall(function()
+            if not e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
+                local _Q4R5S6 = e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+                if _Q4R5S6 then
+                    e.Character.Humanoid:EquipTool(_Q4R5S6)
+                    wait(0x1 / 0xA)
+                    if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
+                        e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
+                            "\112\114\111\116\101\105\110\69\103\103",
+                            e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+                        )
                         wait(0x1 / 0xA)
-                        if e.Character:FindFirstChild("UHJvdGVpbiBFZ2c=") then -- Protein Egg
-                            e[_0x12A3B4(0xC)]:FireServer(get_egg_string_2(), e.Character:FindFirstChild("UHJvdGVpbiBFZ2c="))
-                            wait(0x1 / 0xA)
-                            e.Character.Humanoid:UnequipTools()
-                        end
-                    end
-                end
-            end)
-        end
-    end
-    
-    _0xAB1J2K[_0x12A3B4(0x13)]({
-        Title = get_config_string_2(), -- Auto Egg
-        Desc = get_egg_string_1(), -- Auto use Protein Egg
-        Value = 0x1 == 0x2,
-        Callback = function(_0xNO4W5X)
-            _0xHI8Q9R.Z = _0xNO4W5X
-            _0xLM2U3V()
-        end
-    })
-end)()
-
--- 自动菠萝功能（继续分散）
-(function()
-    local function get_pineapple_string_1() return "QXV0byBQaW5lYXBwbGU=" end -- Auto Pineapple
-    local function get_pineapple_string_2() return "QXV0byB1c2UgVHJvcGljYWwgU2hha2UgKDAuMXMp" end -- Auto use Tropical Shake (0.1s)
-    local function get_pineapple_string_3() return "VHJvcGljYWwgU2hha2U=" end -- Tropical Shake
-    local function get_pineapple_string_4() return "dHJvcGljYWxTaGFrZQ==" end -- tropicalShake
-    
-    local _0xOP5X6Y = function()
-        while _0xHI8Q9R.W do
-            wait(0x1 / 0xA)
-            pcall(function()
-                local _0xPQ6Y7Z = e[_0x12A3B4(0xD)]:FindFirstChild(get_pineapple_string_3())
-                if _0xPQ6Y7Z then
-                    e.Character.Humanoid:EquipTool(_0xPQ6Y7Z)
-                    wait(0x1 / 0x14)
-                    if e.Character:FindFirstChild(get_pineapple_string_3()) then
-                        e[_0x12A3B4(0xC)]:FireServer(get_pineapple_string_4(), e.Character:FindFirstChild(get_pineapple_string_3()))
-                        wait(0x1 / 0x14)
                         e.Character.Humanoid:UnequipTools()
                     end
                 end
-            end)
-        end
+            end
+        end)
     end
-    
-    _0xAB1J2K[_0x12A3B4(0x13)]({
-        Title = get_pineapple_string_1(),
-        Desc = get_pineapple_string_2(),
-        Value = 0x1 == 0x2,
-        Callback = function(_0xQR7Z8A)
-            _0xHI8Q9R.W = _0xQR7Z8A
-            _0xOP5X6Y()
-        end
-    })
-end)()
-
--- 自动锻炼lift功能（最后一部分字符串）
-(function()
-    local function get_lift_string_1() return "QXV0byBUcmFpbiBsaWZ0" end -- Auto Train lift
-    local function get_lift_string_2() return "QXV0byBzdHJlbmd0aCB0cmFpbmluZyBsaWZ0ICgyMXggc3BlZWQp" end -- Auto strength training lift (21x speed)
-    local function get_lift_string_3() return "bGlmdA==" end -- lift
-    
-    local _0xRS8A9B = function()
-        while _0xHI8Q9R.X do
-            wait()
-            pcall(function()
-                if tostring(e[_0x12A3B4(0xA)][_0x12A3B4(0xB)].Value) == "U3dpZnQgU2FtdXJhaQ==" then -- Swift Samurai
-                    for _0xST9B0C = 0x0, 0x15 do
-                        e[_0x12A3B4(0xC)]:FireServer(get_lift_string_3())
-                    end
-                end
-            end)
-        end
-    end
-    
-    _0xAB1J2K[_0x12A3B4(0x13)]({
-        Title = get_lift_string_1(),
-        Desc = get_lift_string_2(),
-        Value = 0x1 == 0x2,
-        Callback = function(_0xTU0C1D)
-            _0xHI8Q9R.X = _0xTU0C1D
-            _0xRS8A9B()
-        end
-    })
-end)()
-
--- 清理UI功能（嵌入剩余字符串）
-local function _W0X1Y2()
-    local function get_clean_string_1() return "Q2xlYXIgR2FpbiBVUw==" end -- Clear Gain UI
-    local function get_clean_string_2() return "UmVtb3ZlIGFsbCBnYWluIG5vdGlmaWNhdGlvbnM=" end -- Remove all gain notifications
-    
-    -- ... 清理代码 ...
 end
 
-_0xAB1J2K[_0x12A3B4(0x14)]({
-    Title = get_clean_string_1(),
-    Desc = get_clean_string_2(),
+_J1K2L3:Toggle({
+    Title = "\65\117\116\111\32\69\103\103", 
+    Desc = "\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",
+    Value = 0x1 == 0x2,
+    Callback = function(_T7U8V9)
+        _G.Z = _T7U8V9
+        _N1O2P3()
+    end
+})
+
+-- 自动吃菠萝功能
+_G["\87"] = 0x1 == 0x2
+
+local function _Q2R3S4()
+    while _G["\87"] do
+        wait(0x1 / 0xA)  -- 0.1秒循环
+        pcall(function()
+            local _T5U6V7 = e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
+            if _T5U6V7 then
+                e.Character.Humanoid:EquipTool(_T5U6V7)
+                wait(0x1 / 0x14)  -- 0.05秒等待装备
+                if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101") then
+                    e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
+                        "\116\114\111\112\105\99\97\108\83\104\97\107\101",
+                        e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
+                    )
+                    wait(0x1 / 0x14)  -- 0.05秒等待使用
+                    e.Character.Humanoid:UnequipTools()
+                end
+            end
+        end)
+    end
+end
+
+_J1K2L3:Toggle({
+    Title = "\65\117\116\111\32\80\105\110\101\97\112\112\108\101",
+    Desc = "\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101\32\40\48\46\49\115\41",
+    Value = 0x1 == 0x2,
+    Callback = function(_X8Y9Z0)
+        _G["\87"] = _X8Y9Z0
+        _Q2R3S4()
+    end
+})
+
+local function _W0X1Y2()
+    local _Z3A4B5 = game:GetService("\67\111\114\101\71\117\105")
+    local _C6D7E8 = game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+    local _F9G0H1 = {
+        "\43", "\67\111\105\110\115", "\67\111\105\110", "\83\116\114\101\110\103\116\104",
+        "\69\120\112", "\69\120\112\101\114\105\101\110\99\101", "\76\101\118\101\108", 
+        "\68\97\109\97\103\101", "\72\101\97\108\116\104"
+    }
+    local _I2J3K4 = {
+        "\87\105\110\100\85\73", "\67\114\97\122\121\32\84\111\112", "\82\97\121\102\105\101\108\100"
+    }
+    
+    for _L5M6N7, _O8P9Q0 in ipairs(_Z3A4B5:GetChildren()) do
+        if _O8P9Q0:IsA("\83\99\114\101\101\110\71\117\105") then
+            local _R1S2T3 = 0x1 == 0x2
+            for _U4V5W6, _X7Y8Z9 in ipairs(_I2J3K4) do
+                if _O8P9Q0.Name:find(_X7Y8Z9) then
+                    _R1S2T3 = 0x1 == 0x1
+                    break
+                end
+            end
+            if _R1S2T3 then continue end
+            local _A0B1C2 = 0x1 == 0x2
+            for _D3E4F5, _G6H7I8 in ipairs(_O8P9Q0:GetDescendants()) do
+                if (_G6H7I8:IsA("\84\101\120\116\76\97\98\101\108") or _G6H7I8:IsA("\84\101\120\116\66\117\116\116\111\110")) and _G6H7I8.Text then
+                    local _J9K0L1 = _G6H7I8.Text
+                    for _M1N2O3, _P4Q5R6 in ipairs(_F9G0H1) do
+                        if _J9K0L1:find(_P4Q5R6) or _J9K0L1:find("\37\43\37\100\43") then
+                            _A0B1C2 = 0x1 == 0x1
+                            break
+                        end
+                    end
+                    if _A0B1C2 then break end
+                end
+            end
+            if _A0B1C2 then _O8P9Q0:Destroy() end
+        end
+    end
+    
+    if _C6D7E8 then
+        for _S7T8U9, _V0W1X2 in ipairs(_C6D7E8:GetChildren()) do
+            if _V0W1X2:IsA("\83\99\114\101\101\110\71\117\105") then
+                local _Y3Z4A5 = 0x1 == 0x2
+                for _B6C7D8, _E8F9G0 in ipairs(_I2J3K4) do
+                    if _V0W1X2.Name:find(_E8F9G0) then
+                        _Y3Z4A5 = 0x1 == 0x1
+                        break
+                    end
+                end
+                if _Y3Z4A5 then continue end
+                local _H1I2J3 = 0x1 == 0x2
+                for _K4L5M6, _N7O8P9 in ipairs(_V0W1X2:GetDescendants()) do
+                    if (_N7O8P9:IsA("\84\101\120\116\76\97\98\101\108") or _N7O8P9:IsA("\84\101\120\116\66\117\116\116\111\110")) and _N7O8P9.Text then
+                        local _Q0R1S2 = _N7O8P9.Text
+                        for _T3U4V5, _W5X6Y7 in ipairs(_F9G0H1) do
+                            if _Q0R1S2:find(_W5X6Y7) or _Q0R1S2:find("\37\43\37\100\43") then
+                                _H1I2J3 = 0x1 == 0x1
+                                break
+                            end
+                        end
+                        if _H1I2J3 then break end
+                    end
+                end
+                if _H1I2J3 then _V0W1X2:Destroy() end
+            end
+        end
+    end
+end
+
+_J1K2L3:Button({
+    Title = "\67\108\101\97\114\32\71\97\105\110\32\85\73",
+    Desc = "\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",
     Callback = _W0X1Y2
 })
 
--- 最后打印（隐藏最终字符串）
-local function get_final_string() return "U2NyaXB0IGxvYWRlZCE=" end -- Script loaded!
-print(get_final_string())
+print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
