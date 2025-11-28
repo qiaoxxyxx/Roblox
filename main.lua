@@ -223,366 +223,54 @@ end
 
 if not o()then return end
 
-local a1b2c3 = {
-    d4e5f6 = "\85\65\112\112",
-    g7h8i9 = "\118\49\46\48\46\48", 
-    j0k1l2 = "\65\110\111\110\121\109\111\117\115",
-    m3n4o5 = false,
-    p6q7r8 = "\73\78\70\79"
-}
+local v={[1]="",[2]="\75",[3]="\77",[4]="\66",[5]="\84",[6]="\81\97",[7]="\81\105"}local function w(x,y)local z=math.floor(math.log(math.max(1,math.abs(x)),1000))local A=v[z+1]or("\101\43"..z)local B=math.floor(x*((10^y)/(1000^z)))/(10^y)return string.format("\37\46"..y.."\102\37\115",B,A)end;local C,D,E,F=0,{},0,0;local G=20;local H=6;local function I()return pcall(function()return e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function J()if#D==0 then return 0 end;local K=0;for L,M in next,D do K=K+(M or 0)end;return K/#D end;local N=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(290,340),Transparent=true,Theme="\68\97\114\107",SideBarWidth=130,HasOutline=d})N:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0,10),StrokeThickness=3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local O=N:Tab({Title="\77\97\105\110",Icon=""})local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=25})coroutine.wrap(function()while wait(1)do pcall(function()local Q=e.leaderstats.Strength.Value;local R=tick()if C>0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,1)end;F=R end end;C=Q;E=R;local T=J()local U=I()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(Q,1).."\10\65\118\103\32\71\97\105\110\58\32"..w(T,1).."\47\115\10\68\97\105\108\121\58\32"..w(T*86400,1).."\10\77\111\110\116\104\108\121\58\32"..w(T*2592000,1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()_G.V=false;local function W()while _G.V do wait()pcall(function()if tostring(e.equippedPets.pet1.Value)=="\83\119\105\102\116\32\83\97\109\117\114\97\105"then for X=0,19 do e.muscleEvent:FireServer("\114\101\112")end end end)end end;O:Toggle({Title="\65\117\116\111\32\84\114\97\105\110",Desc="\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",Value=false,Callback=function(Y)_G.V=Y;W()end})
 
-local s9t0u1 = "\117\110\117\115\101\100\95\115\116\114\105\110\103\95\100\97\116\97"
-local v2w3x4 = 12345
-local y5z6a7 = {1, 2, 3, 4, 5}
-local b8c9d0 = true
-local e1f2g3 = false
+_G.L=false;local function Z()while _G.L do pcall(function()for a0=0,21 do e.muscleEvent:FireServer("\108\105\102\116")end end)end end;O:Toggle({Title="\65\117\116\111\32\76\105\102\116",Desc="\76\105\102\116",Value=false,Callback=function(a1)_G.L=a1;Z()end})
 
-local function h4i5j6() return "\117\110\117\115\101\100\95\114\101\116\117\114\110" end
-local function k7l8m9(n0o1p2) return n0o1p2 * 2 end
-local function q3r4s5(t6u7v8, w9x0y1) return t6u7v8 + w9x0y1 end
+_G.Z=false;local function _()while _G.Z do wait(0.2)pcall(function()if not e.boostTimersFolder:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local a0=e.Backpack:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if a0 then e.Character.Humanoid:EquipTool(a0)wait(0.1)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e.muscleEvent:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0.1)e.Character.Humanoid:UnequipTools()end end end end)end end;O:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=false,Callback=function(a1)_G.Z=a1;_()end})
 
-local z2a3b4 = {
-    [0x1] = "\32",
-    [0x2] = "\75", 
-    [0x3] = "\77",
-    [0x4] = "\66",
-    [0x5] = "\84",
-    [0x6] = "\81\97",
-    [0x7] = "\81\105"
-}
+_G.W=false;local function a2()while _G.W do wait(0.1)pcall(function()local a3=e.Backpack:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")if a3 then e.Character.Humanoid:EquipTool(a3)wait(0.05)if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")then e.muscleEvent:FireServer("\116\114\111\112\105\99\97\108\83\104\97\107\101",e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101"))wait(0.05)e.Character.Humanoid:UnequipTools()end end end)end end;O:Toggle({Title="\65\117\116\111\32\80\105\110\101\97\112\112\108\101",Desc="\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",Value=false,Callback=function(a4)_G.W=a4;a2()end})
 
-local c5d6e7 = {
-    f8g9h0 = 800,
-    i1j2k3 = 600,
-    l4m5n6 = "\100\97\114\107",
-    o7p8q9 = "\101\110\45\85\83",
-    r0s1t2 = true
-}
-
-local function u3v4w5(x6y7z8, a9b0c1)
-    local d2e3f4 = math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](1, math["\97\98\115"](x6y7z8)), 1000))
-    local g5h6i7 = z2a3b4[d2e3f4 + 1] or ("\101\43" .. d2e3f4)
-    local j8k9l0 = math["\102\108\111\111\114"](x6y7z8 * ((10 ^ a9b0c1) / (1000 ^ d2e3f4))) / (10 ^ a9b0c1)
-    return string["\102\111\114\109\97\116"]("\37\46" .. a9b0c1 .. "\102\37\115", j8k9l0, g5h6i7)
-end
-
-local m1n2o3, p4q5r6, s7t8u9, v0w1x2 = 0, {}, 0, 0
-local y3z4a5 = 20
-local b6c7d8 = 6
-
-local function e9f0g1() end
-local function h2i3j4() end  
-local function k5l6m7() end
-
-local function n8o9p0()
-    return pcall(function()
-        return game["\80\108\97\121\101\114\115"].LocalPlayer["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-    end)
-end
-
-local function q1r2s3()
-    if #p4q5r6 == 0 then return 0 end
-    local t4u5v6 = 0
-    for w7x8y9, z0a1b2 in next, p4q5r6 do 
-        t4u5v6 = t4u5v6 + (z0a1b2 or 0) 
-    end
-    return t4u5v6 / #p4q5r6
-end
-
-local c3d4e5 = loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\88\50\57\55\57\55\50\50\57\47\82\111\98\108\111\120\47\109\97\105\110\47\85\73\76\105\98\46\108\117\97"))()
-
-local f6g7h8 = c3d4e5:CreateWindow({
-    Title = "\67\114\97\122\121\32\84\111\112",
-    Icon = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",
-    Size = UDim2.fromOffset(290, 340),
-    Transparent = true,
-    Theme = "\68\97\114\107", 
-    SideBarWidth = 130,
-    HasOutline = false
-})
-
-_G["\83\69\84\49"] = "\115\101\116\116\105\110\103\95\118\97\108\117\101\95\49"
-_G["\83\69\84\50"] = 100
-_G["\83\69\84\51"] = false
-
-f6g7h8:EditOpenButton({
-    Title = "\67\114\97\122\121\32\84\111\112",
-    Icon = "\105\109\97\103\101\45\117\112\115\99\97\108\101",
-    CornerRadius = UDim.new(0, 10),
-    StrokeThickness = 3,
-    Color = ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"), Color3.fromHex("\70\56\57\66\50\57"))
-})
-
-local function i9j0k1() end
-local function l2m3n4() end
-local function o5p6q7() end
-
-local r8s9t0 = f6g7h8:Tab({Title = "\77\97\105\110", Icon = "\32"})
-
-local u1v2w3 = r8s9t0:Paragraph({
-    Title = "\83\116\97\116\115", 
-    Desc = "\76\111\97\100\105\110\103\46\46\46",
-    Image = "\117\115\101\114\115",
-    ImageSize = 25
-})
-
-coroutine.wrap(function()
-    local x4y5z6 = "\117\110\117\115\101\100\95\99\111\114\111\117\116\105\110\101\95\100\97\116\97"
-    wait(5)
-end)()
-
-local a7b8c9 = game["\80\108\97\121\101\114\115"].LocalPlayer
-
-coroutine.wrap(function()
-    while wait(1) do
-        pcall(function()
-            local d0e1f2 = a7b8c9.Character
-            if d0e1f2 then
-                local g3h4i5 = a7b8c9:FindFirstChild("\108\101\97\100\101\114\115\116\97\116\115")
-                if g3h4i5 then
-                    local j6k7l8 = g3h4i5:FindFirstChild("\83\116\114\101\110\103\116\104")
-                    if j6k7l8 then
-                        local m9n0o1 = j6k7l8.Value
-                        local p2q3r4 = tick()
-                        if m1n2o3 > 0 then
-                            local s5t6u7 = (m9n0o1 - m1n2o3) / (p2q3r4 - s7t8u9)
-                            if p2q3r4 - v0w1x2 >= y3z4a5 then
-                                table.insert(p4q5r6, s5t6u7)
-                                if #p4q5r6 > b6c7d8 then 
-                                    table.remove(p4q5r6, 1) 
-                                end
-                                v0w1x2 = p2q3r4
-                            end
-                        end
-                        m1n2o3 = m9n0o1
-                        s7t8u9 = p2q3r4
-                        local v8w9x0 = q1r2s3()
-                        local y1z2a3 = n8o9p0()
-                        u1v2w3:SetDesc(
-                            "\83\116\114\101\110\103\116\104\58\32" .. u3v4w5(m9n0o1, 1) ..
-                            "\10\65\118\103\32\71\97\105\110\58\32" .. u3v4w5(v8w9x0, 1) .. "\47\115" ..
-                            "\10\68\97\105\108\121\58\32" .. u3v4w5(v8w9x0 * 86400, 1) ..
-                            "\10\77\111\110\116\104\108\121\58\32" .. u3v4w5(v8w9x0 * 2592000, 1) ..
-                            "\10\83\97\109\112\108\101\115\58\32" .. #p4q5r6 .. "\47" .. b6c7d8 .. "\10" ..
-                            (y1z2a3 and "\226\156\85\32\66\111\111\115\116\32\70\111\117\110\100" or "\226\157\140\32\78\111\32\66\111\111\115\116")
-                        )
-                    end
+local function a5()
+    local a6=game:GetService("\67\111\114\101\71\117\105")
+    local a7=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+    local a8={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
+    local a9={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
+    for aa,ab in ipairs(a6:GetChildren())do
+        if ab:IsA("\83\99\114\101\101\110\71\117\105")then
+            local ac=false
+            for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=true break end end
+            if ac then continue end
+            local af=false
+            for ag,ah in ipairs(ab:GetDescendants())do
+                if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
+                    local ai=ah.Text
+                    for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=true break end end
+                    if af then break end
                 end
             end
-        end)
-    end
-end)()
-
-_G["\65\85\84\79\95\84\82\65\73\78"] = false
-
-local function b4c5d6()
-    while _G["\65\85\84\79\95\84\82\65\73\78"] do
-        wait()
-        pcall(function()
-            local e7f8g9 = a7b8c9.Character
-            if e7f8g9 then
-                local h0i1j2 = e7f8g9:FindFirstChildOfClass("\72\117\109\97\110\111\105\100")
-                if h0i1j2 then
-                    local k3l4m5 = e7f8g9:FindFirstChildOfClass("\84\111\111\108")
-                    if k3l4m5 then
-                        for n6o7p8 = 0, 19 do
-                            k3l4m5:Activate()
-                            wait(0.1)
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end
-
-r8s9t0:Toggle({
-    Title = "\65\117\116\111\32\84\114\97\105\110",
-    Desc = "\65\117\116\111\32\116\114\97\105\110\105\110\103",
-    Value = false,
-    Callback = function(q9r0s1)
-        _G["\65\85\84\79\95\84\82\65\73\78"] = q9r0s1
-        b4c5d6()
-    end
-})
-
-_G["\65\85\84\79\95\76\73\70\84"] = false
-
-local function t2u3v4()
-    while _G["\65\85\84\79\95\76\73\70\84"] do
-        pcall(function()
-            local w5x6y7 = a7b8c9.Character
-            if w5x6y7 then
-                local z8a9b0 = w5x6y7:FindFirstChildOfClass("\72\117\109\97\110\111\105\100")
-                if z8a9b0 then
-                    for c1d2e3 = 0, 21 do
-                        local f4g5h6 = w5x6y7:FindFirstChildOfClass("\84\111\111\108")
-                        if f4g5h6 then
-                            f4g5h6:Activate()
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end
-
-r8s9t0:Toggle({
-    Title = "\65\117\116\111\32\76\105\102\116",
-    Desc = "\76\105\102\116",
-    Value = false,
-    Callback = function(i7j8k9)
-        _G["\65\85\84\79\95\76\73\70\84"] = i7j8k9
-        t2u3v4()
-    end
-})
-
-_G["\65\85\84\79\95\69\71\71"] = false
-
-local function l0m1n2()
-    while _G["\65\85\84\79\95\69\71\71"] do
-        wait(0.2)
-        pcall(function()
-            local o3p4q5 = a7b8c9["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-            if o3p4q5 then
-                local r6s7t8 = a7b8c9.Character
-                if r6s7t8 then
-                    local u9v0w1 = r6s7t8:FindFirstChildOfClass("\72\117\109\97\110\111\105\100")
-                    if u9v0w1 then
-                        u9v0w1:EquipTool(o3p4q5)
-                        wait(0.1)
-                        local x2y3z4 = r6s7t8:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-                        if x2y3z4 then
-                            x2y3z4:Activate()
-                            wait(0.1)
-                            u9v0w1:UnequipTools()
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end
-
-r8s9t0:Toggle({
-    Title = "\65\117\116\111\32\69\103\103", 
-    Desc = "\65\117\116\111\32\117\115\101\32\69\103\103",
-    Value = false,
-    Callback = function(a5b6c7)
-        _G["\65\85\84\79\95\69\71\71"] = a5b6c7
-        l0m1n2()
-    end
-})
-
-_G["\65\85\84\79\95\80\73\78\69"] = false
-
-local function d8e9f0()
-    while _G["\65\85\84\79\95\80\73\78\69"] do
-        wait(0.1)
-        pcall(function()
-            local g1h2i3 = a7b8c9["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
-            if g1h2i3 then
-                local j4k5l6 = a7b8c9.Character
-                if j4k5l6 then
-                    local m7n8o9 = j4k5l6:FindFirstChildOfClass("\72\117\109\97\110\111\105\100")
-                    if m7n8o9 then
-                        m7n8o9:EquipTool(g1h2i3)
-                        wait(0.05)
-                        local p0q1r2 = j4k5l6:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
-                        if p0q1r2 then
-                            p0q1r2:Activate()
-                            wait(0.05)
-                            m7n8o9:UnequipTools()
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end
-
-r8s9t0:Toggle({
-    Title = "\65\117\116\111\32\80\105\110\101\97\112\112\108\101",
-    Desc = "\65\117\116\111\32\117\115\101\32\83\104\97\107\101",
-    Value = false,
-    Callback = function(s3t4u5)
-        _G["\65\85\84\79\95\80\73\78\69"] = s3t4u5
-        d8e9f0()
-    end
-})
-
-local function v6w7x8()
-    local y9z0a1 = game:GetService("\67\111\114\101\71\117\105")
-    local b2c3d4 = game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
-    local e5f6g7 = {
-        "\43", "\67\111\105\110\115", "\83\116\114\101\110\103\116\104",
-        "\69\120\112", "\76\101\118\101\108", "\68\97\109\97\103\101"
-    }
-    local h8i9j0 = {
-        "\87\105\110\100\85\73", "\67\114\97\122\121\32\84\111\112", "\82\97\121\102\105\101\108\100"
-    }
-    
-    for _, k1l2m3 in ipairs(y9z0a1:GetChildren()) do
-        if k1l2m3:IsA("\83\99\114\101\101\110\71\117\105") then
-            local n4o5p6 = false
-            for _, q7r8s9 in ipairs(h8i9j0) do
-                if k1l2m3.Name:find(q7r8s9) then
-                    n4o5p6 = true
-                    break
-                end
-            end
-            if n4o5p6 then continue end
-            local t0u1v2 = false
-            for _, w3x4y5 in ipairs(k1l2m3:GetDescendants()) do
-                if (w3x4y5:IsA("\84\101\120\116\76\97\98\101\108") or w3x4y5:IsA("\84\101\120\116\66\117\116\116\111\110")) and w3x4y5.Text then
-                    local z6a7b8 = w3x4y5.Text
-                    for _, c9d0e1 in ipairs(e5f6g7) do
-                        if z6a7b8:find(c9d0e1) or z6a7b8:find("\37\43\37\100\43") then
-                            t0u1v2 = true
-                            break
-                        end
-                    end
-                    if t0u1v2 then break end
-                end
-            end
-            if t0u1v2 then k1l2m3:Destroy() end
+            if af then ab:Destroy()end
         end
     end
-    
-    if b2c3d4 then
-        for _, f2g3h4 in ipairs(b2c3d4:GetChildren()) do
-            if f2g3h4:IsA("\83\99\114\101\101\110\71\117\105") then
-                local i5j6k7 = false
-                for _, l8m9n0 in ipairs(h8i9j0) do
-                    if f2g3h4.Name:find(l8m9n0) then
-                        i5j6k7 = true
-                        break
+    if a7 then
+        for aa,ab in ipairs(a7:GetChildren())do
+            if ab:IsA("\83\99\114\101\101\110\71\117\105")then
+                local ac=false
+                for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=true break end end
+                if ac then continue end
+                local af=false
+                for ag,ah in ipairs(ab:GetDescendants())do
+                    if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
+                        local ai=ah.Text
+                        for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=true break end end
+                        if af then break end
                     end
                 end
-                if i5j6k7 then continue end
-                local o1p2q3 = false
-                for _, r4s5t6 in ipairs(f2g3h4:GetDescendants()) do
-                    if (r4s5t6:IsA("\84\101\120\116\76\97\98\101\108") or r4s5t6:IsA("\84\101\120\116\66\117\116\116\111\110")) and r4s5t6.Text then
-                        local u7v8w9 = r4s5t6.Text
-                        for _, x0y1z2 in ipairs(e5f6g7) do
-                            if u7v8w9:find(x0y1z2) or u7v8w9:find("\37\43\37\100\43") then
-                                o1p2q3 = true
-                                break
-                            end
-                        end
-                        if o1p2q3 then break end
-                    end
-                end
-                if o1p2q3 then f2g3h4:Destroy() end
+                if af then ab:Destroy()end
             end
         end
     end
 end
 
-r8s9t0:Button({
-    Title = "\67\108\101\97\114\32\71\97\105\110\32\85\73",
-    Desc = "\82\101\109\111\118\101\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",
-    Callback = v6w7x8
-})
-
+O:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a5})
 print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
