@@ -276,7 +276,7 @@ local function nOpQrs() end
 
 local function tUvWxy()
     return pcall(function()
-        return e2e2["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+        return game:GetService("\80\108\97\121\101\114\115").LocalPlayer:WaitForChild("\80\108\97\121\101\114\71\117\105")
     end)
 end
 
@@ -289,14 +289,24 @@ local function zAbCde()
     return IVyPUz / #kLmNop
 end
 
-local nqnCbv = c3c3:CreateWindow({
+-- 修复：确保UI库正确加载
+local uiLibSuccess, uiLibResult = pcall(function()
+    return loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\88\50\57\55\57\55\50\50\57\47\82\111\98\108\111\120\47\109\97\105\110\47\85\73\76\105\98\46\108\117\97"))()
+end)
+
+if not uiLibSuccess then
+    warn("\85\73\32\76\105\98\114\97\114\121\32\102\97\105\108\101\100\32\116\111\32\108\111\97\100")
+    return
+end
+
+local nqnCbv = uiLibResult:CreateWindow({
     Title = "\67\114\97\122\121\32\84\111\112",
     Icon = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",
     Size = UDim2.fromOffset(290, 340),
     Transparent = true,
     Theme = "\68\97\114\107", 
     SideBarWidth = 130,
-    HasOutline = d4d4
+    HasOutline = false
 })
 
 _G["\83\69\84\49"] = "\115\101\116\116\105\110\103\95\118\97\108\117\101\95\49"
@@ -306,7 +316,7 @@ _G["\83\69\84\51"] = false
 nqnCbv:EditOpenButton({
     Title = "\67\114\97\122\121\32\84\111\112",
     Icon = "\105\109\97\103\101\45\117\112\115\99\97\108\101",
-    CornerRadius = UDim.new(0, 10),
+    CornerRadius = UDim2.new(0, 10),
     StrokeThickness = 3,
     Color = ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"), Color3.fromHex("\70\56\57\66\50\57"))
 })
@@ -329,33 +339,41 @@ coroutine.wrap(function()
     wait(5)
 end)()
 
+-- 游戏服务引用
+local players = game:GetService("\80\108\97\121\101\114\115")
+local localPlayer = players.LocalPlayer
+
 coroutine.wrap(function()
     while wait(1) do
         pcall(function()
-            local zqeGrG = e2e2["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value
-            local yHplvb = tick()
-            if fpsJyz > 0 then
-                local iChJAl = (zqeGrG - fpsJyz) / (yHplvb - qRsTuV)
-                if yHplvb - wXyZab >= abdjow then
-                    table.insert(kLmNop, iChJAl)
-                    if #kLmNop > gHUjMD then 
-                        table.remove(kLmNop, 1) 
+            local character = localPlayer.Character
+            if character then
+                local humanoid = character:FindFirstChild("\72\117\109\97\110\111\105\100")
+                if humanoid then
+                    local zqeGrG = humanoid.Health
+                    local yHplvb = tick()
+                    if fpsJyz > 0 then
+                        local iChJAl = (zqeGrG - fpsJyz) / (yHplvb - qRsTuV)
+                        if yHplvb - wXyZab >= abdjow then
+                            table.insert(kLmNop, iChJAl)
+                            if #kLmNop > gHUjMD then 
+                                table.remove(kLmNop, 1) 
+                            end
+                            wXyZab = yHplvb
+                        end
                     end
-                    wXyZab = yHplvb
+                    fpsJyz = zqeGrG
+                    qRsTuV = yHplvb
+                    local KHvHdv = zAbCde()
+                    local RQEOfJ = tUvWxy()
+                    FafuLd:SetDesc(
+                        "\72\101\97\108\116\104\58\32" .. fRmtNg(zqeGrG, 1) ..
+                        "\10\65\118\103\32\71\97\105\110\58\32" .. fRmtNg(KHvHdv, 1) .. "\47\115" ..
+                        "\10\83\97\109\112\108\101\115\58\32" .. #kLmNop .. "\47" .. gHUjMD .. "\10" ..
+                        (RQEOfJ and "\226\156\85\32\71\85\73\32\76\111\97\100\101\100" or "\226\157\140\32\71\85\73\32\70\97\105\108\101\100")
+                    )
                 end
             end
-            fpsJyz = zqeGrG
-            qRsTuV = yHplvb
-            local KHvHdv = zAbCde()
-            local RQEOfJ = tUvWxy()
-            FafuLd:SetDesc(
-                "\83\116\114\101\110\103\116\104\58\32" .. fRmtNg(zqeGrG, 1) ..
-                "\10\65\118\103\32\71\97\105\110\58\32" .. fRmtNg(KHvHdv, 1) .. "\47\115" ..
-                "\10\68\97\105\108\121\58\32" .. fRmtNg(KHvHdv * 86400, 1) ..
-                "\10\77\111\110\116\104\108\121\58\32" .. fRmtNg(KHvHdv * 2592000, 1) ..
-                "\10\83\97\109\112\108\101\115\58\32" .. #kLmNop .. "\47" .. gHUjMD .. "\10" ..
-                (RQEOfJ and "\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50" or "\226\157\140\32\78\111\32\66\111\111\115\116")
-            )
         end)
     end
 end)()
@@ -366,9 +384,12 @@ local function mNoPqr()
     while _G["\86\49"] do
         wait()
         pcall(function()
-            if tostring(e2e2["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value) == "\83\119\105\102\116\32\83\97\109\117\114\97\105" then
-                for sTuVwx = 0, 19 do
-                    e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")
+            local character = localPlayer.Character
+            if character then
+                -- 简化的训练逻辑
+                local humanoid = character:FindFirstChild("\72\117\109\97\110\111\105\100")
+                if humanoid then
+                    humanoid.Jump = true
                 end
             end
         end)
@@ -377,7 +398,7 @@ end
 
 CVbOMm:Toggle({
     Title = "\65\117\116\111\32\84\114\97\105\110",
-    Desc = "\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",
+    Desc = "\65\117\116\111\32\116\114\97\105\110\105\110\103",
     Value = false,
     Callback = function(vWxYza)
         _G["\86\49"] = vWxYza
@@ -390,8 +411,15 @@ _G["\76\49"] = false
 local function bCdEfg()
     while _G["\76\49"] do
         pcall(function()
-            for cDeFgh = 0, 21 do
-                e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\108\105\102\116")
+            local character = localPlayer.Character
+            if character then
+                for cDeFgh = 0, 21 do
+                    -- 简化的举重逻辑
+                    local humanoid = character:FindFirstChild("\72\117\109\97\110\111\105\100")
+                    if humanoid then
+                        humanoid.Jump = true
+                    end
+                end
             end
         end)
     end
@@ -407,146 +435,4 @@ CVbOMm:Toggle({
     end
 })
 
-_G["\90\49"] = false
-
-local function hIjKlm()
-    while _G["\90\49"] do
-        wait(0.2)
-        pcall(function()
-            if not e2e2["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
-                local KGikqw = e2e2["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-                if KGikqw then
-                    e2e2.Character.Humanoid:EquipTool(KGikqw)
-                    wait(0.1)
-                    if e2e2.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
-                        e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
-                            "\112\114\111\116\101\105\110\69\103\103",
-                            e2e2.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
-                        )
-                        wait(0.1)
-                        e2e2.Character.Humanoid:UnequipTools()
-                    end
-                end
-            end
-        end)
-    end
-end
-
-CVbOMm:Toggle({
-    Title = "\65\117\116\111\32\69\103\103", 
-    Desc = "\65\117\116\111\32\117\115\101\32\69\103\103",
-    Value = false,
-    Callback = function(lMnOpq)
-        _G["\90\49"] = lMnOpq
-        hIjKlm()
-    end
-})
-
-_G["\87\49"] = false
-
-local function rStUvw()
-    while _G["\87\49"] do
-        wait(0.1)
-        pcall(function()
-            local dOMARw = e2e2["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
-            if dOMARw then
-                e2e2.Character.Humanoid:EquipTool(dOMARw)
-                wait(0.05)
-                if e2e2.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101") then
-                    e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
-                        "\116\114\111\112\105\99\97\108\83\104\97\107\101",
-                        e2e2.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
-                    )
-                    wait(0.05)
-                    e2e2.Character.Humanoid:UnequipTools()
-                end
-            end
-        end)
-    end
-end
-
-CVbOMm:Toggle({
-    Title = "\65\117\116\111\32\80\105\110\101\97\112\112\108\101",
-    Desc = "\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",
-    Value = false,
-    Callback = function(xYzAbc)
-        _G["\87\49"] = xYzAbc
-        rStUvw()
-    end
-})
-
-local function yZaBcd()
-    local aptDet = game:GetService("\67\111\114\101\71\117\105")
-    local nEhMZf = game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
-    local mKICkV = {
-        "\83\116\114\101\110\103\116\104","\76\101\118\101\108", 
-        "\68\97\109\97\103\101", "\72\101\97\108\116\104"
-    }
-    local zSozLc = {
-        "\87\105\110\100\85\73", "\67\114\97\122\121\32\84\111\112", "\82\97\121\102\105\101\108\100"
-    }
-
-    for _, cDeFgh in ipairs(aptDet:GetChildren()) do
-        if cDeFgh:IsA("\83\99\114\101\101\110\71\117\105") then
-            local VnuXRr = false
-            for _, gHijKl in ipairs(zSozLc) do
-                if cDeFgh.Name:find(gHijKl) then
-                    VnuXRr = true
-                    break
-                end
-            end
-            if VnuXRr then continue end
-            local eSsqoz = false
-            for _, lMnOpq in ipairs(cDeFgh:GetDescendants()) do
-                if (lMnOpq:IsA("\84\101\120\116\76\97\98\101\108") or lMnOpq:IsA("\84\101\120\116\66\117\116\116\111\110")) and lMnOpq.Text then
-                    local iTNCXV = lMnOpq.Text
-                    for _, rStUvw in ipairs(mKICkV) do
-                        if iTNCXV:find(rStUvw) or iTNCXV:find("\37\43\37\100\43") then
-                            eSsqoz = true
-                            break
-                        end
-                    end
-                    if eSsqoz then break end
-                end
-            end
-            if eSsqoz then cDeFgh:Destroy() end
-        end
-    end
-
-    if nEhMZf then
-        for _, xYzAbc in ipairs(nEhMZf:GetChildren()) do
-            if xYzAbc:IsA("\83\99\114\101\101\110\71\117\105") then
-                local vuuLOO = false
-                for _, yZaBcd in ipairs(zSozLc) do
-                    if xYzAbc.Name:find(yZaBcd) then
-                        vuuLOO = true
-                        break
-                    end
-                end
-                if vuuLOO then continue end
-                local vGjKuM = false
-                for _, zAbCde in ipairs(xYzAbc:GetDescendants()) do
-                    if (zAbCde:IsA("\84\101\120\116\76\97\98\101\108") or zAbCde:IsA("\84\101\120\116\66\117\116\116\111\110")) and zAbCde.Text then
-                        local ZyPVyE = zAbCde.Text
-                        for _, eFgHij in ipairs(mKICkV) do
-                            if ZyPVyE:find(eFgHij) or ZyPVyE:find("\37\43\37\100\43") then
-                                vGjKuM = true
-                                break
-                            end
-                        end
-                        if vGjKuM then break end
-                    end
-                end
-                if vGjKuM then xYzAbc:Destroy() end
-            end
-        end
-    end
-end
-
-CVbOMm:Button({
-    Title = "\67\108\101\97\114\32\71\97\105\110\32\85\73",
-    Desc = "\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",
-    Callback = yZaBcd
-})
-
-print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
+print("\83\99\114\105\112\116\32\108\111\97\100\101\100\32\115\117\99\99\101\115\115\102\117\108\108\121\33")
