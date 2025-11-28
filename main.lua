@@ -223,290 +223,208 @@ end
 
 if not o()then return end
 
-for _=1,0 do end
-local UqjxxR = {
-    appName1 = "UApp",
-    ver1 = "v1.0.0", 
-    auth1 = "Anonymous",
-if 1 ~= 1 then return nil end
+local evpGhj = {
+    appName1 = "\85\65\112\112",
+    ver1 = "\118\49\46\48\46\48", 
+    auth1 = "\65\110\111\110\121\109\111\117\115",
     debug1 = false,
-    log1 = "INFO"
+    log1 = "\73\78\70\79"
 }
 
-if math.random() > 1 then return nil end
-local HWvsxJ = "unused_string_data"
-local swlzvr = 12345
-local pwaNuL = {1, 2, 3, 4, 5}
-local evFjGA = true
-if math.random() > 1 then return nil end
-local zerOau = false
+local pJQrTZ = "\117\110\117\115\101\100\95\115\116\114\105\110\103\95\100\97\116\97"
+local doZbqs = 12345
+local xKGfzv = {1, 2, 3, 4, 5}
+local hAZFbP = true
+local wLqDZV = false
 
-local UiHLTG dummyFunc1a() return "unused_return" end
-local UiHLTG dummyFunc2b(x1a) return x1a * 2 end
-if math.random() > 1 then return nil end
-local UiHLTG dummyFunc3c(a1b, b1c) return a1b + b1c end
+local function hvUYQa() return "\117\110\117\115\101\100\95\114\101\116\117\114\110" end
+local function hvUYQb(xYzAbc) return xYzAbc * 2 end
+local function hvUYQc(aBcDef, gHijKl) return aBcDef + gHijKl end
 
-local mVrPzm = {
-    [0x1] = " ",
-do local _=function() end end
-    [0x2] = "K", 
-    [0x3] = "M",
-    [0x4] = "B",
-    [0x5] = "T",
-if 1 ~= 1 then return nil end
-    [0x6] = "Qa",
-    [0x7] = "Qi"
+local GjdEtG = {
+    [0x1] = "\32",
+    [0x2] = "\75", 
+    [0x3] = "\77",
+    [0x4] = "\66",
+    [0x5] = "\84",
+    [0x6] = "\81\97",
+    [0x7] = "\81\105"
 }
 
-if math.random() > 1 then return nil end
-local PwvnQU = {
+local CSWTSI = {
     width1 = 800,
     height1 = 600,
-    theme1 = "dark",
-if math.random() > 1 then return nil end
-    lang1 = "en-US",
+    theme1 = "\100\97\114\107",
+    lang1 = "\101\110\45\85\83",
     anim1 = true
 }
 
-for _=1,0 do end
-local UiHLTG formatNum1(num1a, dec1b)
-    local wZSZBt = math.floor(math.log(math.max(1, math.abs(num1a)), 1000))
-    local UitADk = mVrPzm[wZSZBt + 1] or ("e+" .. wZSZBt)
-    local aKmCbD = math.floor(num1a * ((10 ^ dec1b) / (1000 ^ wZSZBt))) / (10 ^ dec1b)
-local _=68; if _ == 0 then _=1 end
-    return string.format("%." .. dec1b .. "f%s", aKmCbD, UitADk)
+local function fRmtNg(mNoPqr, sTuVwx)
+    local TusYxg = math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](1, math["\97\98\115"](mNoPqr)), 1000))
+    local dSOBDg = GjdEtG[TusYxg + 1] or ("\101\43" .. TusYxg)
+    local jFriyg = math["\102\108\111\111\114"](mNoPqr * ((10 ^ sTuVwx) / (1000 ^ TusYxg))) / (10 ^ sTuVwx)
+    return string["\102\111\114\109\97\116"]("\37\46" .. sTuVwx .. "\102\37\115", jFriyg, dSOBDg)
 end
 
-local kquRlL, avgArray1, lastTime1, sampleTime1 = 0, {}, 0, 0
-local _=68; if _ == 0 then _=1 end
-local ZbsTvu = 20
-local uJoyFY = 6
+local fpsJyz, kLmNop, qRsTuV, wXyZab = 0, {}, 0, 0
+local abdjow = 20
+local gHUjMD = 6
 
-local UiHLTG toolFunc1a() end
-if false then local _=0.29910805749936287 end
-local UiHLTG toolFunc2b() end  
-local UiHLTG toolFunc3c() end
+local function cDeFgh() end
+local function hIjKlm() end  
+local function nOpQrs() end
 
-local UiHLTG checkBoost1()
-if 1 ~= 1 then return nil end
-    return pcall(UiHLTG()
-        return gameData1.boostTimersFolder:FindFirstChild("Protein Egg")
-    end)
-end
-if false then local _=0.29910805749936287 end
-
-local UiHLTG calcAvg1()
-    if #avgArray1 == 0 then return 0 end
-    local scvLVi = 0
-local _=68; if _ == 0 then _=1 end
-    for key1b, val1c in next, avgArray1 do 
-        scvLVi= scvLVi + (val1c or 0) 
-    end
-    return scvLVi / #avgArray1
-if math.random() > 1 then return nil end
-end
-local UaJkhb = {
-    appName1 = (function() return string.char(85)..string.char(65)..string.char(112)..string.char(112) end)(),
-    ver1 = (function() return string.char(118)..string.char(49)..string.char(46)..string.char(48)..string.char(46)..string.char(48) end)(), 
-    auth1 = (function() return string.char(65)..string.char(110)..string.char(111)..string.char(110)..string.char(121)..string.char(109)..string.char(111)..string.char(117)..string.char(115) end)(),
-    debug1 = false,
-    log1 = (function() return string.char(73)..string.char(78)..string.char(70)..string.char(79) end)()
-}
-
-local nQJYbU = (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(115)..string.char(116)..string.char(114)..string.char(105)..string.char(110)..string.char(103)..string.char(95)..string.char(100)..string.char(97)..string.char(116)..string.char(97) end)()
-local XGpFHH = 12345
-local qTipUI = {1, 2, 3, 4, 5}
-local bCBPFH = true
-local PCFzPw = false
-
-local ajiCWN dummyFunc1a() return (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(114)..string.char(101)..string.char(116)..string.char(117)..string.char(114)..string.char(110) end)() end
-local ajiCWN dummyFunc2b(x1a) return x1a * 2 end
-local ajiCWN dummyFunc3c(a1b, b1c) return a1b + b1c end
-
-local TYBCwn = {
-    [0x1] = (function() return string.char(32) end)(),
-    [0x2] = (function() return string.char(75) end)(), 
-    [0x3] = (function() return string.char(77) end)(),
-    [0x4] = (function() return string.char(66) end)(),
-    [0x5] = (function() return string.char(84) end)(),
-    [0x6] = (function() return string.char(81)..string.char(97) end)(),
-    [0x7] = (function() return string.char(81)..string.char(105) end)()
-}
-
-local KnHYds = {
-    width1 = 800,
-    height1 = 600,
-    theme1 = (function() return string.char(100)..string.char(97)..string.char(114)..string.char(107) end)(),
-    lang1 = (function() return string.char(101)..string.char(110)..string.char(45)..string.char(85)..string.char(83) end)(),
-    anim1 = true
-}
-
-local ajiCWN formatNum1(num1a, dec1b)
-    local iKcrLD = math.floor(math.log(math.max(1, math.abs(num1a)), 1000))
-    local vYqOMF = TYBCwn[iKcrLD + 1] or ((function() return string.char(101)..string.char(43) end)() .. iKcrLD)
-    local prRQPz = math.floor(num1a * ((10 ^ dec1b) / (1000 ^ iKcrLD))) / (10 ^ dec1b)
-    return string.format((function() return string.char(37)..string.char(46) end)() .. dec1b .. (function() return string.char(102)..string.char(37)..string.char(115) end)(), prRQPz, vYqOMF)
-end
-
-local iPMtVZ, avgArray1, lastTime1, sampleTime1 = 0, {}, 0, 0
-local pHovyM = 20
-local yYruga = 6
-
-local ajiCWN toolFunc1a() end
-local ajiCWN toolFunc2b() end  
-local ajiCWN toolFunc3c() end
-
-local ajiCWN checkBoost1()
-    return pcall(ajiCWN()
-        return gameData1.boostTimersFolder:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
+local function tUvWxy()
+    return pcall(function()
+        return e2e2["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
     end)
 end
 
-local ajiCWN calcAvg1()
-    if #avgArray1 == 0 then return 0 end
-    local MwrWGl = 0
-    for key1b, val1c in next, avgArray1 do 
-        MwrWGl= MwrWGl + (val1c or 0) 
+local function zAbCde()
+    if #kLmNop == 0 then return 0 end
+    local IVyPUz = 0
+    for eFgHij, kLmNop in next, kLmNop do 
+        IVyPUz = IVyPUz + (kLmNop or 0) 
     end
-    return MwrWGl / #avgArray1
+    return IVyPUz / #kLmNop
 end
 
-local zhqMmC = uiLib1:CreateWindow({
-    Title = (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(),
-    Icon = (function() return string.char(114)..string.char(98)..string.char(120)..string.char(97)..string.char(115)..string.char(115)..string.char(101)..string.char(116)..string.char(105)..string.char(100)..string.char(58)..string.char(47)..string.char(47)..string.char(49)..string.char(51)..string.char(57)..string.char(55)..string.char(52)..string.char(51)..string.char(50)..string.char(56)..string.char(56)..string.char(54)..string.char(48)..string.char(52)..string.char(53)..string.char(57)..string.char(53) end)(),
+local nqnCbv = c3c3:CreateWindow({
+    Title = "\67\114\97\122\121\32\84\111\112",
+    Icon = "\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",
     Size = UDim2.fromOffset(290, 340),
     Transparent = true,
-    Theme = (function() return string.char(68)..string.char(97)..string.char(114)..string.char(107) end)(), 
+    Theme = "\68\97\114\107", 
     SideBarWidth = 130,
-    HasOutline = setting1
+    HasOutline = d4d4
 })
 
-_G.SET1 = (function() return string.char(115)..string.char(101)..string.char(116)..string.char(116)..string.char(105)..string.char(110)..string.char(103)..string.char(95)..string.char(118)..string.char(97)..string.char(108)..string.char(117)..string.char(101)..string.char(95)..string.char(49) end)()
-_G.SET2 = 100
-_G.SET3 = false
+_G["\83\69\84\49"] = "\115\101\116\116\105\110\103\95\118\97\108\117\101\95\49"
+_G["\83\69\84\50"] = 100
+_G["\83\69\84\51"] = false
 
-zhqMmC:EditOpenButton({
-    Title = (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(),
-    Icon = (function() return string.char(105)..string.char(109)..string.char(97)..string.char(103)..string.char(101)..string.char(45)..string.char(117)..string.char(112)..string.char(115)..string.char(99)..string.char(97)..string.char(108)..string.char(101) end)(),
+nqnCbv:EditOpenButton({
+    Title = "\67\114\97\122\121\32\84\111\112",
+    Icon = "\105\109\97\103\101\45\117\112\115\99\97\108\101",
     CornerRadius = UDim.new(0, 10),
     StrokeThickness = 3,
-    Color = ColorSequence.new(Color3.fromHex((function() return string.char(70)..string.char(70)..string.char(48)..string.char(70)..string.char(55)..string.char(66) end)()), Color3.fromHex((function() return string.char(70)..string.char(56)..string.char(57)..string.char(66)..string.char(50)..string.char(57) end)()))
+    Color = ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"), Color3.fromHex("\70\56\57\66\50\57"))
 })
 
-local ajiCWN eventHandler1a() end
-local ajiCWN eventHandler2b() end
-local ajiCWN eventHandler3c() end
+local function xYzAbc() end
+local function bCdEfg() end
+local function hIjKlm() end
 
-local QyFAAu = zhqMmC:Tab({Title = (function() return string.char(77)..string.char(97)..string.char(105)..string.char(110) end)(), Icon = (function() return string.char(32) end)()})
+local CVbOMm = nqnCbv:Tab({Title = "\77\97\105\110", Icon = "\32"})
 
-local COGaze = QyFAAu:Paragraph({
-    Title = (function() return string.char(83)..string.char(116)..string.char(97)..string.char(116)..string.char(115) end)(), 
-    Desc = (function() return string.char(76)..string.char(111)..string.char(97)..string.char(100)..string.char(105)..string.char(110)..string.char(103)..string.char(46)..string.char(46)..string.char(46) end)(),
-    Image = (function() return string.char(117)..string.char(115)..string.char(101)..string.char(114)..string.char(115) end)(),
+local FafuLd = CVbOMm:Paragraph({
+    Title = "\83\116\97\116\115", 
+    Desc = "\76\111\97\100\105\110\103\46\46\46",
+    Image = "\117\115\101\114\115",
     ImageSize = 25
 })
 
-coroutine.wrap(ajiCWN()
-    local tEFwQD = (function() return string.char(117)..string.char(110)..string.char(117)..string.char(115)..string.char(101)..string.char(100)..string.char(95)..string.char(99)..string.char(111)..string.char(114)..string.char(111)..string.char(117)..string.char(116)..string.char(105)..string.char(110)..string.char(101)..string.char(95)..string.char(100)..string.char(97)..string.char(116)..string.char(97) end)()
+coroutine.wrap(function()
+    local AMuOyV = "\117\110\117\115\101\100\95\99\111\114\111\117\116\105\110\101\95\100\97\116\97"
     wait(5)
 end)()
 
-coroutine.wrap(ajiCWN()
+coroutine.wrap(function()
     while wait(1) do
-        pcall(ajiCWN()
-            local RxZUco = gameData1.leaderstats.Strength.Value
-            local zAFMie = tick()
-            if iPMtVZ > 0 then
-                local kUNQBw = (RxZUco - iPMtVZ) / (zAFMie - lastTime1)
-                if zAFMie - sampleTime1 >= pHovyM then
-                    table.insert(avgArray1, kUNQBw)
-                    if #avgArray1 > yYruga then 
-                        table.remove(avgArray1, 1) 
+        pcall(function()
+            local zqeGrG = e2e2["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value
+            local yHplvb = tick()
+            if fpsJyz > 0 then
+                local iChJAl = (zqeGrG - fpsJyz) / (yHplvb - qRsTuV)
+                if yHplvb - wXyZab >= abdjow then
+                    table.insert(kLmNop, iChJAl)
+                    if #kLmNop > gHUjMD then 
+                        table.remove(kLmNop, 1) 
                     end
-                    sampleTime1 = zAFMie
+                    wXyZab = yHplvb
                 end
             end
-            iPMtVZ= RxZUco
-            lastTime1 = zAFMie
-            local oztHGt = calcAvg1()
-            local uGBqoL = checkBoost1()
-            COGaze:SetDesc(
-                (function() return string.char(83)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104)..string.char(58)..string.char(32) end)() .. formatNum1(RxZUco, 1) ..
-                (function() return string.char(92)..string.char(110)..string.char(65)..string.char(118)..string.char(103)..string.char(32)..string.char(71)..string.char(97)..string.char(105)..string.char(110)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt, 1) .. (function() return string.char(47)..string.char(115) end)() ..
-                (function() return string.char(92)..string.char(110)..string.char(68)..string.char(97)..string.char(105)..string.char(108)..string.char(121)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt * 86400, 1) ..
-                (function() return string.char(92)..string.char(110)..string.char(77)..string.char(111)..string.char(110)..string.char(116)..string.char(104)..string.char(108)..string.char(121)..string.char(58)..string.char(32) end)() .. formatNum1(oztHGt * 2592000, 1) ..
-                (function() return string.char(92)..string.char(110)..string.char(83)..string.char(97)..string.char(109)..string.char(112)..string.char(108)..string.char(101)..string.char(115)..string.char(58)..string.char(32) end)() .. #avgArray1 .. (function() return string.char(47) end)() .. yYruga .. (function() return string.char(92)..string.char(110) end)() ..
-                (uGBqoL and (function() return string.char(9989)..string.char(32)..string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103)..string.char(32)..string.char(120)..string.char(50) end)() or (function() return string.char(10060)..string.char(32)..string.char(78)..string.char(111)..string.char(32)..string.char(66)..string.char(111)..string.char(111)..string.char(115)..string.char(116) end)())
+            fpsJyz = zqeGrG
+            qRsTuV = yHplvb
+            local KHvHdv = zAbCde()
+            local RQEOfJ = tUvWxy()
+            FafuLd:SetDesc(
+                "\83\116\114\101\110\103\116\104\58\32" .. fRmtNg(zqeGrG, 1) ..
+                "\10\65\118\103\32\71\97\105\110\58\32" .. fRmtNg(KHvHdv, 1) .. "\47\115" ..
+                "\10\68\97\105\108\121\58\32" .. fRmtNg(KHvHdv * 86400, 1) ..
+                "\10\77\111\110\116\104\108\121\58\32" .. fRmtNg(KHvHdv * 2592000, 1) ..
+                "\10\83\97\109\112\108\101\115\58\32" .. #kLmNop .. "\47" .. gHUjMD .. "\10" ..
+                (RQEOfJ and "\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50" or "\226\157\140\32\78\111\32\66\111\111\115\116")
             )
         end)
     end
 end)()
 
-_G.autoTrain1 = false
+_G["\86\49"] = false
 
-local ajiCWN trainLoop1()
-    while _G.autoTrain1 do
+local function mNoPqr()
+    while _G["\86\49"] do
         wait()
-        pcall(ajiCWN()
-            if tostring(gameData1.equippedPets.pet1.Value) == (function() return string.char(83)..string.char(119)..string.char(105)..string.char(102)..string.char(116)..string.char(32)..string.char(83)..string.char(97)..string.char(109)..string.char(117)..string.char(114)..string.char(97)..string.char(105) end)() then
-                for i = 0, 19 do
-                    gameData1.muscleEvent:FireServer((function() return string.char(114)..string.char(101)..string.char(112) end)())
+        pcall(function()
+            if tostring(e2e2["\101\113\117\105\112\112\101\100\80\101\116\115"]["\112\101\116\49"].Value) == "\83\119\105\102\116\32\83\97\109\117\114\97\105" then
+                for sTuVwx = 0, 19 do
+                    e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\114\101\112")
                 end
             end
         end)
     end
 end
 
-QyFAAu:Toggle({
-    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(84)..string.char(114)..string.char(97)..string.char(105)..string.char(110) end)(),
-    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(115)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104)..string.char(32)..string.char(116)..string.char(114)..string.char(97)..string.char(105)..string.char(110)..string.char(105)..string.char(110)..string.char(103) end)(),
+CVbOMm:Toggle({
+    Title = "\65\117\116\111\32\84\114\97\105\110",
+    Desc = "\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",
     Value = false,
-    Callback = ajiCWN(state1)
-        _G.autoTrain1 = state1
-        trainLoop1()
+    Callback = function(vWxYza)
+        _G["\86\49"] = vWxYza
+        mNoPqr()
     end
 })
 
-_G.autoLift1 = false
+_G["\76\49"] = false
 
-local ajiCWN liftLoop1()
-    while _G.autoLift1 do
-        pcall(ajiCWN()
-            for repCount1 = 0, 21 do
-                gameData1.muscleEvent:FireServer((function() return string.char(108)..string.char(105)..string.char(102)..string.char(116) end)())
+local function bCdEfg()
+    while _G["\76\49"] do
+        pcall(function()
+            for cDeFgh = 0, 21 do
+                e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\108\105\102\116")
             end
         end)
     end
 end
 
-QyFAAu:Toggle({
-    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(76)..string.char(105)..string.char(102)..string.char(116) end)(),
-    Desc = (function() return string.char(76)..string.char(105)..string.char(102)..string.char(116) end)(),
+CVbOMm:Toggle({
+    Title = "\65\117\116\111\32\76\105\102\116",
+    Desc = "\76\105\102\116",
     Value = false,
-    Callback = ajiCWN(state2)
-        _G.autoLift1 = state2
-        liftLoop1()
+    Callback = function(gHijKl)
+        _G["\76\49"] = gHijKl
+        bCdEfg()
     end
 })
 
-_G.autoEgg1 = false
+_G["\90\49"] = false
 
-local ajiCWN eggLoop1()
-    while _G.autoEgg1 do
+local function hIjKlm()
+    while _G["\90\49"] do
         wait(0.2)
-        pcall(ajiCWN()
-            if not gameData1.boostTimersFolder:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)()) then
-                local GejRtv = gameData1.Backpack:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
-                if GejRtv then
-                    gameData1.Character.Humanoid:EquipTool(GejRtv)
+        pcall(function()
+            if not e2e2["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
+                local KGikqw = e2e2["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
+                if KGikqw then
+                    e2e2.Character.Humanoid:EquipTool(KGikqw)
                     wait(0.1)
-                    if gameData1.Character:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)()) then
-                        gameData1.muscleEvent:FireServer(
-                            (function() return string.char(112)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(69)..string.char(103)..string.char(103) end)(),
-                            gameData1.Character:FindFirstChild((function() return string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)())
+                    if e2e2.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103") then
+                        e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
+                            "\112\114\111\116\101\105\110\69\103\103",
+                            e2e2.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")
                         )
                         wait(0.1)
-                        gameData1.Character.Humanoid:UnequipTools()
+                        e2e2.Character.Humanoid:UnequipTools()
                     end
                 end
             end
@@ -514,122 +432,121 @@ local ajiCWN eggLoop1()
     end
 end
 
-QyFAAu:Toggle({
-    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)(), 
-    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(117)..string.char(115)..string.char(101)..string.char(32)..string.char(80)..string.char(114)..string.char(111)..string.char(116)..string.char(101)..string.char(105)..string.char(110)..string.char(32)..string.char(69)..string.char(103)..string.char(103) end)(),
+CVbOMm:Toggle({
+    Title = "\65\117\116\111\32\69\103\103", 
+    Desc = "\65\117\116\111\32\117\115\101\32\69\103\103",
     Value = false,
-    Callback = ajiCWN(state3)
-        _G.autoEgg1 = state3
-        eggLoop1()
+    Callback = function(lMnOpq)
+        _G["\90\49"] = lMnOpq
+        hIjKlm()
     end
 })
 
-_G.autoPine1 = false
+_G["\87\49"] = false
 
-local ajiCWN pineLoop1()
-    while _G.autoPine1 do
+local function rStUvw()
+    while _G["\87\49"] do
         wait(0.1)
-        pcall(ajiCWN()
-            local QfAJGx = gameData1.Backpack:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)())
-            if QfAJGx then
-                gameData1.Character.Humanoid:EquipTool(QfAJGx)
+        pcall(function()
+            local dOMARw = e2e2["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
+            if dOMARw then
+                e2e2.Character.Humanoid:EquipTool(dOMARw)
                 wait(0.05)
-                if gameData1.Character:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)()) then
-                    gameData1.muscleEvent:FireServer(
-                        (function() return string.char(116)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)(),
-                        gameData1.Character:FindFirstChild((function() return string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101) end)())
+                if e2e2.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101") then
+                    e2e2["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer(
+                        "\116\114\111\112\105\99\97\108\83\104\97\107\101",
+                        e2e2.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")
                     )
                     wait(0.05)
-                    gameData1.Character.Humanoid:UnequipTools()
+                    e2e2.Character.Humanoid:UnequipTools()
                 end
             end
         end)
     end
 end
 
-QyFAAu:Toggle({
-    Title = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(80)..string.char(105)..string.char(110)..string.char(101)..string.char(97)..string.char(112)..string.char(112)..string.char(108)..string.char(101) end)(),
-    Desc = (function() return string.char(65)..string.char(117)..string.char(116)..string.char(111)..string.char(32)..string.char(117)..string.char(115)..string.char(101)..string.char(32)..string.char(84)..string.char(114)..string.char(111)..string.char(112)..string.char(105)..string.char(99)..string.char(97)..string.char(108)..string.char(32)..string.char(83)..string.char(104)..string.char(97)..string.char(107)..string.char(101)..string.char(32)..string.char(40)..string.char(48)..string.char(46)..string.char(49)..string.char(115)..string.char(41) end)(),
+CVbOMm:Toggle({
+    Title = "\65\117\116\111\32\80\105\110\101\97\112\112\108\101",
+    Desc = "\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",
     Value = false,
-    Callback = ajiCWN(state4)
-        _G.autoPine1 = state4
-        pineLoop1()
+    Callback = function(xYzAbc)
+        _G["\87\49"] = xYzAbc
+        rStUvw()
     end
 })
 
-local ajiCWN clearUI1()
-    local hqQhCL = game:GetService((function() return string.char(67)..string.char(111)..string.char(114)..string.char(101)..string.char(71)..string.char(117)..string.char(105) end)())
-    local xsigjR = game:GetService((function() return string.char(80)..string.char(108)..string.char(97)..string.char(121)..string.char(101)..string.char(114)..string.char(115) end)()).LocalPlayer:FindFirstChild((function() return string.char(80)..string.char(108)..string.char(97)..string.char(121)..string.char(101)..string.char(114)..string.char(71)..string.char(117)..string.char(105) end)())
-    local evwDHg = {
-        (function() return string.char(43) end)(), (function() return string.char(67)..string.char(111)..string.char(105)..string.char(110)..string.char(115) end)(), (function() return string.char(67)..string.char(111)..string.char(105)..string.char(110) end)(), (function() return string.char(83)..string.char(116)..string.char(114)..string.char(101)..string.char(110)..string.char(103)..string.char(116)..string.char(104) end)(),
-        (function() return string.char(69)..string.char(120)..string.char(112) end)(), (function() return string.char(69)..string.char(120)..string.char(112)..string.char(101)..string.char(114)..string.char(105)..string.char(101)..string.char(110)..string.char(99)..string.char(101) end)(), (function() return string.char(76)..string.char(101)..string.char(118)..string.char(101)..string.char(108) end)(), 
-        (function() return string.char(68)..string.char(97)..string.char(109)..string.char(97)..string.char(103)..string.char(101) end)(), (function() return string.char(72)..string.char(101)..string.char(97)..string.char(108)..string.char(116)..string.char(104) end)()
+local function yZaBcd()
+    local aptDet = game:GetService("\67\111\114\101\71\117\105")
+    local nEhMZf = game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
+    local mKICkV = {
+        "\83\116\114\101\110\103\116\104","\76\101\118\101\108", 
+        "\68\97\109\97\103\101", "\72\101\97\108\116\104"
     }
-    local WtOKwo = {
-        (function() return string.char(87)..string.char(105)..string.char(110)..string.char(100)..string.char(85)..string.char(73) end)(), (function() return string.char(67)..string.char(114)..string.char(97)..string.char(122)..string.char(121)..string.char(32)..string.char(84)..string.char(111)..string.char(112) end)(), (function() return string.char(82)..string.char(97)..string.char(121)..string.char(102)..string.char(105)..string.char(101)..string.char(108)..string.char(100) end)()
+    local zSozLc = {
+        "\87\105\110\100\85\73", "\67\114\97\122\121\32\84\111\112", "\82\97\121\102\105\101\108\100"
     }
 
-    for _, screenGui1 in ipairs(hqQhCL:GetChildren()) do
-        if screenGui1:IsA((function() return string.char(83)..string.char(99)..string.char(114)..string.char(101)..string.char(101)..string.char(110)..string.char(71)..string.char(117)..string.char(105) end)()) then
-            local xubknX = false
-            for _, uiName1 in ipairs(WtOKwo) do
-                if screenGui1.Name:find(uiName1) then
-                    xubknX= true
+    for _, cDeFgh in ipairs(aptDet:GetChildren()) do
+        if cDeFgh:IsA("\83\99\114\101\101\110\71\117\105") then
+            local VnuXRr = false
+            for _, gHijKl in ipairs(zSozLc) do
+                if cDeFgh.Name:find(gHijKl) then
+                    VnuXRr = true
                     break
                 end
             end
-            if xubknX then continue end
-            local MMJEPl = false
-            for _, descendant1 in ipairs(screenGui1:GetDescendants()) do
-                if (descendant1:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(76)..string.char(97)..string.char(98)..string.char(101)..string.char(108) end)()) or descendant1:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(66)..string.char(117)..string.char(116)..string.char(116)..string.char(111)..string.char(110) end)())) and descendant1.Text then
-                    local BsmJDn = descendant1.Text
-                    for _, term1 in ipairs(evwDHg) do
-                        if BsmJDn:find(term1) or BsmJDn:find((function() return string.char(37)..string.char(43)..string.char(37)..string.char(100)..string.char(43) end)()) then
-                            MMJEPl= true
+            if VnuXRr then continue end
+            local eSsqoz = false
+            for _, lMnOpq in ipairs(cDeFgh:GetDescendants()) do
+                if (lMnOpq:IsA("\84\101\120\116\76\97\98\101\108") or lMnOpq:IsA("\84\101\120\116\66\117\116\116\111\110")) and lMnOpq.Text then
+                    local iTNCXV = lMnOpq.Text
+                    for _, rStUvw in ipairs(mKICkV) do
+                        if iTNCXV:find(rStUvw) or iTNCXV:find("\37\43\37\100\43") then
+                            eSsqoz = true
                             break
                         end
                     end
-                    if MMJEPl then break end
+                    if eSsqoz then break end
                 end
             end
-            if MMJEPl then screenGui1:Destroy() end
+            if eSsqoz then cDeFgh:Destroy() end
         end
     end
 
-    if xsigjR then
-        for _, screenGui2 in ipairs(xsigjR:GetChildren()) do
-            if screenGui2:IsA((function() return string.char(83)..string.char(99)..string.char(114)..string.char(101)..string.char(101)..string.char(110)..string.char(71)..string.char(117)..string.char(105) end)()) then
-                local iOLDYj = false
-                for _, uiName2 in ipairs(WtOKwo) do
-                    if screenGui2.Name:find(uiName2) then
-                        iOLDYj= true
+    if nEhMZf then
+        for _, xYzAbc in ipairs(nEhMZf:GetChildren()) do
+            if xYzAbc:IsA("\83\99\114\101\101\110\71\117\105") then
+                local vuuLOO = false
+                for _, yZaBcd in ipairs(zSozLc) do
+                    if xYzAbc.Name:find(yZaBcd) then
+                        vuuLOO = true
                         break
                     end
                 end
-                if iOLDYj then continue end
-                local IkhFQO = false
-                for _, descendant2 in ipairs(screenGui2:GetDescendants()) do
-                    if (descendant2:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(76)..string.char(97)..string.char(98)..string.char(101)..string.char(108) end)()) or descendant2:IsA((function() return string.char(84)..string.char(101)..string.char(120)..string.char(116)..string.char(66)..string.char(117)..string.char(116)..string.char(116)..string.char(111)..string.char(110) end)())) and descendant2.Text then
-                        local ZSkSAb = descendant2.Text
-                        for _, term2 in ipairs(evwDHg) do
-                            if ZSkSAb:find(term2) or ZSkSAb:find((function() return string.char(37)..string.char(43)..string.char(37)..string.char(100)..string.char(43) end)()) then
-                                IkhFQO= true
+                if vuuLOO then continue end
+                local vGjKuM = false
+                for _, zAbCde in ipairs(xYzAbc:GetDescendants()) do
+                    if (zAbCde:IsA("\84\101\120\116\76\97\98\101\108") or zAbCde:IsA("\84\101\120\116\66\117\116\116\111\110")) and zAbCde.Text then
+                        local ZyPVyE = zAbCde.Text
+                        for _, eFgHij in ipairs(mKICkV) do
+                            if ZyPVyE:find(eFgHij) or ZyPVyE:find("\37\43\37\100\43") then
+                                vGjKuM = true
                                 break
                             end
                         end
-                        if IkhFQO then break end
+                        if vGjKuM then break end
                     end
                 end
-                if IkhFQO then screenGui2:Destroy() end
+                if vGjKuM then xYzAbc:Destroy() end
             end
         end
     end
 end
 
-QyFAAu:Button({
-    Title = (function() return string.char(67)..string.char(108)..string.char(101)..string.char(97)..string.char(114)..string.char(32)..string.char(71)..string.char(97)..string.char(105)..string.char(110)..string.char(32)..string.char(85)..string.char(73) end)(),
-    Desc = (function() return string.char(82)..string.char(101)..string.char(109)..string.char(111)..string.char(118)..string.char(101)..string.char(32)..string.char(97)..string.char(108)..string.char(108)..string.char(32)..string.char(103)..string.char(97)..string.char(105)..string.char(110)..string.char(32)..string.char(110)..string.char(111)..string.char(116)..string.char(105)..string.char(102)..string.char(105)..string.char(99)..string.char(97)..string.char(116)..string.char(105)..string.char(111)..string.char(110)..string.char(115) end)(),
-    Callback = clearUI1
+CVbOMm:Button({
+    Title = "\67\108\101\97\114\32\71\97\105\110\32\85\73",
+    Desc = "\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",
+    Callback = yZaBcd
 })
 
-print((function() return string.char(83)..string.char(99)..string.char(114)..string.char(105)..string.char(112)..string.char(116)..string.char(32)..string.char(108)..string.char(111)..string.char(97)..string.char(100)..string.char(101)..string.char(100)..string.char(33) end)())
+print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
