@@ -214,7 +214,7 @@ end
 local function o()
     local p=game.Players.LocalPlayer.Name
     local q,r=pcall(function()
-        local s=game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
+        local s=game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/locl.txt")
         local t={}for u in s:gmatch("[^,]+")do t[u:gsub("%s+","")]=true end
         return t[p]
     end)
