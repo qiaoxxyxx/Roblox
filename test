@@ -1,57 +1,163 @@
--- 跳过防多开和白名单验证部分，直接添加WindUI加载代码
+-- ==================== 防多开检查 ====================
+if game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup") then
+    game:GetService("Players").LocalPlayer:Kick("Script already running!")
+    return
+end
+Instance.new("ScreenGui", game:GetService("CoreGui")).Name = "KJY_Team_AntiDup"
 
--- ==================== 从 GitHub 加载 WindUI 库 ====================
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/ui"))()
+-- ==================== WindUI库 ====================
+local WindUI = (function()
+    local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+    for _, gui in ipairs(playerGui:GetChildren()) do
+        if gui:IsA("ScreenGui") and gui.Name == "WindUI" then gui:Destroy() end
+    end
 
--- 获取本地玩家引用
-local e = game:GetService("Players").LocalPlayer
+    local player = game:GetService("Players").LocalPlayer
+    local screenSize = workspace.CurrentCamera.ViewportSize
+    local windowWidth = math.min(160, screenSize.X * 0.35)
 
--- 设置防挂机
-e.Idled:Connect(function()
-    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-    wait(1)
-    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
+    -- 创建GUI
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WindUI"
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    screenGui.Parent = playerGui
 
--- ==================== 添加功能到Strength分类 ====================
--- 全局变量
-local spamTraining = false
-local batchSize = 20  -- 固定批次大小
+    -- 欢迎文字
+    local welcomeFrame = Instance.new("Frame", screenGui)
+    welcomeFrame.Size = UDim2.new(0, math.min(250, screenSize.X * 0.6), 0, 35)
+    welcomeFrame.Position = UDim2.new(1, -math.min(250, screenSize.X * 0.6) - 10, 0, 10)
+    welcomeFrame.BackgroundTransparency = 1
+    welcomeFrame.ZIndex = 5
 
--- 极速发送锻炼事件
-local function spamExerciseEvents()
-    while spamTraining do
-        pcall(function()
-            -- 批量发送事件
-            local muscleEvent = e.muscleEvent
-            for i = 0, batchSize do
-                muscleEvent:FireServer("rep")
-            end
+    local welcomeText = Instance.new("TextLabel", welcomeFrame)
+    welcomeText.Size = UDim2.new(1, 0, 1, 0)
+    welcomeText.BackgroundTransparency = 1
+    welcomeText.Text = "Welcome " .. player.Name
+    welcomeText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    welcomeText.TextSize = 16
+    welcomeText.Font = Enum.Font.GothamBold
+    welcomeText.TextXAlignment = Enum.TextXAlignment.Right
+
+    -- Strength窗口
+    local window = Instance.new("Frame", screenGui)
+    window.Size = UDim2.new(0, windowWidth, 0, 200)
+    window.Position = UDim2.new(0, 10, 0, 50)
+    window.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
+    window.BackgroundTransparency = 0.2
+
+    local titleBar = Instance.new("TextButton", window)
+    titleBar.Size = UDim2.new(1, 0, 0, 25)
+    titleBar.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
+    titleBar.Text = ""
+    titleBar.AutoButtonColor = false
+
+    local titleLabel = Instance.new("TextLabel", titleBar)
+    titleLabel.Size = UDim2.new(1, -40, 1, 0)
+    titleLabel.Position = UDim2.new(0, 8, 0, 0)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Text = "Strength"
+    titleLabel.TextColor3 = Color3.fromRGB(255, 200, 255)
+    titleLabel.TextSize = 12
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local contentFrame = Instance.new("ScrollingFrame", window)
+    contentFrame.Size = UDim2.new(1, -6, 1, -31)
+    contentFrame.Position = UDim2.new(0, 3, 0, 28)
+    contentFrame.BackgroundTransparency = 1
+    contentFrame.ScrollBarThickness = 3
+    contentFrame.ScrollBarImageColor3 = Color3.fromRGB(180, 120, 255)
+
+    -- API
+    local WindUI = {}
+    local functionStates = {}
+    local featuresCount = 0
+
+    function WindUI.AddFunction(categoryName, functionName, callback)
+        if categoryName ~= "Strength" then return false end
+        
+        local button = Instance.new("TextButton")
+        button.Name = functionName
+        button.Size = UDim2.new(1, -4, 0, 26)
+        button.Position = UDim2.new(0, 2, 0, 5 + (featuresCount * 30))
+        button.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
+        button.Text = functionName
+        button.TextColor3 = Color3.fromRGB(220, 180, 255)
+        button.TextSize = 12
+        button.Font = Enum.Font.Gotham
+        button.Parent = contentFrame
+        
+        functionStates[functionName] = false
+        
+        button.MouseButton1Click:Connect(function()
+            functionStates[functionName] = not functionStates[functionName]
+            button.BackgroundColor3 = functionStates[functionName] and Color3.fromRGB(255, 150, 200) or Color3.fromRGB(40, 25, 60)
+            button.TextColor3 = functionStates[functionName] and Color3.fromRGB(255, 240, 245) or Color3.fromRGB(220, 180, 255)
+            
+            if callback then callback(functionStates[functionName]) end
         end)
         
-        task.wait(0.01)  -- 极小延迟保持稳定
+        featuresCount = featuresCount + 1
+        contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (featuresCount * 30))
+        return true
     end
+
+    return WindUI
+end)()
+
+-- ==================== 基础设置 ====================
+local e = game:GetService("Players").LocalPlayer
+e.Idled:Connect(function()
+    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    wait(1)
+    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+end)
+
+-- ==================== 白名单验证 ====================
+local function checkWhitelist()
+    local playerName = game.Players.LocalPlayer.Name
+    local success, isWhitelisted = pcall(function()
+        local list = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
+        local whitelist = {}
+        for name in list:gmatch("[^,]+") do whitelist[name:gsub("%s+","")] = true end
+        return whitelist[playerName]
+    end)
+    
+    if not success or not isWhitelisted then
+        game.Players.LocalPlayer:Kick("未授权用户")
+        return false
+    end
+    return true
 end
 
--- 1. 极速锻炼功能（覆盖原来的自动训练）
+if not checkWhitelist() then return end
+
+-- ==================== 添加功能 ====================
+local spamTraining = false
+
+-- 极速锻炼
 WindUI.AddFunction("Strength", "极速锻炼", function(state)
     spamTraining = state
     if state then
-        task.spawn(spamExerciseEvents)
-        print("极速锻炼已开启")
-    else
-        print("极速锻炼已关闭")
+        task.spawn(function()
+            while spamTraining do
+                pcall(function()
+                    for i = 0, 20 do
+                        e.muscleEvent:FireServer("rep")
+                    end
+                end)
+                task.wait(0.01)
+            end
+        end)
     end
 end)
 
--- 2. 自动使用蛋白蛋
+-- 自动蛋白蛋
 WindUI.AddFunction("Strength", "自动蛋白蛋", function(state)
-    _G.Z = state
-    print("自动蛋白蛋: " .. (state and "ON" or "OFF"))
+    _G.AutoProtein = state
     if state then
-        spawn(function()
-            while _G.Z do
-                wait(0.2)
+        task.spawn(function()
+            while _G.AutoProtein do
                 pcall(function()
                     if not e.boostTimersFolder:FindFirstChild("Protein Egg") then
                         local egg = e.Backpack:FindFirstChild("Protein Egg")
@@ -60,97 +166,59 @@ WindUI.AddFunction("Strength", "自动蛋白蛋", function(state)
                             wait(0.1)
                             if e.Character:FindFirstChild("Protein Egg") then
                                 e.muscleEvent:FireServer("proteinEgg", e.Character:FindFirstChild("Protein Egg"))
-                                wait(0.1)
                                 e.Character.Humanoid:UnequipTools()
                             end
                         end
                     end
                 end)
+                wait(0.2)
             end
         end)
     end
 end)
 
--- 3. 清除增益UI
-WindUI.AddFunction("Strength", "清除增益UI", function(state)
-    local function ClearGainUI()
-        local coreGui = game:GetService("CoreGui")
-        local playerGui = e:FindFirstChild("PlayerGui")
-        local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
-        local protectedNames = {"WindUI","Crazy Top","Rayfield"}
-        
-        -- 清理CoreGui
-        for _, gui in ipairs(coreGui:GetChildren()) do
+-- 清除增益UI
+WindUI.AddFunction("Strength", "清除增益UI", function()
+    local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
+    local protected = {"WindUI","Crazy Top","Rayfield"}
+    
+    local function cleanGui(parent)
+        for _, gui in ipairs(parent:GetChildren()) do
             if gui:IsA("ScreenGui") then
-                local isProtected = false
-                for _, name in ipairs(protectedNames) do
+                local shouldRemove = true
+                for _, name in ipairs(protected) do
                     if gui.Name:find(name) then
-                        isProtected = true
+                        shouldRemove = false
                         break
                     end
                 end
-                if not isProtected then
-                    local shouldRemove = false
+                
+                if shouldRemove then
                     for _, element in ipairs(gui:GetDescendants()) do
                         if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
-                            local text = element.Text
                             for _, keyword in ipairs(keywords) do
-                                if text:find(keyword) or text:find("%+%d+") then
-                                    shouldRemove = true
+                                if element.Text:find(keyword) then
+                                    gui:Destroy()
                                     break
                                 end
                             end
-                            if shouldRemove then break end
                         end
-                    end
-                    if shouldRemove then gui:Destroy() end
-                end
-            end
-        end
-        
-        -- 清理PlayerGui
-        if playerGui then
-            for _, gui in ipairs(playerGui:GetChildren()) do
-                if gui:IsA("ScreenGui") then
-                    local isProtected = false
-                    for _, name in ipairs(protectedNames) do
-                        if gui.Name:find(name) then
-                            isProtected = true
-                            break
-                        end
-                    end
-                    if not isProtected then
-                        local shouldRemove = false
-                        for _, element in ipairs(gui:GetDescendants()) do
-                            if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
-                                local text = element.Text
-                                for _, keyword in ipairs(keywords) do
-                                    if text:find(keyword) or text:find("%+%d+") then
-                                        shouldRemove = true
-                                        break
-                                    end
-                                end
-                                if shouldRemove then break end
-                            end
-                        end
-                        if shouldRemove then gui:Destroy() end
                     end
                 end
             end
         end
-        print("增益UI已清除!")
     end
-    ClearGainUI()
+    
+    cleanGui(game:GetService("CoreGui"))
+    cleanGui(e:FindFirstChild("PlayerGui"))
 end)
 
--- 4. 可选：自动使用热带奶昔（菠萝）
+-- 自动热带奶昔
 WindUI.AddFunction("Strength", "自动热带奶昔", function(state)
-    _G.W = state
-    print("自动热带奶昔: " .. (state and "ON" or "OFF"))
+    _G.AutoShake = state
     if state then
-        spawn(function()
-            while _G.W do
-                wait(0.1)
+        task.spawn(function()
+            while _G.AutoShake do
                 pcall(function()
                     local shake = e.Backpack:FindFirstChild("Tropical Shake")
                     if shake then
@@ -158,16 +226,14 @@ WindUI.AddFunction("Strength", "自动热带奶昔", function(state)
                         wait(0.05)
                         if e.Character:FindFirstChild("Tropical Shake") then
                             e.muscleEvent:FireServer("tropicalShake", e.Character:FindFirstChild("Tropical Shake"))
-                            wait(0.05)
                             e.Character.Humanoid:UnequipTools()
                         end
                     end
                 end)
+                wait(0.1)
             end
         end)
     end
 end)
 
--- ==================== 脚本加载完成 ====================
-print("脚本加载完成！")
-print("Strength窗口包含：极速锻炼、自动蛋白蛋、清除增益UI、自动热带奶昔")
+print("脚本加载完成！所有功能可用。")
