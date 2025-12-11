@@ -52,7 +52,7 @@ end)
 
 -- ==================== 从GitHub加载WindUI框架 ====================
 local success, winduiCode = pcall(function()
-    return game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/windui.lua")
+    return game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/ui.lua")
 end)
 
 if success and winduiCode then
