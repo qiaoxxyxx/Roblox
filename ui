@@ -1,422 +1,319 @@
-local WindUI = (function()
-    -- 移除所有现有的UI
-    local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-    for _, gui in ipairs(playerGui:GetChildren()) do
-        if gui:IsA("ScreenGui") and gui.Name == "WindUI" then
-            gui:Destroy()
+local player = game:GetService("Players").LocalPlayer
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MobileWindUI"
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local viewportSize = workspace.CurrentCamera.ViewportSize
+local mainWindow = Instance.new("Frame")
+mainWindow.Name = "MainWindow"
+mainWindow.Size = UDim2.new(0, 380, 0, 400)
+mainWindow.Position = UDim2.new(0, 20, 0, 50)
+mainWindow.BackgroundColor3 = Color3.fromRGB(255, 240, 245)
+mainWindow.BorderSizePixel = 0
+mainWindow.ZIndex = 10
+mainWindow.Parent = screenGui
+
+local backgroundGradient = Instance.new("UIGradient")
+backgroundGradient.Rotation = 90
+backgroundGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 250, 255)),
+    ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 235, 245)),
+    ColorSequenceKeypoint.new(0.7, Color3.fromRGB(255, 220, 235)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 210, 225))
+})
+backgroundGradient.Parent = mainWindow
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 16)
+uiCorner.Parent = mainWindow
+
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Color = Color3.fromRGB(255, 160, 200)
+uiStroke.Thickness = 3
+uiStroke.Parent = mainWindow
+
+local titleBar = Instance.new("TextButton")
+titleBar.Name = "TitleBar"
+titleBar.Size = UDim2.new(1, 0, 0, 35)
+titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
+titleBar.Text = ""
+titleBar.AutoButtonColor = false
+titleBar.ZIndex = 11
+titleBar.Parent = mainWindow
+
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 16, 0, 0)
+titleCorner.Parent = titleBar
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(0.6, 0, 1, 0)
+titleLabel.Position = UDim2.new(0, 10, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "Cr4zy Strength Pro"
+titleLabel.TextColor3 = Color3.fromRGB(200, 70, 130)
+titleLabel.TextSize = 14
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.ZIndex = 12
+titleLabel.Parent = titleBar
+
+local strengthLabel = Instance.new("TextLabel")
+strengthLabel.Size = UDim2.new(0.4, 0, 1, 0)
+strengthLabel.Position = UDim2.new(0.6, -10, 0, 0)
+strengthLabel.BackgroundTransparency = 1
+strengthLabel.Text = "strength 0"
+strengthLabel.TextColor3 = Color3.fromRGB(180, 100, 150)
+strengthLabel.TextSize = 12
+strengthLabel.Font = Enum.Font.GothamBold
+strengthLabel.TextXAlignment = Enum.TextXAlignment.Right
+strengthLabel.ZIndex = 12
+strengthLabel.Parent = titleBar
+
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Name = "MinimizeButton"
+minimizeButton.Size = UDim2.new(0, 28, 0, 28)
+minimizeButton.Position = UDim2.new(1, -65, 0.5, -14)
+minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+minimizeButton.Text = "─"
+minimizeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+minimizeButton.TextSize = 20
+minimizeButton.Font = Enum.Font.GothamBold
+minimizeButton.AutoButtonColor = false
+minimizeButton.ZIndex = 12
+minimizeButton.Parent = titleBar
+
+local minimizeCorner = Instance.new("UICorner")
+minimizeCorner.CornerRadius = UDim.new(0, 6)
+minimizeCorner.Parent = minimizeButton
+
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 28, 0, 28)
+closeButton.Position = UDim2.new(1, -30, 0.5, -14)
+closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+closeButton.Text = "✕"
+closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+closeButton.TextSize = 16
+closeButton.Font = Enum.Font.GothamBold
+closeButton.AutoButtonColor = false
+closeButton.ZIndex = 12
+closeButton.Parent = titleBar
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 6)
+closeCorner.Parent = closeButton
+
+local statsFrame = Instance.new("Frame")
+statsFrame.Name = "StatsFrame"
+statsFrame.Size = UDim2.new(1, -20, 0, 90)
+statsFrame.Position = UDim2.new(0, 10, 0, 40)
+statsFrame.BackgroundColor3 = Color3.fromRGB(255, 245, 250)
+statsFrame.BorderSizePixel = 0
+statsFrame.ZIndex = 11
+statsFrame.Parent = mainWindow
+
+local statsCorner = Instance.new("UICorner")
+statsCorner.CornerRadius = UDim.new(0, 10)
+statsCorner.Parent = statsFrame
+
+local statsStroke = Instance.new("UIStroke")
+statsStroke.Color = Color3.fromRGB(255, 180, 210)
+statsStroke.Thickness = 2
+statsStroke.Parent = statsFrame
+
+local leftColumn = Instance.new("Frame")
+leftColumn.Name = "LeftColumn"
+leftColumn.Size = UDim2.new(0.5, -5, 1, 0)
+leftColumn.Position = UDim2.new(0, 10, 0, 0)
+leftColumn.BackgroundTransparency = 1
+leftColumn.ZIndex = 12
+leftColumn.Parent = statsFrame
+
+local leftGrid = Instance.new("UIGridLayout")
+leftGrid.CellSize = UDim2.new(1, -5, 0.33, -3)
+leftGrid.CellPadding = UDim2.new(0, 0, 0, 2)
+leftGrid.StartCorner = Enum.StartCorner.TopLeft
+leftGrid.Parent = leftColumn
+
+local leftItems = {
+    {id = "current_speed", name = " Now:", color = Color3.fromRGB(100, 220, 150)},
+    {id = "avg_speed_20s", name = " 20s:", color = Color3.fromRGB(255, 140, 100)},
+    {id = "protein_status", name = " Egg:", color = Color3.fromRGB(220, 180, 100)}
+}
+
+local leftLabels = {}
+for i, item in ipairs(leftItems) do
+    local itemFrame = Instance.new("Frame")
+    itemFrame.Name = item.id
+    itemFrame.BackgroundTransparency = 1
+    itemFrame.Parent = leftColumn
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = item.name
+    nameLabel.TextColor3 = Color3.fromRGB(150, 100, 130)
+    nameLabel.TextSize = 11
+    nameLabel.Font = Enum.Font.Gotham
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.Parent = itemFrame
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Name = "Value"
+    valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
+    valueLabel.Position = UDim2.new(0.6, 0, 0, 0)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.Text = "0"
+    valueLabel.TextColor3 = item.color
+    valueLabel.TextSize = 10
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    valueLabel.Parent = itemFrame
+    leftLabels[item.id] = valueLabel
+end
+
+local rightColumn = Instance.new("Frame")
+rightColumn.Name = "RightColumn"
+rightColumn.Size = UDim2.new(0.5, -5, 1, 0)
+rightColumn.Position = UDim2.new(0.5, 5, 0, 0)
+rightColumn.BackgroundTransparency = 1
+rightColumn.ZIndex = 12
+rightColumn.Parent = statsFrame
+
+local rightGrid = Instance.new("UIGridLayout")
+rightGrid.CellSize = UDim2.new(1, -5, 0.33, -3)
+rightGrid.CellPadding = UDim2.new(0, 0, 0, 2)
+rightGrid.StartCorner = Enum.StartCorner.TopLeft
+rightGrid.Parent = rightColumn
+
+local rightItems = {
+    {id = "current_strength", name = " Now:", color = Color3.fromRGB(220, 100, 150)},
+    {id = "daily_gain", name = "Day:", color = Color3.fromRGB(100, 180, 255)},
+    {id = "monthly_gain", name = "Mon:", color = Color3.fromRGB(150, 100, 220)}
+}
+
+local rightLabels = {}
+for i, item in ipairs(rightItems) do
+    local itemFrame = Instance.new("Frame")
+    itemFrame.Name = item.id
+    itemFrame.BackgroundTransparency = 1
+    itemFrame.Parent = rightColumn
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = item.name
+    nameLabel.TextColor3 = Color3.fromRGB(150, 100, 130)
+    nameLabel.TextSize = 11
+    nameLabel.Font = Enum.Font.Gotham
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.Parent = itemFrame
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Name = "Value"
+    valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
+    valueLabel.Position = UDim2.new(0.6, 0, 0, 0)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.Text = "0"
+    valueLabel.TextColor3 = item.color
+    valueLabel.TextSize = 10
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    valueLabel.Parent = itemFrame
+    rightLabels[item.id] = valueLabel
+end
+
+local buttonsFrame = Instance.new("Frame")
+buttonsFrame.Name = "ButtonsFrame"
+buttonsFrame.Size = UDim2.new(1, -20, 0, 230)
+buttonsFrame.Position = UDim2.new(0, 10, 0, 140)
+buttonsFrame.BackgroundTransparency = 1
+buttonsFrame.ZIndex = 11
+buttonsFrame.Parent = mainWindow
+
+local buttonContainer = Instance.new("ScrollingFrame")
+buttonContainer.Name = "ButtonContainer"
+buttonContainer.Size = UDim2.new(1, 0, 1, 0)
+buttonContainer.BackgroundTransparency = 1
+buttonContainer.ScrollBarThickness = 3
+buttonContainer.ScrollBarImageColor3 = Color3.fromRGB(255, 180, 210)
+buttonContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
+buttonContainer.ZIndex = 12
+buttonContainer.Parent = buttonsFrame
+
+local buttonList = Instance.new("UIListLayout")
+buttonList.Padding = UDim.new(0, 6)
+buttonList.Parent = buttonContainer
+
+if not _G.WindUI then _G.WindUI = {} end
+
+_G.WindUI.UpdateTitle = function(text)
+    strengthLabel.Text = text
+end
+
+_G.WindUI.UpdateStats = function(data)
+    for key, value in pairs(data) do
+        if leftLabels[key] then
+            leftLabels[key].Text = value
+        elseif rightLabels[key] then
+            rightLabels[key].Text = value
         end
     end
+end
 
-    -- 初始化
-    local Players = game:GetService("Players")
-    local UserInputService = game:GetService("UserInputService")
-    local TweenService = game:GetService("TweenService")
-    local RunService = game:GetService("RunService")
-
-    local player = Players.LocalPlayer
-    local username = player.Name
-    local screenSize = workspace.CurrentCamera.ViewportSize
-
-    -- 修改这里：创建Strength分类
-    local categories = {{name = "Strength", color = Color3.fromRGB(255, 80, 80), features = {}}}
-
-    -- 窗口参数
-    local windowWidth = math.min(160, screenSize.X * 0.35)
-    local windowHeight = 200
-    local startX, startY = 10, 50
-    categories[1].position = Vector2.new(startX, startY)
-
-    -- 创建GUI
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "WindUI"
-    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    screenGui.Parent = playerGui
-
-    -- 背景
-    local background = Instance.new("Frame")
-    background.Size = UDim2.new(1, 0, 1, 0)
-    background.BackgroundColor3 = Color3.fromRGB(15, 10, 25)
-    background.BackgroundTransparency = 0.8
-    background.ZIndex = -10
-    background.Parent = screenGui
-
-    local starGradient = Instance.new("UIGradient")
-    starGradient.Rotation = 90
-    starGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 15, 35)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(20, 10, 30)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 5, 25))
-    })
-    starGradient.Parent = background
-
-    -- 粉白渐变闪烁欢迎文字
-    local welcomeFrame = Instance.new("Frame")
-    welcomeFrame.Size = UDim2.new(0, math.min(250, screenSize.X * 0.6), 0, 35)
-    welcomeFrame.Position = UDim2.new(1, -math.min(250, screenSize.X * 0.6) - 10, 0, 10)
-    welcomeFrame.BackgroundTransparency = 1
-    welcomeFrame.ZIndex = 5
-    welcomeFrame.Parent = screenGui
-
-    local welcomeText = Instance.new("TextLabel")
-    welcomeText.Size = UDim2.new(1, 0, 1, 0)
-    welcomeText.BackgroundTransparency = 1
-    welcomeText.Text = "Welcome " .. username
-    welcomeText.TextColor3 = Color3.fromRGB(255, 255, 255)
-    welcomeText.TextSize = 16
-    welcomeText.Font = Enum.Font.GothamBold
-    welcomeText.TextXAlignment = Enum.TextXAlignment.Right
-    welcomeText.ZIndex = 5
-    welcomeText.Parent = welcomeFrame
-
-    -- 粉白渐变效果
-    local textGradient = Instance.new("UIGradient")
-    textGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)), -- 浅粉色
-        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)), -- 粉色
-        ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)), -- 亮粉色
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))  -- 深粉色
-    })
-    textGradient.Rotation = 90
-    textGradient.Parent = welcomeText
-
-    -- 文字描边
-    local textStroke = Instance.new("UIStroke")
-    textStroke.Color = Color3.fromRGB(255, 150, 200)
-    textStroke.Thickness = 2
-    textStroke.Transparency = 0.3
-    textStroke.Parent = welcomeText
-
-    -- 闪烁动画
-    spawn(function()
-        while welcomeText and welcomeText.Parent do
-            -- 淡入
-            local tweenIn = TweenService:Create(welcomeText, TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                TextTransparency = 0.2
-            })
-            tweenIn:Play()
-            tweenIn.Completed:Wait()
-            
-            -- 淡出
-            local tweenOut = TweenService:Create(welcomeText, TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                TextTransparency = 0.5
-            })
-            tweenOut:Play()
-            tweenOut.Completed:Wait()
-            
-            -- 渐变颜色变化
-            local currentColors = {
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
-                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
-                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
-            }
-            
-            -- 轻微调整渐变颜色
-            local newColors = {
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 250, 255)), -- 更白
-                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 230, 240)),
-                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 210, 230)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 190, 220))
-            }
-            
-            textGradient.Color = ColorSequence.new(newColors)
-            wait(0.5)
-            textGradient.Color = ColorSequence.new(currentColors)
+_G.WindUI.AddButton = function(name, desc, callback)
+    local buttonFrame = Instance.new("TextButton")
+    buttonFrame.Name = name .. "Button"
+    buttonFrame.Size = UDim2.new(1, 0, 0, 45)
+    buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+    buttonFrame.Text = ""
+    buttonFrame.AutoButtonColor = false
+    buttonFrame.ZIndex = 12
+    buttonFrame.Parent = buttonContainer
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 8)
+    buttonCorner.Parent = buttonFrame
+    
+    local buttonStroke = Instance.new("UIStroke")
+    buttonStroke.Color = Color3.fromRGB(255, 180, 210)
+    buttonStroke.Thickness = 2
+    buttonStroke.Parent = buttonFrame
+    
+    local buttonTitle = Instance.new("TextLabel")
+    buttonTitle.Size = UDim2.new(1, -20, 0.7, 0)
+    buttonTitle.Position = UDim2.new(0, 10, 0, 0)
+    buttonTitle.BackgroundTransparency = 1
+    buttonTitle.Text = name
+    buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+    buttonTitle.TextSize = 13
+    buttonTitle.Font = Enum.Font.GothamBold
+    buttonTitle.TextXAlignment = Enum.TextXAlignment.Left
+    buttonTitle.ZIndex = 13
+    buttonTitle.Parent = buttonFrame
+    
+    local buttonDesc = Instance.new("TextLabel")
+    buttonDesc.Size = UDim2.new(1, -20, 0.3, 0)
+    buttonDesc.Position = UDim2.new(0, 10, 0.7, 0)
+    buttonDesc.BackgroundTransparency = 1
+    buttonDesc.Text = desc
+    buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
+    buttonDesc.TextSize = 10
+    buttonDesc.Font = Enum.Font.Gotham
+    buttonDesc.TextXAlignment = Enum.TextXAlignment.Left
+    buttonDesc.ZIndex = 13
+    buttonDesc.Parent = buttonFrame
+    
+    buttonFrame.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+           input.UserInputType == Enum.UserInputType.Touch then
+            if callback then
+                callback()
+            end
         end
     end)
+    
+    buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 51)
+end
 
-    -- 窗口创建
-    local windows = {}
-    local minimizedWindows = {}
-    local functionStates = {}
-
-    for i, category in ipairs(categories) do
-        local window = Instance.new("Frame")
-        window.Size = UDim2.new(0, windowWidth, 0, windowHeight)
-        window.Position = UDim2.new(0, category.position.X, 0, category.position.Y)
-        window.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
-        window.BackgroundTransparency = 0.2
-        window.ZIndex = 1
-        window.Parent = screenGui
-        
-        local border = Instance.new("Frame")
-        border.Size = UDim2.new(1, 3, 1, 3)
-        border.Position = UDim2.new(0, -1.5, 0, -1.5)
-        border.BackgroundColor3 = Color3.fromRGB(120, 80, 180)
-        border.ZIndex = 0
-        border.Parent = window
-        
-        local innerBorder = Instance.new("Frame")
-        innerBorder.Size = UDim2.new(1, -3, 1, -3)
-        innerBorder.Position = UDim2.new(0, 1.5, 0, 1.5)
-        innerBorder.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
-        innerBorder.BackgroundTransparency = 0.3
-        innerBorder.Parent = border
-        
-        local titleBar = Instance.new("TextButton")
-        titleBar.Size = UDim2.new(1, 0, 0, 25)
-        titleBar.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
-        titleBar.Text = ""
-        titleBar.AutoButtonColor = false
-        titleBar.ZIndex = 2
-        titleBar.Parent = innerBorder
-        
-        local titleLabel = Instance.new("TextLabel")
-        titleLabel.Size = UDim2.new(1, -40, 1, 0)
-        titleLabel.Position = UDim2.new(0, 8, 0, 0)
-        titleLabel.BackgroundTransparency = 1
-        titleLabel.Text = category.name
-        titleLabel.TextColor3 = Color3.fromRGB(255, 200, 255)
-        titleLabel.TextSize = 12
-        titleLabel.Font = Enum.Font.GothamBold
-        titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-        titleLabel.ZIndex = 2
-        titleLabel.Parent = titleBar
-        
-        local minimizeButton = Instance.new("TextButton")
-        minimizeButton.Size = UDim2.new(0, 20, 0, 20)
-        minimizeButton.Position = UDim2.new(1, -22, 0.5, -10)
-        minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
-        minimizeButton.BackgroundColor3 = Color3.fromRGB(60, 40, 90)
-        minimizeButton.Text = "─"
-        minimizeButton.TextColor3 = Color3.fromRGB(220, 180, 255)
-        minimizeButton.TextSize = 16
-        minimizeButton.Font = Enum.Font.GothamBold
-        minimizeButton.AutoButtonColor = false
-        minimizeButton.ZIndex = 2
-        minimizeButton.Parent = titleBar
-        
-        local contentFrame = Instance.new("ScrollingFrame")
-        contentFrame.Size = UDim2.new(1, -6, 1, -31)
-        contentFrame.Position = UDim2.new(0, 3, 0, 28)
-        contentFrame.BackgroundTransparency = 1
-        contentFrame.ScrollBarThickness = 3
-        contentFrame.ScrollBarImageColor3 = Color3.fromRGB(180, 120, 255)
-        contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-        contentFrame.ZIndex = 2
-        contentFrame.Parent = innerBorder
-        
-        local windowInfo = {
-            frame = window,
-            originalSize = UDim2.new(0, windowWidth, 0, windowHeight),
-            originalPosition = UDim2.new(0, category.position.X, 0, category.position.Y),
-            minimized = false,
-            contentFrame = contentFrame,
-            categoryName = category.name,
-            featuresCount = 0
-        }
-        
-        -- 拖动功能
-        local isDragging = false
-        local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
-        
-        titleBar.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                isDragging = true
-                dragStart = input.Position
-                windowStart = Vector2.new(window.Position.X.Offset, window.Position.Y.Offset)
-                window.ZIndex = 10
-                border.ZIndex = 9
-            end
-        end)
-        
-        UserInputService.InputChanged:Connect(function(input)
-            if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                local delta = input.Position - dragStart
-                window.Position = UDim2.new(0, windowStart.X + delta.X, 0, windowStart.Y + delta.Y)
-            end
-        end)
-        
-        UserInputService.InputEnded:Connect(function(input)
-            if isDragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
-                isDragging = false
-                window.ZIndex = 1
-                border.ZIndex = 0
-                
-                local currentPos = window.Position
-                local newX = math.max(5, math.min(currentPos.X.Offset, screenSize.X - windowWidth - 5))
-                local newY = math.max(10, math.min(currentPos.Y.Offset, screenSize.Y - windowHeight - 10))
-                
-                window.Position = UDim2.new(0, newX, 0, newY)
-                windowInfo.originalPosition = window.Position
-            end
-        end)
-        
-        -- 收纳功能
-        minimizeButton.MouseButton1Click:Connect(function()
-            windowInfo.minimized = not windowInfo.minimized
-            
-            if windowInfo.minimized then
-                window.Size = UDim2.new(0, windowWidth, 0, 25)
-                contentFrame.Visible = false
-                minimizeButton.Text = "+"
-                table.insert(minimizedWindows, windowInfo)
-            else
-                window.Size = windowInfo.originalSize
-                contentFrame.Visible = true
-                minimizeButton.Text = "─"
-                for idx, win in ipairs(minimizedWindows) do
-                    if win.frame == window then
-                        table.remove(minimizedWindows, idx)
-                        break
-                    end
-                end
-            end
-        end)
-        
-        table.insert(windows, windowInfo)
-    end
-
-    -- API
-    local WindUI = {}
-
-    function WindUI.AddFunction(categoryName, functionName, callback)
-        for _, windowInfo in ipairs(windows) do
-            if windowInfo.categoryName == categoryName then
-                local contentFrame = windowInfo.contentFrame
-                if contentFrame then
-                    local functionButton = Instance.new("TextButton")
-                    functionButton.Name = functionName
-                    functionButton.Size = UDim2.new(1, -4, 0, 26)
-                    functionButton.Position = UDim2.new(0, 2, 0, 5 + (windowInfo.featuresCount * 30))
-                    functionButton.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
-                    functionButton.Text = functionName
-                    functionButton.TextColor3 = Color3.fromRGB(220, 180, 255)
-                    functionButton.TextSize = 12
-                    functionButton.Font = Enum.Font.Gotham
-                    functionButton.AutoButtonColor = true
-                    functionButton.Parent = contentFrame
-                    
-                    functionStates[functionName] = false
-                    
-                    -- 按钮交互效果
-                    functionButton.MouseEnter:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 180, 220)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(50, 30, 70)
-                        end
-                        functionButton.TextColor3 = Color3.fromRGB(240, 200, 255)
-                    end)
-                    
-                    functionButton.MouseLeave:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
-                        end
-                        functionButton.TextColor3 = Color3.fromRGB(220, 180, 255)
-                    end)
-                    
-                    functionButton.MouseButton1Down:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 120, 180)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(35, 20, 55)
-                        end
-                    end)
-                    
-                    functionButton.MouseButton1Up:Connect(function()
-                        functionStates[functionName] = not functionStates[functionName]
-                        
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
-                            functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
-                            print(functionName .. " 已开启")
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
-                            functionButton.TextColor3 = Color3.fromRGB(220, 180, 255)
-                            print(functionName .. " 已关闭")
-                        end
-                        
-                        if callback then
-                            callback(functionStates[functionName])
-                        end
-                    end)
-                    
-                    windowInfo.featuresCount = windowInfo.featuresCount + 1
-                    local newHeight = math.max(200, 65 + (windowInfo.featuresCount * 30))
-                    windowInfo.originalSize = UDim2.new(0, windowWidth, 0, newHeight)
-                    window.Size = windowInfo.originalSize
-                    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
-                    
-                    print("已添加功能到 " .. categoryName .. ": " .. functionName)
-                    return true
-                end
-            end
-        end
-        return false
-    end
-
-    function WindUI.AddFunctions(categoryName, functionsTable)
-        local successCount = 0
-        for functionName, callback in pairs(functionsTable) do
-            if WindUI.AddFunction(categoryName, functionName, callback) then
-                successCount = successCount + 1
-            end
-        end
-        return successCount > 0
-    end
-
-    function WindUI.GetWindow(categoryName)
-        for _, windowInfo in ipairs(windows) do
-            if windowInfo.categoryName == categoryName then
-                return windowInfo
-            end
-        end
-        return nil
-    end
-
-    function WindUI.GetAllWindows() return windows end
-
-    function WindUI.RemoveWelcomeText()
-        if welcomeFrame and welcomeFrame.Parent then
-            welcomeFrame:Destroy()
-        end
-    end
-
-    function WindUI.ShowWelcomeText()
-        if welcomeFrame then
-            welcomeFrame.Visible = true
-        end
-    end
-
-    function WindUI.SetWelcomeText(newText)
-        if welcomeText then
-            welcomeText.Text = newText
-        end
-    end
-
-    function WindUI.GetFunctionState(functionName)
-        return functionStates[functionName] or false
-    end
-
-    function WindUI.SetFunctionState(functionName, state)
-        if functionStates[functionName] ~= nil then
-            functionStates[functionName] = state
-            
-            for _, windowInfo in ipairs(windows) do
-                local button = windowInfo.contentFrame:FindFirstChild(functionName)
-                if button then
-                    if state then
-                        button.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
-                        button.TextColor3 = Color3.fromRGB(255, 240, 245)
-                    else
-                        button.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
-                        button.TextColor3 = Color3.fromRGB(220, 180, 255)
-                    end
-                    
-                    return true
-                end
-            end
-        end
-        return false
-    end
-
-    print("WindUI 已加载")
-    print("右上角: 粉白渐变闪烁欢迎文字")
-    print("左侧: 可拖动、可收纳的Strength窗口")
-    print("使用 WindUI.AddFunction('Strength', '功能名', 回调函数) 来添加功能")
-
-    return WindUI
-end)()
+print("WindUI")
