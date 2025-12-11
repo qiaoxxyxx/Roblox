@@ -474,14 +474,256 @@ end
 
 if not checkWhitelist() then return end
 
--- ==================== 数值格式化函数 ====================
-local function formatNumber(value, decimals)
+-- ==================== 统计模块 ====================
+local StatsModule = {
+    samples = {},
+    maxSamples = 6,
+    sampleInterval = 20,
+    lastStrength = 0,
+    lastSampleTime = 0,
+    lastBatchTime = 0,
+    statsDisplay = nil,
+    isActive = false
+}
+
+-- 数值格式化函数
+function StatsModule.formatNumber(value, decimals)
     if value == 0 then return "0" end
     local units = {"", "K", "M", "B", "T", "Qa", "Qi"}
     local order = math.floor(math.log(math.max(1, math.abs(value)), 1000))
     local unit = units[order + 1] or ("e" .. order)
     local scaledValue = math.floor(value * ((10 ^ decimals) / (1000 ^ order))) / (10 ^ decimals)
     return string.format("%." .. decimals .. "f%s", scaledValue, unit)
+end
+
+-- 获取当前耐久度
+function StatsModule.getDurability()
+    local success, durability = pcall(function()
+        if player.Character then
+            -- 尝试humanoid的耐久度
+            local humanoid = player.Character:FindFirstChild("Humanoid")
+            if humanoid and humanoid:FindFirstChild("Durability") then
+                return humanoid.Durability.Value
+            end
+            
+            -- 尝试找其他耐久度属性
+            for _, obj in pairs(player.Character:GetDescendants()) do
+                if obj.Name == "Durability" and obj:IsA("NumberValue") then
+                    return obj.Value
+                end
+            end
+        end
+        
+        -- 尝试背包中的工具耐久度
+        for _, tool in pairs(player.Backpack:GetChildren()) do
+            if tool:FindFirstChild("Durability") then
+                return tool.Durability.Value
+            end
+        end
+        
+        return 0
+    end)
+    
+    return success and durability or 0
+end
+
+-- 获取当前力量
+function StatsModule.getStrength()
+    local success, strength = pcall(function()
+        return player.leaderstats.Strength.Value
+    end)
+    return success and strength or 0
+end
+
+-- 检查蛋白蛋增益
+function StatsModule.checkProteinBoost()
+    local success, boostExists = pcall(function()
+        return player.boostTimersFolder:FindFirstChild("Protein Egg")
+    end)
+    return success and boostExists
+end
+
+-- 计算平均增益
+function StatsModule.calculateAverageGain()
+    if #StatsModule.samples == 0 then return 0 end
+    local total = 0
+    for _, value in ipairs(StatsModule.samples) do
+        total = total + value
+    end
+    return total / #StatsModule.samples
+end
+
+-- 创建统计显示UI
+function StatsModule:createDisplay()
+    -- 创建统计框架
+    local statsFrame = Instance.new("Frame")
+    statsFrame.Name = "StatsDisplay"
+    statsFrame.Size = UDim2.new(0, 320, 0, 220)
+    statsFrame.Position = UDim2.new(1, -330, 0.3, 0)
+    statsFrame.BackgroundColor3 = Color3.fromRGB(20, 12, 28)
+    statsFrame.BackgroundTransparency = 0.2
+    statsFrame.BorderSizePixel = 0
+    statsFrame.ZIndex = 5
+    statsFrame.Parent = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
+    
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 8)
+    uiCorner.Parent = statsFrame
+    
+    local uiStroke = Instance.new("UIStroke")
+    uiStroke.Color = Color3.fromRGB(100, 60, 150)
+    uiStroke.Thickness = 2
+    uiStroke.Parent = statsFrame
+    
+    -- 标题
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.Position = UDim2.new(0, 0, 0, 0)
+    titleLabel.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
+    titleLabel.BackgroundTransparency = 0.3
+    titleLabel.Text = "📊 实时统计"
+    titleLabel.TextColor3 = Color3.fromRGB(255, 200, 255)
+    titleLabel.TextSize = 16
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.Parent = statsFrame
+    
+    local titleCorner = Instance.new("UICorner")
+    titleCorner.CornerRadius = UDim.new(0, 8)
+    titleCorner.Parent = titleLabel
+    
+    -- 滚动框架用于显示统计信息
+    local scrollFrame = Instance.new("ScrollingFrame")
+    scrollFrame.Size = UDim2.new(1, -10, 1, -40)
+    scrollFrame.Position = UDim2.new(0, 5, 0, 35)
+    scrollFrame.BackgroundTransparency = 1
+    scrollFrame.ScrollBarThickness = 3
+    scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(150, 90, 210)
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 200)
+    scrollFrame.Parent = statsFrame
+    
+    -- 统计标签
+    StatsModule.statsLabels = {}
+    
+    local statsData = {
+        {id = "strength", label = "当前力量: ", color = Color3.fromRGB(180, 220, 255)},
+        {id = "durability", label = "当前耐久: ", color = Color3.fromRGB(150, 255, 150)},
+        {id = "avgGain", label = "平均增益: ", color = Color3.fromRGB(180, 255, 180)},
+        {id = "daily", label = "每日速度: ", color = Color3.fromRGB(255, 220, 120)},
+        {id = "monthly", label = "每月速度: ", color = Color3.fromRGB(255, 180, 220)},
+        {id = "samples", label = "样本数量: ", color = Color3.fromRGB(200, 200, 200)},
+        {id = "boost", label = "蛋白蛋状态: ", color = Color3.fromRGB(255, 150, 150)}
+    }
+    
+    for i, stat in ipairs(statsData) do
+        local statFrame = Instance.new("Frame")
+        statFrame.Size = UDim2.new(1, 0, 0, 25)
+        statFrame.Position = UDim2.new(0, 0, 0, (i-1) * 28)
+        statFrame.BackgroundTransparency = 1
+        statFrame.Parent = scrollFrame
+        
+        local label = Instance.new("TextLabel")
+        label.Size = UDim2.new(0.5, 0, 1, 0)
+        label.Position = UDim2.new(0, 0, 0, 0)
+        label.BackgroundTransparency = 1
+        label.Text = stat.label
+        label.TextColor3 = Color3.fromRGB(220, 180, 255)
+        label.TextSize = 13
+        label.Font = Enum.Font.Gotham
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        label.Parent = statFrame
+        
+        local valueLabel = Instance.new("TextLabel")
+        valueLabel.Size = UDim2.new(0.5, 0, 1, 0)
+        valueLabel.Position = UDim2.new(0.5, 0, 0, 0)
+        valueLabel.BackgroundTransparency = 1
+        valueLabel.Text = "计算中..."
+        valueLabel.TextColor3 = stat.color
+        valueLabel.TextSize = 13
+        valueLabel.Font = Enum.Font.GothamBold
+        valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+        valueLabel.Parent = statFrame
+        
+        StatsModule.statsLabels[stat.id] = valueLabel
+    end
+    
+    self.statsDisplay = statsFrame
+    self.isActive = true
+    
+    -- 启动更新协程
+    spawn(function()
+        while self.isActive and self.statsDisplay and self.statsDisplay.Parent do
+            task.wait(1)  -- 每秒更新一次
+            
+            pcall(function()
+                -- 获取当前值
+                local currentStrength = self.getStrength()
+                local currentDurability = self.getDurability()
+                local currentTime = tick()
+                
+                -- 更新力量显示
+                self.statsLabels.strength.Text = self.formatNumber(currentStrength, 1)
+                
+                -- 更新耐久度显示
+                self.statsLabels.durability.Text = self.formatNumber(currentDurability, 1)
+                
+                -- 计算力量增益
+                if self.lastStrength > 0 then
+                    local gainPerSecond = (currentStrength - self.lastStrength) / (currentTime - self.lastSampleTime)
+                    
+                    -- 如果达到采样间隔，添加新样本
+                    if currentTime - self.lastBatchTime >= self.sampleInterval then
+                        table.insert(self.samples, gainPerSecond)
+                        if #self.samples > self.maxSamples then
+                            table.remove(self.samples, 1)
+                        end
+                        self.lastBatchTime = currentTime
+                    end
+                    
+                    -- 计算平均增益
+                    local avgGain = self.calculateAverageGain()
+                    self.statsLabels.avgGain.Text = self.formatNumber(avgGain, 1) .. "/s"
+                    
+                    -- 计算时间范围速度
+                    local secondsInDay = 86400
+                    local secondsInMonth = 2592000
+                    
+                    self.statsLabels.daily.Text = self.formatNumber(avgGain * secondsInDay, 1)
+                    self.statsLabels.monthly.Text = self.formatNumber(avgGain * secondsInMonth, 1)
+                    
+                    -- 更新样本信息
+                    self.statsLabels.samples.Text = #self.samples .. "/" .. self.maxSamples
+                else
+                    -- 第一次记录
+                    self.lastStrength = currentStrength
+                    self.lastSampleTime = currentTime
+                    self.lastBatchTime = currentTime
+                end
+                
+                -- 更新增益状态
+                local hasBoost = self.checkProteinBoost()
+                if hasBoost then
+                    self.statsLabels.boost.Text = "✅ Protein Egg x2"
+                    self.statsLabels.boost.TextColor3 = Color3.fromRGB(100, 255, 100)
+                else
+                    self.statsLabels.boost.Text = "❌ No Boost"
+                    self.statsLabels.boost.TextColor3 = Color3.fromRGB(255, 100, 100)
+                end
+                
+                -- 更新最后记录的值
+                self.lastStrength = currentStrength
+                self.lastSampleTime = currentTime
+            end)
+        end
+    end)
+end
+
+-- 移除统计显示
+function StatsModule:removeDisplay()
+    self.isActive = false
+    if self.statsDisplay and self.statsDisplay.Parent then
+        self.statsDisplay:Destroy()
+        self.statsDisplay = nil
+    end
 end
 
 -- ==================== 添加所有功能到Combat分类 ====================
@@ -601,85 +843,13 @@ WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
     end
 end)
 
--- 5. 显示当前耐久度功能
-WindUI.AddFunction("Combat", "显示耐久度", function(state)
+-- 5. 实时统计显示功能
+WindUI.AddFunction("Combat", "实时统计显示", function(state)
     if state then
-        -- 创建一个耐久度显示标签
-        local durabilityDisplay = Instance.new("TextLabel")
-        durabilityDisplay.Name = "DurabilityDisplay"
-        durabilityDisplay.Size = UDim2.new(0, 200, 0, 40)
-        durabilityDisplay.Position = UDim2.new(1, -210, 0.3, 0)
-        durabilityDisplay.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-        durabilityDisplay.BackgroundTransparency = 0.3
-        durabilityDisplay.Text = "耐久度: 获取中..."
-        durabilityDisplay.TextColor3 = Color3.fromRGB(150, 255, 150)
-        durabilityDisplay.TextSize = 14
-        durabilityDisplay.Font = Enum.Font.GothamBold
-        durabilityDisplay.TextXAlignment = Enum.TextXAlignment.Center
-        durabilityDisplay.ZIndex = 5
-        durabilityDisplay.Parent = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
-        
-        local uiCorner = Instance.new("UICorner")
-        uiCorner.CornerRadius = UDim.new(0, 8)
-        uiCorner.Parent = durabilityDisplay
-        
-        local uiStroke = Instance.new("UIStroke")
-        uiStroke.Color = Color3.fromRGB(100, 255, 100)
-        uiStroke.Thickness = 2
-        uiStroke.Parent = durabilityDisplay
-        
-        -- 更新耐久度的函数
-        local function getDurability()
-            local success, durability = pcall(function()
-                -- 尝试不同的耐久度路径
-                if player.Character then
-                    -- 尝试humanoid的耐久度
-                    local humanoid = player.Character:FindFirstChild("Humanoid")
-                    if humanoid and humanoid:FindFirstChild("Durability") then
-                        return humanoid.Durability.Value
-                    end
-                    
-                    -- 尝试找其他耐久度属性
-                    for _, obj in pairs(player.Character:GetDescendants()) do
-                        if obj.Name == "Durability" and obj:IsA("NumberValue") then
-                            return obj.Value
-                        end
-                    end
-                end
-                
-                -- 尝试背包中的工具耐久度
-                for _, tool in pairs(player.Backpack:GetChildren()) do
-                    if tool:FindFirstChild("Durability") then
-                        return tool.Durability.Value
-                    end
-                end
-                
-                return 0
-            end)
-            
-            return success and durability or 0
-        end
-        
-        -- 更新耐久度显示的协程
-        spawn(function()
-            while durabilityDisplay and durabilityDisplay.Parent do
-                local durability = getDurability()
-                durabilityDisplay.Text = "耐久度: " .. formatNumber(durability, 1)
-                wait(1)  -- 每秒更新一次
-            end
-        end)
-        
-        print("耐久度显示已开启")
+        StatsModule:createDisplay()
+        print("实时统计显示已开启")
     else
-        -- 关闭时移除显示
-        local windUI = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
-        local display = windUI:FindFirstChild("DurabilityDisplay")
-        if display then
-            display:Destroy()
-        end
-        print("耐久度显示已关闭")
+        StatsModule:removeDisplay()
+        print("实时统计显示已关闭")
     end
-end)
-
-print("脚本加载完成！所有功能可用。")
-print("Combat窗口包含：极速锻炼、自动蛋白蛋、清除增益UI、自动热带奶昔、显示耐久度")
+end
