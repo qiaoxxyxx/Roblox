@@ -1,582 +1,369 @@
--- ==================== 防多开检查 ====================
-local function AntiMultiOpen()
-    local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
-    if existingGui then
-        game:GetService("Players").LocalPlayer:Kick("Script already running! Please wait.")
-        return false
-    end
-    
-    local antiDupGui = Instance.new("ScreenGui")
-    antiDupGui.Name = "KJY_Team_AntiDup"
-    antiDupGui.Parent = game:GetService("CoreGui")
-    
-    game:GetService("Players").PlayerRemoving:Connect(function(player)
-        if player == game:GetService("Players").LocalPlayer then
-            antiDupGui:Destroy()
-        end
-    end)
-    
-    return true
-end
-
-if not AntiMultiOpen() then
-    return
-end
-
--- ==================== 嵌入完整的WindUI库 ====================
-local WindUI = (function()
-    local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-    for _, gui in ipairs(playerGui:GetChildren()) do
-        if gui:IsA("ScreenGui") and gui.Name == "WindUI" then
-            gui:Destroy()
-        end
-    end
-
-    local Players = game:GetService("Players")
-    local UserInputService = game:GetService("UserInputService")
-    local TweenService = game:GetService("TweenService")
-
-    local player = Players.LocalPlayer
-    local username = player.Name
-    local screenSize = workspace.CurrentCamera.ViewportSize
-
-    local categories = {{name = "Combat", color = Color3.fromRGB(255, 80, 80), features = {}}}
-
-    local windowWidth = math.min(160, screenSize.X * 0.35)
-    local windowHeight = 200
-    local startX, startY = 10, 50
-    categories[1].position = Vector2.new(startX, startY)
-
+-- ==================== WindUI风格数据监控 ====================
+local function createWindUIDataMonitor()
+    local player = game:GetService("Players").LocalPlayer
     local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "WindUI"
+    screenGui.Name = "WindUI_DataMonitor"
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    screenGui.Parent = playerGui
+    screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
-    local background = Instance.new("Frame")
-    background.Size = UDim2.new(1, 0, 1, 0)
-    background.BackgroundColor3 = Color3.fromRGB(5, 2, 8)
-    background.BackgroundTransparency = 0.6
-    background.ZIndex = -10
-    background.Parent = screenGui
-
-    local starGradient = Instance.new("UIGradient")
-    starGradient.Rotation = 90
-    starGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(10, 5, 15)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(8, 3, 12)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 1, 8))
-    })
-    starGradient.Parent = background
-
-    local welcomeFrame = Instance.new("Frame")
-    welcomeFrame.Size = UDim2.new(0, math.min(300, screenSize.X * 0.8), 0, 50)
-    welcomeFrame.Position = UDim2.new(0.5, -math.min(300, screenSize.X * 0.8) / 2, 0.1, 0)
-    welcomeFrame.BackgroundTransparency = 1
-    welcomeFrame.ZIndex = 5
-    welcomeFrame.Parent = screenGui
-
-    local welcomeText = Instance.new("TextLabel")
-    welcomeText.Size = UDim2.new(1, 0, 1, 0)
-    welcomeText.BackgroundTransparency = 1
-    welcomeText.Text = "Welcome " .. username
-    welcomeText.TextColor3 = Color3.fromRGB(255, 255, 255)
-    welcomeText.TextSize = 20
-    welcomeText.Font = Enum.Font.GothamBold
-    welcomeText.TextXAlignment = Enum.TextXAlignment.Center
-    welcomeText.ZIndex = 5
-    welcomeText.Parent = welcomeFrame
-
-    local textGradient = Instance.new("UIGradient")
-    textGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
-        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
-        ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
-    })
-    textGradient.Rotation = 90
-    textGradient.Parent = welcomeText
-
-    local textStroke = Instance.new("UIStroke")
-    textStroke.Color = Color3.fromRGB(255, 150, 200)
-    textStroke.Thickness = 2
-    textStroke.Transparency = 0.3
-    textStroke.Parent = welcomeText
-
-    spawn(function()
-        while welcomeText and welcomeText.Parent do
-            local tweenIn = TweenService:Create(welcomeText, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                TextTransparency = 0.1,
-                TextStrokeTransparency = 0.5
-            })
-            tweenIn:Play()
-            tweenIn.Completed:Wait()
-            
-            local tweenOut = TweenService:Create(welcomeText, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                TextTransparency = 0.5,
-                TextStrokeTransparency = 0.8
-            })
-            tweenOut:Play()
-            tweenOut.Completed:Wait()
-            
-            local colors1 = {
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 250, 255)),
-                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 230, 240)),
-                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 210, 230)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 190, 220))
-            }
-            
-            local colors2 = {
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
-                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
-                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
-            }
-            
-            textGradient.Color = ColorSequence.new(colors1)
-            wait(0.2)
-            textGradient.Color = ColorSequence.new(colors2)
-            
-            textStroke.Transparency = 0.2
-            wait(0.1)
-            textStroke.Transparency = 0.4
+    -- 主窗口
+    local mainWindow = Instance.new("Frame")
+    mainWindow.Name = "DataMonitorWindow"
+    mainWindow.Size = UDim2.new(0, 350, 0, 200)
+    mainWindow.Position = UDim2.new(0.5, -175, 0.7, 0)
+    mainWindow.BackgroundColor3 = Color3.fromRGB(20, 12, 28)
+    mainWindow.BackgroundTransparency = 0.1
+    mainWindow.ZIndex = 10
+    mainWindow.Parent = screenGui
+    
+    local border = Instance.new("Frame")
+    border.Size = UDim2.new(1, 3, 1, 3)
+    border.Position = UDim2.new(0, -1.5, 0, -1.5)
+    border.BackgroundColor3 = Color3.fromRGB(100, 60, 150)
+    border.ZIndex = 9
+    border.Parent = mainWindow
+    
+    local innerBorder = Instance.new("Frame")
+    innerBorder.Size = UDim2.new(1, -3, 1, -3)
+    innerBorder.Position = UDim2.new(0, 1.5, 0, 1.5)
+    innerBorder.BackgroundColor3 = Color3.fromRGB(18, 10, 25)
+    innerBorder.BackgroundTransparency = 0.2
+    innerBorder.ZIndex = 10
+    innerBorder.Parent = border
+    
+    -- 标题栏
+    local titleBar = Instance.new("TextButton")
+    titleBar.Name = "TitleBar"
+    titleBar.Size = UDim2.new(1, 0, 0, 25)
+    titleBar.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+    titleBar.Text = ""
+    titleBar.AutoButtonColor = false
+    titleBar.ZIndex = 11
+    titleBar.Parent = innerBorder
+    
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, -40, 1, 0)
+    titleLabel.Position = UDim2.new(0, 8, 0, 0)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Text = "📊 数据监控"
+    titleLabel.TextColor3 = Color3.fromRGB(255, 180, 230)
+    titleLabel.TextSize = 12
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.ZIndex = 11
+    titleLabel.Parent = titleBar
+    
+    local minimizeButton = Instance.new("TextButton")
+    minimizeButton.Size = UDim2.new(0, 20, 0, 20)
+    minimizeButton.Position = UDim2.new(1, -22, 0.5, -10)
+    minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    minimizeButton.BackgroundColor3 = Color3.fromRGB(45, 25, 65)
+    minimizeButton.Text = "─"
+    minimizeButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+    minimizeButton.TextSize = 16
+    minimizeButton.Font = Enum.Font.GothamBold
+    minimizeButton.AutoButtonColor = false
+    minimizeButton.ZIndex = 11
+    minimizeButton.Parent = titleBar
+    
+    -- 内容区域
+    local contentFrame = Instance.new("Frame")
+    contentFrame.Name = "Content"
+    contentFrame.Size = UDim2.new(1, -6, 1, -31)
+    contentFrame.Position = UDim2.new(0, 3, 0, 28)
+    contentFrame.BackgroundTransparency = 1
+    contentFrame.ZIndex = 11
+    contentFrame.Parent = innerBorder
+    
+    -- 创建数据标签（网格布局）
+    local dataLabels = {}
+    
+    local statsToShow = {
+        {name = "力量", id = "strength", color = Color3.fromRGB(255, 120, 120)},
+        {name = "耐久", id = "durability", color = Color3.fromRGB(120, 200, 255)},
+        {name = "蛋白蛋", id = "protein", color = Color3.fromRGB(255, 220, 120)},
+        {name = "增益状态", id = "boost", color = Color3.fromRGB(180, 255, 180)},
+        {name = "速度", id = "speed", color = Color3.fromRGB(255, 180, 255)},
+        {name = "在线时间", id = "uptime", color = Color3.fromRGB(200, 200, 200)}
+    }
+    
+    for i, stat in ipairs(statsToShow) do
+        local row = math.floor((i - 1) / 2)
+        local col = (i - 1) % 2
+        
+        local statFrame = Instance.new("Frame")
+        statFrame.Size = UDim2.new(0.48, 0, 0, 28)
+        statFrame.Position = UDim2.new(col * 0.5, 5, 0, 5 + (row * 32))
+        statFrame.BackgroundColor3 = Color3.fromRGB(25, 15, 35)
+        statFrame.BackgroundTransparency = 0.3
+        statFrame.ZIndex = 12
+        statFrame.Parent = contentFrame
+        
+        local label = Instance.new("TextLabel")
+        label.Size = UDim2.new(0.4, 0, 1, 0)
+        label.Position = UDim2.new(0, 5, 0, 0)
+        label.BackgroundTransparency = 1
+        label.Text = stat.name .. ":"
+        label.TextColor3 = Color3.fromRGB(220, 180, 255)
+        label.TextSize = 12
+        label.Font = Enum.Font.Gotham
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        label.ZIndex = 13
+        label.Parent = statFrame
+        
+        local valueLabel = Instance.new("TextLabel")
+        valueLabel.Name = stat.id
+        valueLabel.Size = UDim2.new(0.55, 0, 1, 0)
+        valueLabel.Position = UDim2.new(0.4, 0, 0, 0)
+        valueLabel.BackgroundTransparency = 1
+        valueLabel.Text = "加载中..."
+        valueLabel.TextColor3 = stat.color
+        valueLabel.TextSize = 12
+        valueLabel.Font = Enum.Font.GothamBold
+        valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+        valueLabel.ZIndex = 13
+        valueLabel.Parent = statFrame
+        
+        dataLabels[stat.id] = valueLabel
+    end
+    
+    -- 状态栏
+    local statusBar = Instance.new("Frame")
+    statusBar.Size = UDim2.new(1, -10, 0, 3)
+    statusBar.Position = UDim2.new(0, 5, 1, -20)
+    statusBar.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
+    statusBar.ZIndex = 12
+    statusBar.Parent = contentFrame
+    
+    local statusFill = Instance.new("Frame")
+    statusFill.Name = "StatusFill"
+    statusFill.Size = UDim2.new(0, 0, 1, 0)
+    statusFill.BackgroundColor3 = Color3.fromRGB(150, 90, 210)
+    statusFill.ZIndex = 13
+    statusFill.Parent = statusBar
+    
+    local statusText = Instance.new("TextLabel")
+    statusText.Size = UDim2.new(1, 0, 0, 15)
+    statusText.Position = UDim2.new(0, 0, 1, 2)
+    statusText.BackgroundTransparency = 1
+    statusText.Text = "监控运行中..."
+    statusText.TextColor3 = Color3.fromRGB(180, 160, 220)
+    statusText.TextSize = 10
+    statusText.Font = Enum.Font.Gotham
+    statusText.TextXAlignment = Enum.TextXAlignment.Center
+    statusText.ZIndex = 13
+    statusText.Parent = statusBar
+    
+    -- 变量存储
+    local monitorData = {
+        window = mainWindow,
+        minimized = false,
+        startTime = tick(),
+        lastStrength = 0,
+        strengthSamples = {}
+    }
+    
+    -- 拖动功能
+    local isDragging = false
+    local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
+    
+    titleBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isDragging = true
+            dragStart = input.Position
+            windowStart = Vector2.new(mainWindow.Position.X.Offset, mainWindow.Position.Y.Offset)
+            mainWindow.ZIndex = 20
+            border.ZIndex = 19
         end
     end)
-
-    local windows = {}
-    local minimizedWindows = {}
-    local functionStates = {}
-
-    for i, category in ipairs(categories) do
-        local window = Instance.new("Frame")
-        window.Size = UDim2.new(0, windowWidth, 0, windowHeight)
-        window.Position = UDim2.new(0, category.position.X, 0, category.position.Y)
-        window.BackgroundColor3 = Color3.fromRGB(20, 12, 28)
-        window.BackgroundTransparency = 0.1
-        window.ZIndex = 1
-        window.Parent = screenGui
-        
-        local border = Instance.new("Frame")
-        border.Size = UDim2.new(1, 3, 1, 3)
-        border.Position = UDim2.new(0, -1.5, 0, -1.5)
-        border.BackgroundColor3 = Color3.fromRGB(100, 60, 150)
-        border.ZIndex = 0
-        border.Parent = window
-        
-        local innerBorder = Instance.new("Frame")
-        innerBorder.Size = UDim2.new(1, -3, 1, -3)
-        innerBorder.Position = UDim2.new(0, 1.5, 0, 1.5)
-        innerBorder.BackgroundColor3 = Color3.fromRGB(18, 10, 25)
-        innerBorder.BackgroundTransparency = 0.2
-        innerBorder.Parent = border
-        
-        local titleBar = Instance.new("TextButton")
-        titleBar.Size = UDim2.new(1, 0, 0, 25)
-        titleBar.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-        titleBar.Text = ""
-        titleBar.AutoButtonColor = false
-        titleBar.ZIndex = 2
-        titleBar.Parent = innerBorder
-        
-        local titleLabel = Instance.new("TextLabel")
-        titleLabel.Size = UDim2.new(1, -40, 1, 0)
-        titleLabel.Position = UDim2.new(0, 8, 0, 0)
-        titleLabel.BackgroundTransparency = 1
-        titleLabel.Text = category.name
-        titleLabel.TextColor3 = Color3.fromRGB(255, 180, 230)
-        titleLabel.TextSize = 12
-        titleLabel.Font = Enum.Font.GothamBold
-        titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-        titleLabel.ZIndex = 2
-        titleLabel.Parent = titleBar
-        
-        local minimizeButton = Instance.new("TextButton")
-        minimizeButton.Size = UDim2.new(0, 20, 0, 20)
-        minimizeButton.Position = UDim2.new(1, -22, 0.5, -10)
-        minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
-        minimizeButton.BackgroundColor3 = Color3.fromRGB(45, 25, 65)
-        minimizeButton.Text = "─"
-        minimizeButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-        minimizeButton.TextSize = 16
-        minimizeButton.Font = Enum.Font.GothamBold
-        minimizeButton.AutoButtonColor = false
-        minimizeButton.ZIndex = 2
-        minimizeButton.Parent = titleBar
-        
-        local contentFrame = Instance.new("ScrollingFrame")
-        contentFrame.Size = UDim2.new(1, -6, 1, -31)
-        contentFrame.Position = UDim2.new(0, 3, 0, 28)
-        contentFrame.BackgroundTransparency = 1
-        contentFrame.ScrollBarThickness = 3
-        contentFrame.ScrollBarImageColor3 = Color3.fromRGB(150, 90, 210)
-        contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-        contentFrame.ZIndex = 2
-        contentFrame.Parent = innerBorder
-        
-        local windowInfo = {
-            frame = window,
-            originalSize = UDim2.new(0, windowWidth, 0, windowHeight),
-            originalPosition = UDim2.new(0, category.position.X, 0, category.position.Y),
-            minimized = false,
-            contentFrame = contentFrame,
-            categoryName = category.name,
-            featuresCount = 0
-        }
-        
-        local isDragging = false
-        local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
-        
-        titleBar.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                isDragging = true
-                dragStart = input.Position
-                windowStart = Vector2.new(window.Position.X.Offset, window.Position.Y.Offset)
-                window.ZIndex = 10
-                border.ZIndex = 9
-            end
-        end)
-        
-        UserInputService.InputChanged:Connect(function(input)
-            if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                local delta = input.Position - dragStart
-                window.Position = UDim2.new(0, windowStart.X + delta.X, 0, windowStart.Y + delta.Y)
-            end
-        end)
-        
-        UserInputService.InputEnded:Connect(function(input)
-            if isDragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
-                isDragging = false
-                window.ZIndex = 1
-                border.ZIndex = 0
-                
-                local currentPos = window.Position
-                local newX = math.max(5, math.min(currentPos.X.Offset, screenSize.X - windowWidth - 5))
-                local newY = math.max(10, math.min(currentPos.Y.Offset, screenSize.Y - windowHeight - 10))
-                
-                window.Position = UDim2.new(0, newX, 0, newY)
-                windowInfo.originalPosition = window.Position
-            end
-        end)
-        
-        minimizeButton.MouseButton1Click:Connect(function()
-            windowInfo.minimized = not windowInfo.minimized
-            
-            if windowInfo.minimized then
-                window.Size = UDim2.new(0, windowWidth, 0, 25)
-                contentFrame.Visible = false
-                minimizeButton.Text = "+"
-                table.insert(minimizedWindows, windowInfo)
-            else
-                window.Size = windowInfo.originalSize
-                contentFrame.Visible = true
-                minimizeButton.Text = "─"
-                for idx, win in ipairs(minimizedWindows) do
-                    if win.frame == window then
-                        table.remove(minimizedWindows, idx)
-                        break
-                    end
-                end
-            end
-        end)
-        
-        table.insert(windows, windowInfo)
-    end
-
-    local WindUI = {}
-
-    function WindUI.AddFunction(categoryName, functionName, callback)
-        if not categoryName or not functionName or type(categoryName) ~= "string" or type(functionName) ~= "string" then
-            return false
+    
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if isDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = input.Position - dragStart
+            mainWindow.Position = UDim2.new(0, windowStart.X + delta.X, 0, windowStart.Y + delta.Y)
         end
-        
-        for _, windowInfo in ipairs(windows) do
-            if windowInfo.categoryName == categoryName then
-                local contentFrame = windowInfo.contentFrame
-                if not contentFrame or not contentFrame.Parent then
-                    return false
-                end
-                
-                windowInfo.featuresCount = windowInfo.featuresCount or 0
-                
-                local functionButton = Instance.new("TextButton")
-                functionButton.Name = functionName
-                functionButton.Size = UDim2.new(1, -4, 0, 26)
-                
-                local yPosition = 5 + (windowInfo.featuresCount * 30)
-                functionButton.Position = UDim2.new(0, 2, 0, yPosition)
-                
-                functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                functionButton.Text = functionName
-                functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                functionButton.TextSize = 12
-                functionButton.Font = Enum.Font.Gotham
-                functionButton.AutoButtonColor = true
-                functionButton.Parent = contentFrame
-                
-                functionStates[functionName] = false
-                
-                functionButton.MouseEnter:Connect(function()
-                    if functionStates[functionName] then
-                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
-                    else
-                        functionButton.BackgroundColor3 = Color3.fromRGB(40, 22, 55)
-                    end
-                    functionButton.TextColor3 = Color3.fromRGB(240, 200, 255)
-                end)
-                
-                functionButton.MouseLeave:Connect(function()
-                    if functionStates[functionName] then
-                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
-                    else
-                        functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                    end
-                    functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                end)
-                
-                functionButton.MouseButton1Down:Connect(function()
-                    if functionStates[functionName] then
-                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 100, 170)
-                    else
-                        functionButton.BackgroundColor3 = Color3.fromRGB(25, 14, 35)
-                    end
-                end)
-                
-                functionButton.MouseButton1Up:Connect(function()
-                    functionStates[functionName] = not functionStates[functionName]
-                    
-                    if functionStates[functionName] then
-                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
-                        functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
-                    else
-                        functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                        functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                    end
-                    
-                    if callback then
-                        pcall(callback, functionStates[functionName])
-                    end
-                end)
-                
-                windowInfo.featuresCount = windowInfo.featuresCount + 1
-                local newHeight = math.max(200, 65 + (windowInfo.featuresCount * 30))
-                windowInfo.originalSize = UDim2.new(0, windowWidth, 0, newHeight)
-                window.Size = windowInfo.originalSize
-                contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
-                
-                return true
-            end
-        end
-        return false
-    end
-
-    function WindUI.AddFunctions(categoryName, functionsTable)
-        if not functionsTable or type(functionsTable) ~= "table" then
-            return false
-        end
-        
-        local successCount = 0
-        for functionName, callback in pairs(functionsTable) do
-            if WindUI.AddFunction(categoryName, functionName, callback) then
-                successCount = successCount + 1
-            end
-        end
-        return successCount > 0
-    end
-
-    function WindUI.GetWindow(categoryName)
-        for _, windowInfo in ipairs(windows) do
-            if windowInfo.categoryName == categoryName then
-                return windowInfo
-            end
-        end
-        return nil
-    end
-
-    function WindUI.GetAllWindows() return windows end
-
-    function WindUI.RemoveWelcomeText()
-        if welcomeFrame and welcomeFrame.Parent then
-            welcomeFrame:Destroy()
-        end
-    end
-
-    function WindUI.ShowWelcomeText()
-        if welcomeFrame then
-            welcomeFrame.Visible = true
-        end
-    end
-
-    function WindUI.SetWelcomeText(newText)
-        if welcomeText then
-            welcomeText.Text = newText
-        end
-    end
-
-    function WindUI.GetFunctionState(functionName)
-        return functionStates[functionName] or false
-    end
-
-    function WindUI.SetFunctionState(functionName, state)
-        if functionStates[functionName] ~= nil then
-            functionStates[functionName] = state
-            
-            for _, windowInfo in ipairs(windows) do
-                local button = windowInfo.contentFrame:FindFirstChild(functionName)
-                if button then
-                    if state then
-                        button.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
-                        button.TextColor3 = Color3.fromRGB(255, 240, 245)
-                    else
-                        button.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                        button.TextColor3 = Color3.fromRGB(200, 150, 235)
-                    end
-                    
-                    return true
-                end
-            end
-        end
-        return false
-    end
-
-    return WindUI
-end)()
-
--- ==================== 防挂机 ====================
-local player = game:GetService("Players").LocalPlayer
-player.Idled:Connect(function()
-    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
-    wait(1)
-    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
-end)
-
--- ==================== 白名单验证 ====================
-local function checkWhitelist()
-    local playerName = player.Name
-    local success, isWhitelisted = pcall(function()
-        local list = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
-        local whitelist = {}
-        for name in list:gmatch("[^,]+") do whitelist[name:gsub("%s+","")] = true end
-        return whitelist[playerName]
     end)
     
-    if not success or not isWhitelisted then
-        player:Kick("未授权用户")
-        return false
-    end
-    return true
-end
-
-if not checkWhitelist() then return end
-
--- ==================== 延迟添加功能 ====================
-task.wait(0.5)
-
--- 1. 极速锻炼功能
-local spamTraining = false
-local batchSize = 20
-
-local function spamExerciseEvents()
-    while spamTraining do
-        pcall(function()
-            local muscleEvent = player.muscleEvent
-            for i = 0, batchSize do
-                muscleEvent:FireServer("rep")
-            end
-        end)
-        task.wait(0.01)
-    end
-end
-
-WindUI.AddFunction("Combat", "极速锻炼", function(state)
-    spamTraining = state
-    if state then
-        task.spawn(spamExerciseEvents)
-    end
-end)
-
--- 2. 自动蛋白蛋功能
-local autoProtein = false
-
-WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
-    autoProtein = state
-    if state then
-        task.spawn(function()
-            while autoProtein do
-                pcall(function()
-                    if not player.boostTimersFolder:FindFirstChild("Protein Egg") then
-                        local egg = player.Backpack:FindFirstChild("Protein Egg")
-                        if egg then
-                            player.Character.Humanoid:EquipTool(egg)
-                            task.wait(0.1)
-                            if player.Character:FindFirstChild("Protein Egg") then
-                                player.muscleEvent:FireServer("proteinEgg", player.Character:FindFirstChild("Protein Egg"))
-                                player.Character.Humanoid:UnequipTools()
-                            end
-                        end
-                    end
-                end)
-                task.wait(0.2)
-            end
-        end)
-    end
-end)
-
--- 3. 清除增益UI功能
-WindUI.AddFunction("Combat", "清除增益UI", function()
-    local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
-    local protected = {"WindUI","Crazy Top","Rayfield"}
+    game:GetService("UserInputService").InputEnded:Connect(function(input)
+        if isDragging and input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isDragging = false
+            mainWindow.ZIndex = 10
+            border.ZIndex = 9
+        end
+    end)
     
-    local function cleanGui(parent)
-        for _, gui in ipairs(parent:GetChildren()) do
-            if gui:IsA("ScreenGui") then
-                local shouldRemove = true
-                for _, name in ipairs(protected) do
-                    if gui.Name:find(name) then
-                        shouldRemove = false
-                        break
+    -- 最小化功能
+    minimizeButton.MouseButton1Click:Connect(function()
+        monitorData.minimized = not monitorData.minimized
+        
+        if monitorData.minimized then
+            mainWindow.Size = UDim2.new(0, 350, 0, 25)
+            innerBorder.Visible = false
+            minimizeButton.Text = "+"
+            contentFrame.Visible = false
+        else
+            mainWindow.Size = UDim2.new(0, 350, 0, 200)
+            innerBorder.Visible = true
+            minimizeButton.Text = "─"
+            contentFrame.Visible = true
+        end
+    end)
+    
+    -- 格式化数字函数
+    local function formatNumber(value)
+        if value < 1000 then return tostring(math.floor(value)) end
+        local suffixes = {"K", "M", "B", "T", "Qa", "Qi"}
+        local order = math.floor(math.log(value) / math.log(1000))
+        local scaled = value / (1000 ^ order)
+        return string.format("%.2f%s", scaled, suffixes[order] or "")
+    end
+    
+    -- 更新数据函数
+    local function updateData()
+        while screenGui and screenGui.Parent do
+            pcall(function()
+                -- 更新力量
+                local strength = player.leaderstats.Strength.Value
+                dataLabels.strength.Text = formatNumber(strength)
+                
+                -- 计算力量增长
+                if monitorData.lastStrength > 0 then
+                    local gain = strength - monitorData.lastStrength
+                    table.insert(monitorData.strengthSamples, gain)
+                    if #monitorData.strengthSamples > 10 then
+                        table.remove(monitorData.strengthSamples, 1)
                     end
                 end
+                monitorData.lastStrength = strength
                 
-                if shouldRemove then
-                    for _, element in ipairs(gui:GetDescendants()) do
-                        if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
-                            for _, keyword in ipairs(keywords) do
-                                if element.Text:find(keyword) then
-                                    gui:Destroy()
-                                    break
-                                end
-                            end
+                -- 更新耐久度
+                local durability = 0
+                if player.Character then
+                    local humanoid = player.Character:FindFirstChild("Humanoid")
+                    if humanoid and humanoid:FindFirstChild("Durability") then
+                        durability = humanoid.Durability.Value
+                    end
+                end
+                dataLabels.durability.Text = formatNumber(durability)
+                
+                -- 蛋白蛋状态
+                local hasProtein = false
+                if player.boostTimersFolder then
+                    hasProtein = player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
+                end
+                dataLabels.protein.Text = hasProtein and "✅ 激活" or "❌ 未激活"
+                
+                -- 计算平均速度
+                local avgSpeed = 0
+                if #monitorData.strengthSamples > 0 then
+                    local total = 0
+                    for _, gain in ipairs(monitorData.strengthSamples) do
+                        total = total + gain
+                    end
+                    avgSpeed = total / #monitorData.strengthSamples
+                end
+                dataLabels.speed.Text = string.format("%.1f/s", avgSpeed)
+                
+                -- 增益状态
+                local hasBoost = false
+                if player.Character then
+                    for _, tool in pairs(player.Character:GetChildren()) do
+                        if tool:IsA("Tool") and tool.Name:find("Boost") then
+                            hasBoost = true
+                            break
                         end
                     end
                 end
-            end
+                dataLabels.boost.Text = hasBoost and "✅ 有增益" or "❌ 无增益"
+                
+                -- 在线时间
+                local uptime = tick() - monitorData.startTime
+                local hours = math.floor(uptime / 3600)
+                local minutes = math.floor((uptime % 3600) / 60)
+                dataLabels.uptime.Text = string.format("%02d:%02d", hours, minutes)
+                
+                -- 更新状态条（基于活动度）
+                local activityLevel = math.min(avgSpeed * 10, 100)
+                statusFill:TweenSize(UDim2.new(activityLevel / 100, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+                
+                -- 状态文本
+                if avgSpeed > 10 then
+                    statusText.Text = "⚡ 高速增长中"
+                    statusFill.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
+                elseif avgSpeed > 1 then
+                    statusText.Text = "📈 稳定增长"
+                    statusFill.BackgroundColor3 = Color3.fromRGB(150, 90, 210)
+                else
+                    statusText.Text = "⏸️ 等待训练"
+                    statusFill.BackgroundColor3 = Color3.fromRGB(100, 100, 150)
+                end
+            end)
+            
+            wait(1) -- 每秒更新一次
         end
     end
     
-    cleanGui(game:GetService("CoreGui"))
-    cleanGui(player:FindFirstChild("PlayerGui"))
-end)
-
--- 4. 自动热带奶昔功能
-local autoShake = false
-
-WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
-    autoShake = state
-    if state then
-        task.spawn(function()
-            while autoShake do
-                pcall(function()
-                    local shake = player.Backpack:FindFirstChild("Tropical Shake")
-                    if shake then
-                        player.Character.Humanoid:EquipTool(shake)
-                        task.wait(0.05)
-                        if player.Character:FindFirstChild("Tropical Shake") then
-                            player.muscleEvent:FireServer("tropicalShake", player.Character:FindFirstChild("Tropical Shake"))
-                            player.Character.Humanoid:UnequipTools()
-                        end
-                    end
-                end)
-                task.wait(0.1)
+    -- 启动更新协程
+    spawn(updateData)
+    
+    return {
+        Destroy = function()
+            if screenGui then
+                screenGui:Destroy()
             end
-        end)
+        end,
+        
+        ToggleVisibility = function()
+            mainWindow.Visible = not mainWindow.Visible
+        end,
+        
+        SetPosition = function(x, y)
+            mainWindow.Position = UDim2.new(0, x, 0, y)
+        end,
+        
+        Minimize = function()
+            monitorData.minimized = true
+            mainWindow.Size = UDim2.new(0, 350, 0, 25)
+            innerBorder.Visible = false
+            minimizeButton.Text = "+"
+            contentFrame.Visible = false
+        end,
+        
+        Restore = function()
+            monitorData.minimized = false
+            mainWindow.Size = UDim2.new(0, 350, 0, 200)
+            innerBorder.Visible = true
+            minimizeButton.Text = "─"
+            contentFrame.Visible = true
+        end
+    }
+end
+
+-- ==================== 在脚本中添加数据监控 ====================
+-- 在你的脚本最后添加以下代码来创建数据监控：
+
+-- 等待WindUI加载完成
+task.wait(1)
+
+-- 创建数据监控
+local dataMonitor = createWindUIDataMonitor()
+
+-- 可以添加到Combat窗口的控制（可选）
+WindUI.AddFunction("Combat", "数据监控", function(state)
+    if state then
+        -- 如果之前关闭了，重新创建
+        if not dataMonitor then
+            dataMonitor = createWindUIDataMonitor()
+        else
+            -- 显示窗口
+            dataMonitor.Restore()
+        end
+    else
+        -- 最小化窗口而不是销毁
+        if dataMonitor then
+            dataMonitor.Minimize()
+        end
     end
 end)
+
+print("WindUI数据监控已加载")
