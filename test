@@ -82,7 +82,7 @@ backgroundGradient.Parent = mainWindow
 
 -- 圆角
 local uiCorner = Instance.new("UICorner")
-uiCorner.CornerRadius = UDim.new(0, 16)  -- 更大的圆角便于触摸
+uiCorner.CornerRadius = UDim.new(0, 16)
 uiCorner.Parent = mainWindow
 
 -- 边框
@@ -91,10 +91,10 @@ uiStroke.Color = Color3.fromRGB(255, 160, 200)
 uiStroke.Thickness = 3
 uiStroke.Parent = mainWindow
 
--- 标题栏（可触摸拖拽区域）- 增大高度便于触摸
+-- 标题栏（可触摸拖拽区域）
 local titleBar = Instance.new("TextButton")
 titleBar.Name = "TitleBar"
-titleBar.Size = UDim2.new(1, 0, 0, 45)  -- 增大标题栏高度
+titleBar.Size = UDim2.new(1, 0, 0, 45)
 titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
 titleBar.Text = ""
 titleBar.AutoButtonColor = false
@@ -111,7 +111,7 @@ titleLabel.Position = UDim2.new(0, 15, 0, 0)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "🌸 极速锻炼 Pro"
 titleLabel.TextColor3 = Color3.fromRGB(200, 70, 130)
-titleLabel.TextSize = 18  -- 增大字体
+titleLabel.TextSize = 18
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.ZIndex = 12
@@ -130,7 +130,7 @@ dataLabel.TextXAlignment = Enum.TextXAlignment.Right
 dataLabel.ZIndex = 12
 dataLabel.Parent = titleBar
 
--- 最小化按钮（增大便于触摸）
+-- 最小化按钮
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
 minimizeButton.Size = UDim2.new(0, 35, 0, 35)
@@ -139,7 +139,7 @@ minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
 minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
 minimizeButton.Text = "─"
 minimizeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
-minimizeButton.TextSize = 24  -- 增大字体
+minimizeButton.TextSize = 24
 minimizeButton.Font = Enum.Font.GothamBold
 minimizeButton.AutoButtonColor = false
 minimizeButton.ZIndex = 12
@@ -149,7 +149,7 @@ local minimizeCorner = Instance.new("UICorner")
 minimizeCorner.CornerRadius = UDim.new(0, 8)
 minimizeCorner.Parent = minimizeButton
 
--- 关闭按钮（增大便于触摸）
+-- 关闭按钮
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 35, 0, 35)
@@ -158,7 +158,7 @@ closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
 closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
 closeButton.Text = "✕"
 closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
-closeButton.TextSize = 20  -- 增大字体
+closeButton.TextSize = 20
 closeButton.Font = Enum.Font.GothamBold
 closeButton.AutoButtonColor = false
 closeButton.ZIndex = 12
@@ -283,8 +283,6 @@ titleBar.InputBegan:Connect(function(input)
         dragStart = input.Position
         windowStart = Vector2.new(mainWindow.Position.X.Offset, mainWindow.Position.Y.Offset)
         mainWindow.ZIndex = 20
-        
-        -- 触摸反馈
         titleBar.BackgroundColor3 = Color3.fromRGB(255, 215, 230)
     end
 end)
@@ -296,7 +294,6 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
         local newX = windowStart.X + delta.X
         local newY = windowStart.Y + delta.Y
         
-        -- 限制在屏幕范围内
         newX = math.max(0, math.min(newX, viewportSize.X - mainWindow.Size.X.Offset))
         newY = math.max(0, math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset))
         
@@ -389,13 +386,17 @@ closeButton.MouseLeave:Connect(function()
     end
 end)
 
--- ==================== 创建功能按钮 ====================
--- 创建触摸友好的大按钮
-local function createMobileButton(name, desc, callback)
+-- ==================== 创建带有紫粉色切换的功能按钮 ====================
+-- 开关状态存储
+local buttonStates = {}
+
+-- 创建触摸友好的大按钮，带有紫粉色切换效果
+local function createToggleButton(name, desc, toggleFunction)
+    local buttonActive = false
     local buttonFrame = Instance.new("TextButton")
     buttonFrame.Name = name .. "Button"
-    buttonFrame.Size = UDim2.new(1, 0, 0, 55)  -- 增大按钮高度
-    buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+    buttonFrame.Size = UDim2.new(1, 0, 0, 55)
+    buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)  -- 初始粉色
     buttonFrame.Text = ""
     buttonFrame.AutoButtonColor = false
     buttonFrame.ZIndex = 12
@@ -406,7 +407,7 @@ local function createMobileButton(name, desc, callback)
     buttonCorner.Parent = buttonFrame
     
     local buttonStroke = Instance.new("UIStroke")
-    buttonStroke.Color = Color3.fromRGB(255, 180, 210)
+    buttonStroke.Color = Color3.fromRGB(255, 180, 210)  -- 初始粉色边框
     buttonStroke.Thickness = 2
     buttonStroke.Parent = buttonFrame
     
@@ -415,8 +416,8 @@ local function createMobileButton(name, desc, callback)
     buttonTitle.Position = UDim2.new(0, 12, 0, 5)
     buttonTitle.BackgroundTransparency = 1
     buttonTitle.Text = name
-    buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
-    buttonTitle.TextSize = 16  -- 增大字体
+    buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)  -- 初始粉色文字
+    buttonTitle.TextSize = 16
     buttonTitle.Font = Enum.Font.GothamBold
     buttonTitle.TextXAlignment = Enum.TextXAlignment.Left
     buttonTitle.ZIndex = 13
@@ -427,52 +428,131 @@ local function createMobileButton(name, desc, callback)
     buttonDesc.Position = UDim2.new(0, 12, 0.6, 0)
     buttonDesc.BackgroundTransparency = 1
     buttonDesc.Text = desc
-    buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
+    buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)  -- 初始粉色文字
     buttonDesc.TextSize = 12
     buttonDesc.Font = Enum.Font.Gotham
     buttonDesc.TextXAlignment = Enum.TextXAlignment.Left
     buttonDesc.ZIndex = 13
     buttonDesc.Parent = buttonFrame
     
+    -- 状态指示器
+    local statusIndicator = Instance.new("Frame")
+    statusIndicator.Name = "StatusIndicator"
+    statusIndicator.Size = UDim2.new(0, 10, 0, 10)
+    statusIndicator.Position = UDim2.new(1, -25, 0.5, -5)
+    statusIndicator.AnchorPoint = Vector2.new(0.5, 0.5)
+    statusIndicator.BackgroundColor3 = Color3.fromRGB(220, 150, 180)  -- 初始粉色
+    statusIndicator.BorderSizePixel = 0
+    statusIndicator.ZIndex = 13
+    statusIndicator.Parent = buttonFrame
+    
+    local indicatorCorner = Instance.new("UICorner")
+    indicatorCorner.CornerRadius = UDim.new(1, 0)
+    indicatorCorner.Parent = statusIndicator
+    
+    -- 更新按钮颜色函数
+    local function updateButtonColors()
+        if buttonActive then
+            -- 激活状态：紫粉色
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(220, 180, 255)  -- 紫粉色背景
+            buttonStroke.Color = Color3.fromRGB(180, 120, 240)  -- 紫色边框
+            buttonTitle.TextColor3 = Color3.fromRGB(140, 80, 200)  -- 紫色文字
+            buttonDesc.TextColor3 = Color3.fromRGB(160, 120, 210)  -- 浅紫色文字
+            statusIndicator.BackgroundColor3 = Color3.fromRGB(160, 100, 220)  -- 紫色指示器
+        else
+            -- 非激活状态：粉色
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+            buttonStroke.Color = Color3.fromRGB(255, 180, 210)
+            buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+            buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
+            statusIndicator.BackgroundColor3 = Color3.fromRGB(220, 150, 180)
+        end
+    end
+    
+    -- 初始化颜色
+    updateButtonColors()
+    
     -- 触摸交互
     buttonFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
-            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 210, 230)
-            buttonStroke.Color = Color3.fromRGB(255, 140, 180)
+            if buttonActive then
+                -- 激活状态下按下的颜色（深紫色）
+                buttonFrame.BackgroundColor3 = Color3.fromRGB(200, 160, 240)
+                buttonStroke.Color = Color3.fromRGB(160, 100, 220)
+            else
+                -- 非激活状态下按下的颜色（深粉色）
+                buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 210, 230)
+                buttonStroke.Color = Color3.fromRGB(255, 140, 180)
+            end
         end
     end)
     
     buttonFrame.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
-            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
-            buttonStroke.Color = Color3.fromRGB(255, 160, 200)
+            -- 切换状态
+            buttonActive = not buttonActive
             
-            if callback then
-                pcall(callback)
+            -- 更新颜色
+            updateButtonColors()
+            
+            -- 执行功能
+            if toggleFunction then
+                pcall(toggleFunction, buttonActive)
             end
+            
+            -- 存储状态
+            buttonStates[name] = buttonActive
         end
     end)
     
     buttonFrame.MouseEnter:Connect(function()
         if not isDragging then
-            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
-            buttonStroke.Color = Color3.fromRGB(255, 160, 200)
+            if buttonActive then
+                buttonFrame.BackgroundColor3 = Color3.fromRGB(230, 190, 250)
+                buttonStroke.Color = Color3.fromRGB(190, 130, 245)
+            else
+                buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
+                buttonStroke.Color = Color3.fromRGB(255, 160, 200)
+            end
         end
     end)
     
     buttonFrame.MouseLeave:Connect(function()
         if not isDragging then
-            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
-            buttonStroke.Color = Color3.fromRGB(255, 180, 210)
+            updateButtonColors()
         end
     end)
+    
+    -- 存储按钮引用
+    buttonStates[name] = {
+        frame = buttonFrame,
+        active = buttonActive,
+        update = updateButtonColors
+    }
     
     -- 更新滚动区域大小
     buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 65)
     
-    return buttonFrame
+    return {
+        toggle = function()
+            buttonActive = not buttonActive
+            updateButtonColors()
+            if toggleFunction then
+                pcall(toggleFunction, buttonActive)
+            end
+            buttonStates[name].active = buttonActive
+        end,
+        setState = function(state)
+            buttonActive = state
+            updateButtonColors()
+            buttonStates[name].active = buttonActive
+        end,
+        getState = function()
+            return buttonActive
+        end
+    }
 end
 
 -- ==================== 核心功能 ====================
@@ -594,47 +674,124 @@ local function cleanUI()
     cleanGui(player:FindFirstChild("PlayerGui"))
 end
 
--- ==================== 创建功能按钮 ====================
+-- ==================== 创建带有紫粉色切换的按钮 ====================
 -- 极速锻炼开关
-createMobileButton("极速锻炼", "20倍速度快速锻炼", function()
-    spamTraining = not spamTraining
-    if spamTraining then
+local speedToggle = createToggleButton("⚡ 极速锻炼", "20倍速度快速锻炼", function(state)
+    spamTraining = state
+    if state then
         task.spawn(spamExerciseEvents)
+        print("极速锻炼已开启")
+    else
+        print("极速锻炼已关闭")
     end
 end)
 
 -- 自动蛋白蛋开关
-createMobileButton("自动蛋白蛋", "自动使用蛋白蛋增益", function()
-    autoProtein = not autoProtein
-    if autoProtein then
+local proteinToggle = createToggleButton("🥚 自动蛋白蛋", "自动使用蛋白蛋增益", function(state)
+    autoProtein = state
+    if state then
         task.spawn(proteinLoop)
+        print("自动蛋白蛋已开启")
+    else
+        print("自动蛋白蛋已关闭")
     end
 end)
 
 -- 自动热带奶昔开关
-createMobileButton(" 自动奶昔", "自动使用热带奶昔", function()
-    autoShake = not autoShake
-    if autoShake then
+local shakeToggle = createToggleButton("🍹 自动奶昔", "自动使用热带奶昔", function(state)
+    autoShake = state
+    if state then
         task.spawn(shakeLoop)
+        print("自动奶昔已开启")
+    else
+        print("自动奶昔已关闭")
     end
 end)
 
--- 清除增益UI按钮
-createMobileButton(" 清除UI", "清理屏幕上的增益提示", function()
-    cleanUI()
+-- ==================== 普通按钮（无切换效果） ====================
+-- 清除UI按钮
+local cleanButton = Instance.new("TextButton")
+cleanButton.Name = "CleanUIButton"
+cleanButton.Size = UDim2.new(1, 0, 0, 55)
+cleanButton.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+cleanButton.Text = ""
+cleanButton.AutoButtonColor = false
+cleanButton.ZIndex = 12
+cleanButton.Parent = buttonContainer
+
+local cleanCorner = Instance.new("UICorner")
+cleanCorner.CornerRadius = UDim.new(0, 10)
+cleanCorner.Parent = cleanButton
+
+local cleanStroke = Instance.new("UIStroke")
+cleanStroke.Color = Color3.fromRGB(255, 180, 210)
+cleanStroke.Thickness = 2
+cleanStroke.Parent = cleanButton
+
+local cleanTitle = Instance.new("TextLabel")
+cleanTitle.Size = UDim2.new(1, -20, 0.6, 0)
+cleanTitle.Position = UDim2.new(0, 12, 0, 5)
+cleanTitle.BackgroundTransparency = 1
+cleanTitle.Text = "🧹 清除UI"
+cleanTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+cleanTitle.TextSize = 16
+cleanTitle.Font = Enum.Font.GothamBold
+cleanTitle.TextXAlignment = Enum.TextXAlignment.Left
+cleanTitle.ZIndex = 13
+cleanTitle.Parent = cleanButton
+
+local cleanDesc = Instance.new("TextLabel")
+cleanDesc.Size = UDim2.new(1, -20, 0.4, 0)
+cleanDesc.Position = UDim2.new(0, 12, 0.6, 0)
+cleanDesc.BackgroundTransparency = 1
+cleanDesc.Text = "清理屏幕上的增益提示"
+cleanDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
+cleanDesc.TextSize = 12
+cleanDesc.Font = Enum.Font.Gotham
+cleanDesc.TextXAlignment = Enum.TextXAlignment.Left
+cleanDesc.ZIndex = 13
+cleanDesc.Parent = cleanButton
+
+-- 触摸交互
+cleanButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        cleanButton.BackgroundColor3 = Color3.fromRGB(255, 210, 230)
+        cleanStroke.Color = Color3.fromRGB(255, 140, 180)
+    end
 end)
 
--- 刷新数据按钮
-createMobileButton(" 刷新数据", "手动刷新统计数据", function()
-    -- 手动触发数据更新
-    lastStrength = 0
-    strengthHistory = {}
+cleanButton.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        cleanButton.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
+        cleanStroke.Color = Color3.fromRGB(255, 160, 200)
+        cleanUI()
+        print("增益UI已清除")
+    end
 end)
+
+cleanButton.MouseEnter:Connect(function()
+    if not isDragging then
+        cleanButton.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
+        cleanStroke.Color = Color3.fromRGB(255, 160, 200)
+    end
+end)
+
+cleanButton.MouseLeave:Connect(function()
+    if not isDragging then
+        cleanButton.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+        cleanStroke.Color = Color3.fromRGB(255, 180, 210)
+    end
+end)
+
+-- 更新滚动区域
+buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 65)
 
 -- ==================== 数据更新协程 ====================
 spawn(function()
     while screenGui and screenGui.Parent do
-        task.wait(1)  -- 每秒更新一次
+        task.wait(1)
         
         pcall(function()
             -- 更新力量
@@ -649,9 +806,7 @@ spawn(function()
             -- 计算力量增长
             if lastStrength > 0 then
                 local gain = currentStrength - lastStrength
-                local gainPerSecond = gain
-                
-                table.insert(strengthHistory, gainPerSecond)
+                table.insert(strengthHistory, gain)
                 if #strengthHistory > 5 then
                     table.remove(strengthHistory, 1)
                 end
@@ -663,10 +818,6 @@ spawn(function()
                 end
                 local avgSpeed = #strengthHistory > 0 and totalGain / #strengthHistory or 0
                 dataLabels.speed.Text = string.format("%.2f/s", avgSpeed)
-                
-                -- 更新每日增长
-                local dailyGain = avgSpeed * 86400
-                dataLabel.Text = "力量: " .. formatNumber(currentStrength) .. " (+" .. formatNumber(dailyGain) .. "/天)"
             else
                 dataLabels.speed.Text = "0/s"
             end
@@ -678,12 +829,13 @@ spawn(function()
             if player.boostTimersFolder then
                 hasProtein = player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
             end
-            dataLabels.protein.Text = hasProtein and "Yes 激活" or "No 未激活"
+            dataLabels.protein.Text = hasProtein and "✅ 激活" or "❌ 未激活"
         end)
     end
 end)
 
 print("📱 移动版WindUI已加载！")
 print("✅ 支持手机触摸拖动")
+print("🎨 紫粉色切换按钮效果")
 print("📊 实时数据显示")
 print("⚡ 极速锻炼功能就绪")
