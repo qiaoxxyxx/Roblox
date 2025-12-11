@@ -1,23 +1,30 @@
--- ==================== 1. 防多开检测 ====================
 local function AntiMultiOpen()
     local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
     if existingGui then
         game:GetService("Players").LocalPlayer:Kick("Script already running! Please wait.")
         return false
     end
+    
     local antiDupGui = Instance.new("ScreenGui")
     antiDupGui.Name = "KJY_Team_AntiDup"
     antiDupGui.Parent = game:GetService("CoreGui")
+    
     game:GetService("Players").PlayerRemoving:Connect(function(player)
         if player == game:GetService("Players").LocalPlayer then
             antiDupGui:Destroy()
         end
     end)
+    
     return true
 end
-if not AntiMultiOpen() then return end
 
--- ==================== 2. 加载WindUI库 ====================
+if not AntiMultiOpen() then
+    return
+end
+
+local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())
+
+-- ==================== 加载自定义WindUI库 ====================
 local WindUI = (function()
     -- 移除所有现有的UI
     local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
@@ -37,7 +44,7 @@ local WindUI = (function()
     local username = player.Name
     local screenSize = workspace.CurrentCamera.ViewportSize
 
-    -- 修改这里：将"Combat"改为"Strength"
+    -- 修改这里：创建Strength分类
     local categories = {{name = "Strength", color = Color3.fromRGB(255, 80, 80), features = {}}}
 
     -- 窗口参数
@@ -441,19 +448,14 @@ local WindUI = (function()
     return WindUI
 end)()
 
--- ==================== 3. 基础设置与验证 ====================
-local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())
 local d=true
-local e=game:GetService("Players").LocalPlayer
-
--- 防AFK代码
-e.Idled:Connect(function() 
-    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame) 
-    wait(1) 
-    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame) 
+local e=game:GetService("\80\108\97\121\101\114\115").LocalPlayer
+e.Idled:Connect(function()
+    game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    wait(1)
+    game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 
--- ==================== 4. 验证函数 ====================
 local function f(g)
     local h = Instance.new("ScreenGui")
     h.Name = "WhitelistVerification"
@@ -653,45 +655,53 @@ end
 
 if not o()then return end
 
--- ==================== 5. 使用WindUI添加Strength分类的功能 ====================
--- 注意：这里使用"Strength"作为分类名，而不是"Combat"
+-- ==================== 添加功能到Strength分类 ====================
+-- 全局变量
+local spamTraining = false
+local batchSize = 20  -- 固定批次大小
 
--- 5.1 添加"自动训练"开关到Strength分类
-WindUI.AddFunction("Strength", "Auto Train", function(state)
-    _G.F = state
-    print("Auto Train: " .. (state and "ON" or "OFF"))
-    if state then
-        spawn(function()
-            while _G.F do
-                wait()
-                pcall(function()
-                    if tostring(e.equippedPets.pet1.Value)=="Swift Samurai" then
-                        for H=0,19 do
-                            e.muscleEvent:FireServer("rep")
-                        end
-                    end
-                end)
+-- 极速发送锻炼事件
+local function spamExerciseEvents()
+    while spamTraining do
+        pcall(function()
+            -- 批量发送事件
+            local muscleEvent = e.muscleEvent
+            for i = 0, batchSize do
+                muscleEvent:FireServer("rep")
             end
         end)
+        
+        task.wait(0.01)  -- 极小延迟保持稳定
+    end
+end
+
+-- 1. 极速锻炼功能（覆盖原来的自动训练）
+WindUI.AddFunction("Strength", "极速锻炼", function(state)
+    spamTraining = state
+    if state then
+        task.spawn(spamExerciseEvents)
+        print("极速锻炼已开启")
+    else
+        print("极速锻炼已关闭")
     end
 end)
 
--- 5.2 添加"自动使用蛋白蛋"开关到Strength分类
-WindUI.AddFunction("Strength", "Auto Egg", function(state)
-    _G.J = state
-    print("Auto Egg: " .. (state and "ON" or "OFF"))
+-- 2. 自动使用蛋白蛋
+WindUI.AddFunction("Strength", "自动蛋白蛋", function(state)
+    _G.Z = state
+    print("自动蛋白蛋: " .. (state and "ON" or "OFF"))
     if state then
         spawn(function()
-            while _G.J do
+            while _G.Z do
                 wait(0.2)
                 pcall(function()
                     if not e.boostTimersFolder:FindFirstChild("Protein Egg") then
-                        local L=e.Backpack:FindFirstChild("Protein Egg")
-                        if L then
-                            e.Character.Humanoid:EquipTool(L)
+                        local egg = e.Backpack:FindFirstChild("Protein Egg")
+                        if egg then
+                            e.Character.Humanoid:EquipTool(egg)
                             wait(0.1)
                             if e.Character:FindFirstChild("Protein Egg") then
-                                e.muscleEvent:FireServer("proteinEgg",e.Character:FindFirstChild("Protein Egg"))
+                                e.muscleEvent:FireServer("proteinEgg", e.Character:FindFirstChild("Protein Egg"))
                                 wait(0.1)
                                 e.Character.Humanoid:UnequipTools()
                             end
@@ -703,19 +713,19 @@ WindUI.AddFunction("Strength", "Auto Egg", function(state)
     end
 end)
 
--- 5.3 添加"清除增益UI"按钮到Strength分类
-WindUI.AddFunction("Strength", "Clear Gain UI", function(state)
-    -- 这是一个按钮，点击执行
+-- 3. 清除增益UI
+WindUI.AddFunction("Strength", "清除增益UI", function(state)
     local function ClearGainUI()
         local coreGui = game:GetService("CoreGui")
-        local playerGui = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
-        local a8={"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
-        local a9={"WindUI","Crazy Top","Rayfield"}
+        local playerGui = e:FindFirstChild("PlayerGui")
+        local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
+        local protectedNames = {"WindUI","Crazy Top","Rayfield"}
         
+        -- 清理CoreGui
         for _, gui in ipairs(coreGui:GetChildren()) do
             if gui:IsA("ScreenGui") then
                 local isProtected = false
-                for _, name in ipairs(a9) do
+                for _, name in ipairs(protectedNames) do
                     if gui.Name:find(name) then
                         isProtected = true
                         break
@@ -726,7 +736,7 @@ WindUI.AddFunction("Strength", "Clear Gain UI", function(state)
                     for _, element in ipairs(gui:GetDescendants()) do
                         if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
                             local text = element.Text
-                            for _, keyword in ipairs(a8) do
+                            for _, keyword in ipairs(keywords) do
                                 if text:find(keyword) or text:find("%+%d+") then
                                     shouldRemove = true
                                     break
@@ -740,11 +750,12 @@ WindUI.AddFunction("Strength", "Clear Gain UI", function(state)
             end
         end
         
+        -- 清理PlayerGui
         if playerGui then
             for _, gui in ipairs(playerGui:GetChildren()) do
                 if gui:IsA("ScreenGui") then
                     local isProtected = false
-                    for _, name in ipairs(a9) do
+                    for _, name in ipairs(protectedNames) do
                         if gui.Name:find(name) then
                             isProtected = true
                             break
@@ -755,7 +766,7 @@ WindUI.AddFunction("Strength", "Clear Gain UI", function(state)
                         for _, element in ipairs(gui:GetDescendants()) do
                             if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
                                 local text = element.Text
-                                for _, keyword in ipairs(a8) do
+                                for _, keyword in ipairs(keywords) do
                                     if text:find(keyword) or text:find("%+%d+") then
                                         shouldRemove = true
                                         break
@@ -769,29 +780,36 @@ WindUI.AddFunction("Strength", "Clear Gain UI", function(state)
                 end
             end
         end
-        print("Gain UI Cleared!")
+        print("增益UI已清除!")
     end
     ClearGainUI()
 end)
 
--- ==================== 6. 可选：添加刷新状态按钮到Strength分类 ====================
-WindUI.AddFunction("Strength", "Refresh Stats", function(state)
-    -- 这个按钮每次点击可以计算并打印一次当前状态到输出窗口
-    local currentStrength = e.leaderstats.Strength.Value
-    print("Current Strength: " .. tostring(currentStrength))
-    -- 这里可以添加更多统计计算...
-end)
-
--- ==================== 7. 可选：利用欢迎语区域显示关键信息 ====================
-spawn(function()
-    while wait(5) do -- 每5秒更新一次
-        pcall(function()
-            local currentStrength = e.leaderstats.Strength.Value
-            WindUI.SetWelcomeText("STR: " .. tostring(math.floor(currentStrength)))
+-- 4. 可选：自动使用热带奶昔（菠萝）
+WindUI.AddFunction("Strength", "自动热带奶昔", function(state)
+    _G.W = state
+    print("自动热带奶昔: " .. (state and "ON" or "OFF"))
+    if state then
+        spawn(function()
+            while _G.W do
+                wait(0.1)
+                pcall(function()
+                    local shake = e.Backpack:FindFirstChild("Tropical Shake")
+                    if shake then
+                        e.Character.Humanoid:EquipTool(shake)
+                        wait(0.05)
+                        if e.Character:FindFirstChild("Tropical Shake") then
+                            e.muscleEvent:FireServer("tropicalShake", e.Character:FindFirstChild("Tropical Shake"))
+                            wait(0.05)
+                            e.Character.Humanoid:UnequipTools()
+                        end
+                    end
+                end)
+            end
         end)
     end
 end)
 
--- ==================== 8. 脚本加载完成 ====================
-print("脚本加载完成！请查看屏幕左上角的Strength窗口。")
-print("Strength分类包含：自动训练、自动蛋白蛋、清除增益UI功能")
+-- ==================== 脚本加载完成 ====================
+print("脚本加载完成！")
+print("Strength窗口包含：极速锻炼、自动蛋白蛋、清除增益UI、自动热带奶昔")
