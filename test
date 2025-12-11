@@ -36,7 +36,6 @@ local WindUI = (function()
     local Players = game:GetService("Players")
     local UserInputService = game:GetService("UserInputService")
     local TweenService = game:GetService("TweenService")
-    local RunService = game:GetService("RunService")
 
     local player = Players.LocalPlayer
     local username = player.Name
@@ -299,93 +298,96 @@ local WindUI = (function()
 
     function WindUI.AddFunction(categoryName, functionName, callback)
         -- 安全检查
-        if not categoryName or not functionName then
-            warn("WindUI.AddFunction: 缺少必要参数")
+        if not categoryName or not functionName or type(categoryName) ~= "string" or type(functionName) ~= "string" then
+            warn("WindUI.AddFunction: 参数错误")
             return false
         end
         
         for _, windowInfo in ipairs(windows) do
             if windowInfo.categoryName == categoryName then
                 local contentFrame = windowInfo.contentFrame
-                if contentFrame and contentFrame.Parent then
-                    -- 确保featuresCount存在
-                    windowInfo.featuresCount = windowInfo.featuresCount or 0
-                    
-                    local functionButton = Instance.new("TextButton")
-                    functionButton.Name = functionName
-                    functionButton.Size = UDim2.new(1, -4, 0, 26)
-                    
-                    -- 修复这里：确保计算正确
-                    local yPosition = 5 + (windowInfo.featuresCount * 30)
-                    functionButton.Position = UDim2.new(0, 2, 0, yPosition)
-                    
-                    functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                    functionButton.Text = functionName
-                    functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                    functionButton.TextSize = 12
-                    functionButton.Font = Enum.Font.Gotham
-                    functionButton.AutoButtonColor = true
-                    functionButton.Parent = contentFrame
-                    
-                    functionStates[functionName] = false
-                    
-                    functionButton.MouseEnter:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(40, 22, 55)
-                        end
-                        functionButton.TextColor3 = Color3.fromRGB(240, 200, 255)
-                    end)
-                    
-                    functionButton.MouseLeave:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                        end
-                        functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                    end)
-                    
-                    functionButton.MouseButton1Down:Connect(function()
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 100, 170)
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(25, 14, 35)
-                        end
-                    end)
-                    
-                    functionButton.MouseButton1Up:Connect(function()
-                        functionStates[functionName] = not functionStates[functionName]
-                        
-                        if functionStates[functionName] then
-                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
-                            functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
-                            print(functionName .. " 已开启")
-                        else
-                            functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
-                            functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                            print(functionName .. " 已关闭")
-                        end
-                        
-                        if callback then
-                            pcall(callback, functionStates[functionName])
-                        end
-                    end)
-                    
-                    windowInfo.featuresCount = windowInfo.featuresCount + 1
-                    local newHeight = math.max(200, 65 + (windowInfo.featuresCount * 30))
-                    windowInfo.originalSize = UDim2.new(0, windowWidth, 0, newHeight)
-                    window.Size = windowInfo.originalSize
-                    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
-                    
-                    print("已添加功能到 " .. categoryName .. ": " .. functionName)
-                    return true
-                else
+                if not contentFrame or not contentFrame.Parent then
                     warn("WindUI.AddFunction: contentFrame不存在")
+                    return false
                 end
+                
+                -- 确保featuresCount存在
+                windowInfo.featuresCount = windowInfo.featuresCount or 0
+                
+                local functionButton = Instance.new("TextButton")
+                functionButton.Name = functionName
+                functionButton.Size = UDim2.new(1, -4, 0, 26)
+                
+                -- 计算Y位置
+                local yPosition = 5 + (windowInfo.featuresCount * 30)
+                functionButton.Position = UDim2.new(0, 2, 0, yPosition)
+                
+                functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                functionButton.Text = functionName
+                functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                functionButton.TextSize = 12
+                functionButton.Font = Enum.Font.Gotham
+                functionButton.AutoButtonColor = true
+                functionButton.Parent = contentFrame
+                
+                functionStates[functionName] = false
+                
+                functionButton.MouseEnter:Connect(function()
+                    if functionStates[functionName] then
+                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
+                    else
+                        functionButton.BackgroundColor3 = Color3.fromRGB(40, 22, 55)
+                    end
+                    functionButton.TextColor3 = Color3.fromRGB(240, 200, 255)
+                end)
+                
+                functionButton.MouseLeave:Connect(function()
+                    if functionStates[functionName] then
+                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
+                    else
+                        functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                    end
+                    functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                end)
+                
+                functionButton.MouseButton1Down:Connect(function()
+                    if functionStates[functionName] then
+                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 100, 170)
+                    else
+                        functionButton.BackgroundColor3 = Color3.fromRGB(25, 14, 35)
+                    end
+                end)
+                
+                functionButton.MouseButton1Up:Connect(function()
+                    functionStates[functionName] = not functionStates[functionName]
+                    
+                    if functionStates[functionName] then
+                        functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
+                        functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
+                        print(functionName .. " 已开启")
+                    else
+                        functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                        functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                        print(functionName .. " 已关闭")
+                    end
+                    
+                    if callback then
+                        pcall(callback, functionStates[functionName])
+                    end
+                end)
+                
+                windowInfo.featuresCount = windowInfo.featuresCount + 1
+                local newHeight = math.max(200, 65 + (windowInfo.featuresCount * 30))
+                windowInfo.originalSize = UDim2.new(0, windowWidth, 0, newHeight)
+                window.Size = windowInfo.originalSize
+                contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
+                
+                print("已添加功能到 " .. categoryName .. ": " .. functionName)
+                return true
             end
         end
+        
+        warn("WindUI.AddFunction: 未找到分类: " .. categoryName)
         return false
     end
 
@@ -745,7 +747,8 @@ function StatsModule:removeDisplay()
     end
 end
 
--- ==================== 添加所有功能到Combat分类 ====================
+-- ==================== 延迟添加功能（等待UI完全加载） ====================
+task.wait(1)  -- 等待1秒确保WindUI完全初始化
 
 -- 1. 极速锻炼功能
 local spamTraining = false
@@ -763,11 +766,8 @@ local function spamExerciseEvents()
     end
 end
 
--- 等待一小段时间确保UI加载完成
-task.wait(0.5)
-
 -- 添加功能
-WindUI.AddFunction("Combat", "极速锻炼", function(state)
+local success1 = WindUI.AddFunction("Combat", "极速锻炼", function(state)
     spamTraining = state
     if state then
         task.spawn(spamExerciseEvents)
@@ -780,7 +780,7 @@ end)
 -- 2. 自动蛋白蛋功能
 local autoProtein = false
 
-WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
+local success2 = WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
     autoProtein = state
     if state then
         task.spawn(function()
@@ -805,7 +805,7 @@ WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
 end)
 
 -- 3. 清除增益UI功能
-WindUI.AddFunction("Combat", "清除增益UI", function()
+local success3 = WindUI.AddFunction("Combat", "清除增益UI", function()
     local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
     local protected = {"WindUI","Crazy Top","Rayfield"}
     
@@ -844,7 +844,7 @@ end)
 -- 4. 自动热带奶昔功能
 local autoShake = false
 
-WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
+local success4 = WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
     autoShake = state
     if state then
         task.spawn(function()
@@ -867,7 +867,7 @@ WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
 end)
 
 -- 5. 实时统计显示功能
-WindUI.AddFunction("Combat", "实时统计显示", function(state)
+local success5 = WindUI.AddFunction("Combat", "实时统计显示", function(state)
     if state then
         StatsModule:createDisplay()
         print("实时统计显示已开启")
@@ -877,4 +877,11 @@ WindUI.AddFunction("Combat", "实时统计显示", function(state)
     end
 end)
 
-print("所有功能已成功加载到Combat窗口！")
+-- 输出添加结果
+print("功能添加结果:")
+print("- 极速锻炼: " .. (success1 and "成功" or "失败"))
+print("- 自动蛋白蛋: " .. (success2 and "成功" or "失败"))
+print("- 清除增益UI: " .. (success3 and "成功" or "失败"))
+print("- 自动热带奶昔: " .. (success4 and "成功" or "失败"))
+print("- 实时统计显示: " .. (success5 and "成功" or "失败"))
+print("脚本加载完成！")
