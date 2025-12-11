@@ -1,3 +1,4 @@
+-- ==================== 防多开检查 ====================
 local function AntiMultiOpen()
     local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
     if existingGui then
@@ -22,6 +23,7 @@ if not AntiMultiOpen() then
     return
 end
 
+-- ==================== 白名单验证 ====================
 local player = game:GetService("Players").LocalPlayer
 local function checkWhitelist()
     local playerName = player.Name
@@ -41,22 +43,19 @@ end
 
 if not checkWhitelist() then return end
 
+-- ==================== 防挂机 ====================
 player.Idled:Connect(function()
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
     wait(1)
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
 end)
 
--- 从GitHub加载WindUI框架
+-- ==================== 从GitHub加载WindUI框架 ====================
 local success, winduiCode = pcall(function()
-    return game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/ui.lua")
+    return game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/windui.lua")
 end)
 
 if success and winduiCode then
-    -- 创建全局变量供WindUI使用
-    _G.WindUI = {}
-    
-    -- 执行WindUI框架代码
     local winduiFunc, errorMsg = loadstring(winduiCode)
     if winduiFunc then
         pcall(winduiFunc)
@@ -65,7 +64,8 @@ if success and winduiCode then
         -- 等待WindUI框架初始化
         wait(0.5)
         
-        -- ==================== 所有功能都在这里添加 ====================
+        -- ==================== 功能状态变量 ====================
+        local functionStates = {}
         
         -- 1. 格式化函数
         local function formatNumber(value)
@@ -77,11 +77,11 @@ if success and winduiCode then
         end
         
         -- 2. 极速锻炼功能
-        local spamTraining = false
+        functionStates.spamTraining = false
         local batchSize = 20
         
         local function spamExerciseEvents()
-            while spamTraining do
+            while functionStates.spamTraining do
                 pcall(function()
                     local muscleEvent = player.muscleEvent
                     for i = 0, batchSize do
@@ -92,21 +92,11 @@ if success and winduiCode then
             end
         end
         
-        -- 添加极速锻炼按钮
-        if _G.WindUI.AddButton then
-            _G.WindUI.AddButton("⚡ 极速锻炼", "20倍速度快速锻炼", function(state)
-                spamTraining = state
-                if state then
-                    task.spawn(spamExerciseEvents)
-                end
-            end)
-        end
-        
         -- 3. 自动蛋白蛋功能
-        local autoProtein = false
+        functionStates.autoProtein = false
         
         local function proteinLoop()
-            while autoProtein do
+            while functionStates.autoProtein do
                 pcall(function()
                     if not player.boostTimersFolder:FindFirstChild("Protein Egg") then
                         local egg = player.Backpack:FindFirstChild("Protein Egg")
@@ -124,20 +114,11 @@ if success and winduiCode then
             end
         end
         
-        if _G.WindUI.AddButton then
-            _G.WindUI.AddButton("🥚 自动蛋白蛋", "自动使用蛋白蛋增益", function(state)
-                autoProtein = state
-                if state then
-                    task.spawn(proteinLoop)
-                end
-            end)
-        end
-        
         -- 4. 自动奶昔功能
-        local autoShake = false
+        functionStates.autoShake = false
         
         local function shakeLoop()
-            while autoShake do
+            while functionStates.autoShake do
                 pcall(function()
                     local shake = player.Backpack:FindFirstChild("Tropical Shake")
                     if shake then
@@ -151,15 +132,6 @@ if success and winduiCode then
                 end)
                 task.wait(0.1)
             end
-        end
-        
-        if _G.WindUI.AddButton then
-            _G.WindUI.AddButton("🍹 自动奶昔", "自动使用热带奶昔", function(state)
-                autoShake = state
-                if state then
-                    task.spawn(shakeLoop)
-                end
-            end)
         end
         
         -- 5. 清除UI功能
@@ -198,11 +170,46 @@ if success and winduiCode then
             cleanGui(player:FindFirstChild("PlayerGui"))
         end
         
-        if _G.WindUI.AddButton then
-            _G.WindUI.AddButton("🧹 清除UI", "清理屏幕增益提示", cleanUI)
+        -- ==================== 添加按钮到WindUI ====================
+        if _G.WindUI and _G.WindUI.AddButton then
+            -- 极速锻炼按钮
+            _G.WindUI.AddButton("⚡ 极速锻炼", "20倍速度快速锻炼", function()
+                functionStates.spamTraining = not functionStates.spamTraining
+                print("极速锻炼: " .. (functionStates.spamTraining and "开启" or "关闭"))
+                if functionStates.spamTraining then
+                    task.spawn(spamExerciseEvents)
+                end
+            end)
+            
+            -- 自动蛋白蛋按钮
+            _G.WindUI.AddButton("🥚 自动蛋白蛋", "自动使用蛋白蛋增益", function()
+                functionStates.autoProtein = not functionStates.autoProtein
+                print("自动蛋白蛋: " .. (functionStates.autoProtein and "开启" or "关闭"))
+                if functionStates.autoProtein then
+                    task.spawn(proteinLoop)
+                end
+            end)
+            
+            -- 自动奶昔按钮
+            _G.WindUI.AddButton("🍹 自动奶昔", "自动使用热带奶昔", function()
+                functionStates.autoShake = not functionStates.autoShake
+                print("自动奶昔: " .. (functionStates.autoShake and "开启" or "关闭"))
+                if functionStates.autoShake then
+                    task.spawn(shakeLoop)
+                end
+            end)
+            
+            -- 清除UI按钮
+            _G.WindUI.AddButton("🧹 清除UI", "清理屏幕增益提示", function()
+                print("清除UI中...")
+                cleanUI()
+                print("UI清理完成")
+            end)
+        else
+            warn("❌ WindUI API未找到")
         end
         
-        -- 6. 统计数据更新
+        -- ==================== 统计数据更新 ====================
         local strengthSamples = {}
         local sampleInterval = 1
         local sampleDuration = 20
@@ -214,8 +221,8 @@ if success and winduiCode then
                     local currentStrength = player.leaderstats.Strength.Value
                     
                     -- 更新标题栏力量显示
-                    if _G.WindUI.UpdateTitle then
-                        _G.WindUI.UpdateTitle("💪 " .. formatNumber(currentStrength))
+                    if _G.WindUI and _G.WindUI.UpdateTitle then
+                        _G.WindUI.UpdateTitle("strength " .. formatNumber(currentStrength))
                     end
                     
                     -- 更新数据标签
@@ -258,25 +265,25 @@ if success and winduiCode then
                             hasProtein = player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
                         end
                         
-                        if _G.WindUI.UpdateStats then
+                        if _G.WindUI and _G.WindUI.UpdateStats then
                             _G.WindUI.UpdateStats({
                                 current_strength = formatNumber(currentStrength),
                                 current_speed = string.format("%.1f/s", currentSpeed),
                                 avg_speed_20s = string.format("%.1f/s", avgSpeed20s),
                                 daily_gain = formatNumber(dailyGain),
                                 monthly_gain = formatNumber(monthlyGain),
-                                protein_status = hasProtein and "✅ 激活" or "❌ 未激活"
+                                protein_status = hasProtein and "on" or "off"
                             })
                         end
                     else
-                        if _G.WindUI.UpdateStats then
+                        if _G.WindUI and _G.WindUI.UpdateStats then
                             _G.WindUI.UpdateStats({
                                 current_strength = formatNumber(currentStrength),
                                 current_speed = "0/s",
                                 avg_speed_20s = "0/s",
                                 daily_gain = "0",
                                 monthly_gain = "0",
-                                protein_status = "❌ 未激活"
+                                protein_status = "off"
                             })
                         end
                     end
@@ -286,7 +293,7 @@ if success and winduiCode then
             end
         end)
         
-        print("🌸 WindUI及所有功能加载完成！")
+        print("✅ Cr4zy Strength Pro 加载完成！")
         
     else
         warn("❌ WindUI代码加载失败: " .. tostring(errorMsg))
