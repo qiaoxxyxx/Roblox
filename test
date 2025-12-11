@@ -230,7 +230,7 @@ local WindUI = (function()
             minimized = false,
             contentFrame = contentFrame,
             categoryName = category.name,
-            featuresCount = 0
+            featuresCount = 0  -- 确保初始化为0
         }
         
         -- 拖动功能
@@ -298,14 +298,27 @@ local WindUI = (function()
     local WindUI = {}
 
     function WindUI.AddFunction(categoryName, functionName, callback)
+        -- 安全检查
+        if not categoryName or not functionName then
+            warn("WindUI.AddFunction: 缺少必要参数")
+            return false
+        end
+        
         for _, windowInfo in ipairs(windows) do
             if windowInfo.categoryName == categoryName then
                 local contentFrame = windowInfo.contentFrame
-                if contentFrame then
+                if contentFrame and contentFrame.Parent then
+                    -- 确保featuresCount存在
+                    windowInfo.featuresCount = windowInfo.featuresCount or 0
+                    
                     local functionButton = Instance.new("TextButton")
                     functionButton.Name = functionName
                     functionButton.Size = UDim2.new(1, -4, 0, 26)
-                    functionButton.Position = UDim2.new(0, 2, 0, 5 + (windowInfo.featuresCount * 30))
+                    
+                    -- 修复这里：确保计算正确
+                    local yPosition = 5 + (windowInfo.featuresCount * 30)
+                    functionButton.Position = UDim2.new(0, 2, 0, yPosition)
+                    
                     functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
                     functionButton.Text = functionName
                     functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
@@ -356,7 +369,7 @@ local WindUI = (function()
                         end
                         
                         if callback then
-                            callback(functionStates[functionName])
+                            pcall(callback, functionStates[functionName])
                         end
                     end)
                     
@@ -368,6 +381,8 @@ local WindUI = (function()
                     
                     print("已添加功能到 " .. categoryName .. ": " .. functionName)
                     return true
+                else
+                    warn("WindUI.AddFunction: contentFrame不存在")
                 end
             end
         end
@@ -375,6 +390,10 @@ local WindUI = (function()
     end
 
     function WindUI.AddFunctions(categoryName, functionsTable)
+        if not functionsTable or type(functionsTable) ~= "table" then
+            return false
+        end
+        
         local successCount = 0
         for functionName, callback in pairs(functionsTable) do
             if WindUI.AddFunction(categoryName, functionName, callback) then
@@ -744,6 +763,10 @@ local function spamExerciseEvents()
     end
 end
 
+-- 等待一小段时间确保UI加载完成
+task.wait(0.5)
+
+-- 添加功能
 WindUI.AddFunction("Combat", "极速锻炼", function(state)
     spamTraining = state
     if state then
@@ -767,7 +790,7 @@ WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
                         local egg = player.Backpack:FindFirstChild("Protein Egg")
                         if egg then
                             player.Character.Humanoid:EquipTool(egg)
-                            wait(0.1)
+                            task.wait(0.1)
                             if player.Character:FindFirstChild("Protein Egg") then
                                 player.muscleEvent:FireServer("proteinEgg", player.Character:FindFirstChild("Protein Egg"))
                                 player.Character.Humanoid:UnequipTools()
@@ -775,7 +798,7 @@ WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
                         end
                     end
                 end)
-                wait(0.2)
+                task.wait(0.2)
             end
         end)
     end
@@ -830,14 +853,14 @@ WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
                     local shake = player.Backpack:FindFirstChild("Tropical Shake")
                     if shake then
                         player.Character.Humanoid:EquipTool(shake)
-                        wait(0.05)
+                        task.wait(0.05)
                         if player.Character:FindFirstChild("Tropical Shake") then
                             player.muscleEvent:FireServer("tropicalShake", player.Character:FindFirstChild("Tropical Shake"))
                             player.Character.Humanoid:UnequipTools()
                         end
                     end
                 end)
-                wait(0.1)
+                task.wait(0.1)
             end
         end)
     end
@@ -852,4 +875,6 @@ WindUI.AddFunction("Combat", "实时统计显示", function(state)
         StatsModule:removeDisplay()
         print("实时统计显示已关闭")
     end
-end
+end)
+
+print("所有功能已成功加载到Combat窗口！")
