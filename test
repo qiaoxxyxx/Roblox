@@ -32,7 +32,6 @@ local WindUI = (function()
         end
     end
 
-    -- 初始化
     local Players = game:GetService("Players")
     local UserInputService = game:GetService("UserInputService")
     local TweenService = game:GetService("TweenService")
@@ -41,22 +40,18 @@ local WindUI = (function()
     local username = player.Name
     local screenSize = workspace.CurrentCamera.ViewportSize
 
-    -- 分类数据
     local categories = {{name = "Combat", color = Color3.fromRGB(255, 80, 80), features = {}}}
 
-    -- 窗口参数
     local windowWidth = math.min(160, screenSize.X * 0.35)
     local windowHeight = 200
     local startX, startY = 10, 50
     categories[1].position = Vector2.new(startX, startY)
 
-    -- 创建GUI
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "WindUI"
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     screenGui.Parent = playerGui
 
-    -- 背景（更黑）
     local background = Instance.new("Frame")
     background.Size = UDim2.new(1, 0, 1, 0)
     background.BackgroundColor3 = Color3.fromRGB(5, 2, 8)
@@ -73,7 +68,6 @@ local WindUI = (function()
     })
     starGradient.Parent = background
 
-    -- 欢迎语在中间
     local welcomeFrame = Instance.new("Frame")
     welcomeFrame.Size = UDim2.new(0, math.min(300, screenSize.X * 0.8), 0, 50)
     welcomeFrame.Position = UDim2.new(0.5, -math.min(300, screenSize.X * 0.8) / 2, 0.1, 0)
@@ -92,7 +86,6 @@ local WindUI = (function()
     welcomeText.ZIndex = 5
     welcomeText.Parent = welcomeFrame
 
-    -- 粉白渐变效果
     local textGradient = Instance.new("UIGradient")
     textGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
@@ -103,14 +96,12 @@ local WindUI = (function()
     textGradient.Rotation = 90
     textGradient.Parent = welcomeText
 
-    -- 文字描边
     local textStroke = Instance.new("UIStroke")
     textStroke.Color = Color3.fromRGB(255, 150, 200)
     textStroke.Thickness = 2
     textStroke.Transparency = 0.3
     textStroke.Parent = welcomeText
 
-    -- 闪烁动画（更快）
     spawn(function()
         while welcomeText and welcomeText.Parent do
             local tweenIn = TweenService:Create(welcomeText, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
@@ -151,7 +142,6 @@ local WindUI = (function()
         end
     end)
 
-    -- 窗口创建
     local windows = {}
     local minimizedWindows = {}
     local functionStates = {}
@@ -229,10 +219,9 @@ local WindUI = (function()
             minimized = false,
             contentFrame = contentFrame,
             categoryName = category.name,
-            featuresCount = 0  -- 确保初始化为0
+            featuresCount = 0
         }
         
-        -- 拖动功能
         local isDragging = false
         local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
         
@@ -268,7 +257,6 @@ local WindUI = (function()
             end
         end)
         
-        -- 收纳功能
         minimizeButton.MouseButton1Click:Connect(function()
             windowInfo.minimized = not windowInfo.minimized
             
@@ -293,13 +281,10 @@ local WindUI = (function()
         table.insert(windows, windowInfo)
     end
 
-    -- API
     local WindUI = {}
 
     function WindUI.AddFunction(categoryName, functionName, callback)
-        -- 安全检查
         if not categoryName or not functionName or type(categoryName) ~= "string" or type(functionName) ~= "string" then
-            warn("WindUI.AddFunction: 参数错误")
             return false
         end
         
@@ -307,18 +292,15 @@ local WindUI = (function()
             if windowInfo.categoryName == categoryName then
                 local contentFrame = windowInfo.contentFrame
                 if not contentFrame or not contentFrame.Parent then
-                    warn("WindUI.AddFunction: contentFrame不存在")
                     return false
                 end
                 
-                -- 确保featuresCount存在
                 windowInfo.featuresCount = windowInfo.featuresCount or 0
                 
                 local functionButton = Instance.new("TextButton")
                 functionButton.Name = functionName
                 functionButton.Size = UDim2.new(1, -4, 0, 26)
                 
-                -- 计算Y位置
                 local yPosition = 5 + (windowInfo.featuresCount * 30)
                 functionButton.Position = UDim2.new(0, 2, 0, yPosition)
                 
@@ -364,11 +346,9 @@ local WindUI = (function()
                     if functionStates[functionName] then
                         functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
                         functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
-                        print(functionName .. " 已开启")
                     else
                         functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
                         functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
-                        print(functionName .. " 已关闭")
                     end
                     
                     if callback then
@@ -382,12 +362,9 @@ local WindUI = (function()
                 window.Size = windowInfo.originalSize
                 contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
                 
-                print("已添加功能到 " .. categoryName .. ": " .. functionName)
                 return true
             end
         end
-        
-        warn("WindUI.AddFunction: 未找到分类: " .. categoryName)
         return false
     end
 
@@ -460,11 +437,6 @@ local WindUI = (function()
         return false
     end
 
-    print("WindUI 已加载")
-    print("中央: 快速闪烁的粉白渐变欢迎文字")
-    print("左侧: 可拖动、可收纳的Combat窗口")
-    print("使用 WindUI.AddFunction('Combat', '功能名', 回调函数) 来添加功能")
-
     return WindUI
 end)()
 
@@ -495,260 +467,8 @@ end
 
 if not checkWhitelist() then return end
 
--- ==================== 统计模块 ====================
-local StatsModule = {
-    samples = {},
-    maxSamples = 6,
-    sampleInterval = 20,
-    lastStrength = 0,
-    lastSampleTime = 0,
-    lastBatchTime = 0,
-    statsDisplay = nil,
-    isActive = false
-}
-
--- 数值格式化函数
-function StatsModule.formatNumber(value, decimals)
-    if value == 0 then return "0" end
-    local units = {"", "K", "M", "B", "T", "Qa", "Qi"}
-    local order = math.floor(math.log(math.max(1, math.abs(value)), 1000))
-    local unit = units[order + 1] or ("e" .. order)
-    local scaledValue = math.floor(value * ((10 ^ decimals) / (1000 ^ order))) / (10 ^ decimals)
-    return string.format("%." .. decimals .. "f%s", scaledValue, unit)
-end
-
--- 获取当前耐久度
-function StatsModule.getDurability()
-    local success, durability = pcall(function()
-        if player.Character then
-            -- 尝试humanoid的耐久度
-            local humanoid = player.Character:FindFirstChild("Humanoid")
-            if humanoid and humanoid:FindFirstChild("Durability") then
-                return humanoid.Durability.Value
-            end
-            
-            -- 尝试找其他耐久度属性
-            for _, obj in pairs(player.Character:GetDescendants()) do
-                if obj.Name == "Durability" and obj:IsA("NumberValue") then
-                    return obj.Value
-                end
-            end
-        end
-        
-        -- 尝试背包中的工具耐久度
-        for _, tool in pairs(player.Backpack:GetChildren()) do
-            if tool:FindFirstChild("Durability") then
-                return tool.Durability.Value
-            end
-        end
-        
-        return 0
-    end)
-    
-    return success and durability or 0
-end
-
--- 获取当前力量
-function StatsModule.getStrength()
-    local success, strength = pcall(function()
-        return player.leaderstats.Strength.Value
-    end)
-    return success and strength or 0
-end
-
--- 检查蛋白蛋增益
-function StatsModule.checkProteinBoost()
-    local success, boostExists = pcall(function()
-        return player.boostTimersFolder:FindFirstChild("Protein Egg")
-    end)
-    return success and boostExists
-end
-
--- 计算平均增益
-function StatsModule.calculateAverageGain()
-    if #StatsModule.samples == 0 then return 0 end
-    local total = 0
-    for _, value in ipairs(StatsModule.samples) do
-        total = total + value
-    end
-    return total / #StatsModule.samples
-end
-
--- 创建统计显示UI
-function StatsModule:createDisplay()
-    -- 创建统计框架
-    local statsFrame = Instance.new("Frame")
-    statsFrame.Name = "StatsDisplay"
-    statsFrame.Size = UDim2.new(0, 320, 0, 220)
-    statsFrame.Position = UDim2.new(1, -330, 0.3, 0)
-    statsFrame.BackgroundColor3 = Color3.fromRGB(20, 12, 28)
-    statsFrame.BackgroundTransparency = 0.2
-    statsFrame.BorderSizePixel = 0
-    statsFrame.ZIndex = 5
-    statsFrame.Parent = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
-    
-    local uiCorner = Instance.new("UICorner")
-    uiCorner.CornerRadius = UDim.new(0, 8)
-    uiCorner.Parent = statsFrame
-    
-    local uiStroke = Instance.new("UIStroke")
-    uiStroke.Color = Color3.fromRGB(100, 60, 150)
-    uiStroke.Thickness = 2
-    uiStroke.Parent = statsFrame
-    
-    -- 标题
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)
-    titleLabel.Position = UDim2.new(0, 0, 0, 0)
-    titleLabel.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
-    titleLabel.BackgroundTransparency = 0.3
-    titleLabel.Text = "📊 实时统计"
-    titleLabel.TextColor3 = Color3.fromRGB(255, 200, 255)
-    titleLabel.TextSize = 16
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.Parent = statsFrame
-    
-    local titleCorner = Instance.new("UICorner")
-    titleCorner.CornerRadius = UDim.new(0, 8)
-    titleCorner.Parent = titleLabel
-    
-    -- 滚动框架用于显示统计信息
-    local scrollFrame = Instance.new("ScrollingFrame")
-    scrollFrame.Size = UDim2.new(1, -10, 1, -40)
-    scrollFrame.Position = UDim2.new(0, 5, 0, 35)
-    scrollFrame.BackgroundTransparency = 1
-    scrollFrame.ScrollBarThickness = 3
-    scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(150, 90, 210)
-    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 200)
-    scrollFrame.Parent = statsFrame
-    
-    -- 统计标签
-    StatsModule.statsLabels = {}
-    
-    local statsData = {
-        {id = "strength", label = "当前力量: ", color = Color3.fromRGB(180, 220, 255)},
-        {id = "durability", label = "当前耐久: ", color = Color3.fromRGB(150, 255, 150)},
-        {id = "avgGain", label = "平均增益: ", color = Color3.fromRGB(180, 255, 180)},
-        {id = "daily", label = "每日速度: ", color = Color3.fromRGB(255, 220, 120)},
-        {id = "monthly", label = "每月速度: ", color = Color3.fromRGB(255, 180, 220)},
-        {id = "samples", label = "样本数量: ", color = Color3.fromRGB(200, 200, 200)},
-        {id = "boost", label = "蛋白蛋状态: ", color = Color3.fromRGB(255, 150, 150)}
-    }
-    
-    for i, stat in ipairs(statsData) do
-        local statFrame = Instance.new("Frame")
-        statFrame.Size = UDim2.new(1, 0, 0, 25)
-        statFrame.Position = UDim2.new(0, 0, 0, (i-1) * 28)
-        statFrame.BackgroundTransparency = 1
-        statFrame.Parent = scrollFrame
-        
-        local label = Instance.new("TextLabel")
-        label.Size = UDim2.new(0.5, 0, 1, 0)
-        label.Position = UDim2.new(0, 0, 0, 0)
-        label.BackgroundTransparency = 1
-        label.Text = stat.label
-        label.TextColor3 = Color3.fromRGB(220, 180, 255)
-        label.TextSize = 13
-        label.Font = Enum.Font.Gotham
-        label.TextXAlignment = Enum.TextXAlignment.Left
-        label.Parent = statFrame
-        
-        local valueLabel = Instance.new("TextLabel")
-        valueLabel.Size = UDim2.new(0.5, 0, 1, 0)
-        valueLabel.Position = UDim2.new(0.5, 0, 0, 0)
-        valueLabel.BackgroundTransparency = 1
-        valueLabel.Text = "计算中..."
-        valueLabel.TextColor3 = stat.color
-        valueLabel.TextSize = 13
-        valueLabel.Font = Enum.Font.GothamBold
-        valueLabel.TextXAlignment = Enum.TextXAlignment.Right
-        valueLabel.Parent = statFrame
-        
-        StatsModule.statsLabels[stat.id] = valueLabel
-    end
-    
-    self.statsDisplay = statsFrame
-    self.isActive = true
-    
-    -- 启动更新协程
-    spawn(function()
-        while self.isActive and self.statsDisplay and self.statsDisplay.Parent do
-            task.wait(1)  -- 每秒更新一次
-            
-            pcall(function()
-                -- 获取当前值
-                local currentStrength = self.getStrength()
-                local currentDurability = self.getDurability()
-                local currentTime = tick()
-                
-                -- 更新力量显示
-                self.statsLabels.strength.Text = self.formatNumber(currentStrength, 1)
-                
-                -- 更新耐久度显示
-                self.statsLabels.durability.Text = self.formatNumber(currentDurability, 1)
-                
-                -- 计算力量增益
-                if self.lastStrength > 0 then
-                    local gainPerSecond = (currentStrength - self.lastStrength) / (currentTime - self.lastSampleTime)
-                    
-                    -- 如果达到采样间隔，添加新样本
-                    if currentTime - self.lastBatchTime >= self.sampleInterval then
-                        table.insert(self.samples, gainPerSecond)
-                        if #self.samples > self.maxSamples then
-                            table.remove(self.samples, 1)
-                        end
-                        self.lastBatchTime = currentTime
-                    end
-                    
-                    -- 计算平均增益
-                    local avgGain = self.calculateAverageGain()
-                    self.statsLabels.avgGain.Text = self.formatNumber(avgGain, 1) .. "/s"
-                    
-                    -- 计算时间范围速度
-                    local secondsInDay = 86400
-                    local secondsInMonth = 2592000
-                    
-                    self.statsLabels.daily.Text = self.formatNumber(avgGain * secondsInDay, 1)
-                    self.statsLabels.monthly.Text = self.formatNumber(avgGain * secondsInMonth, 1)
-                    
-                    -- 更新样本信息
-                    self.statsLabels.samples.Text = #self.samples .. "/" .. self.maxSamples
-                else
-                    -- 第一次记录
-                    self.lastStrength = currentStrength
-                    self.lastSampleTime = currentTime
-                    self.lastBatchTime = currentTime
-                end
-                
-                -- 更新增益状态
-                local hasBoost = self.checkProteinBoost()
-                if hasBoost then
-                    self.statsLabels.boost.Text = "✅ Protein Egg x2"
-                    self.statsLabels.boost.TextColor3 = Color3.fromRGB(100, 255, 100)
-                else
-                    self.statsLabels.boost.Text = "❌ No Boost"
-                    self.statsLabels.boost.TextColor3 = Color3.fromRGB(255, 100, 100)
-                end
-                
-                -- 更新最后记录的值
-                self.lastStrength = currentStrength
-                self.lastSampleTime = currentTime
-            end)
-        end
-    end)
-end
-
--- 移除统计显示
-function StatsModule:removeDisplay()
-    self.isActive = false
-    if self.statsDisplay and self.statsDisplay.Parent then
-        self.statsDisplay:Destroy()
-        self.statsDisplay = nil
-    end
-end
-
--- ==================== 延迟添加功能（等待UI完全加载） ====================
-task.wait(1)  -- 等待1秒确保WindUI完全初始化
+-- ==================== 延迟添加功能 ====================
+task.wait(0.5)
 
 -- 1. 极速锻炼功能
 local spamTraining = false
@@ -766,21 +486,17 @@ local function spamExerciseEvents()
     end
 end
 
--- 添加功能
-local success1 = WindUI.AddFunction("Combat", "极速锻炼", function(state)
+WindUI.AddFunction("Combat", "极速锻炼", function(state)
     spamTraining = state
     if state then
         task.spawn(spamExerciseEvents)
-        print("极速锻炼已开启")
-    else
-        print("极速锻炼已关闭")
     end
 end)
 
 -- 2. 自动蛋白蛋功能
 local autoProtein = false
 
-local success2 = WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
+WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
     autoProtein = state
     if state then
         task.spawn(function()
@@ -805,7 +521,7 @@ local success2 = WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
 end)
 
 -- 3. 清除增益UI功能
-local success3 = WindUI.AddFunction("Combat", "清除增益UI", function()
+WindUI.AddFunction("Combat", "清除增益UI", function()
     local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
     local protected = {"WindUI","Crazy Top","Rayfield"}
     
@@ -838,13 +554,12 @@ local success3 = WindUI.AddFunction("Combat", "清除增益UI", function()
     
     cleanGui(game:GetService("CoreGui"))
     cleanGui(player:FindFirstChild("PlayerGui"))
-    print("增益UI已清除")
 end)
 
 -- 4. 自动热带奶昔功能
 local autoShake = false
 
-local success4 = WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
+WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
     autoShake = state
     if state then
         task.spawn(function()
@@ -865,23 +580,3 @@ local success4 = WindUI.AddFunction("Combat", "自动热带奶昔", function(sta
         end)
     end
 end)
-
--- 5. 实时统计显示功能
-local success5 = WindUI.AddFunction("Combat", "实时统计显示", function(state)
-    if state then
-        StatsModule:createDisplay()
-        print("实时统计显示已开启")
-    else
-        StatsModule:removeDisplay()
-        print("实时统计显示已关闭")
-    end
-end)
-
--- 输出添加结果
-print("功能添加结果:")
-print("- 极速锻炼: " .. (success1 and "成功" or "失败"))
-print("- 自动蛋白蛋: " .. (success2 and "成功" or "失败"))
-print("- 清除增益UI: " .. (success3 and "成功" or "失败"))
-print("- 自动热带奶昔: " .. (success4 and "成功" or "失败"))
-print("- 实时统计显示: " .. (success5 and "成功" or "失败"))
-print("脚本加载完成！")
