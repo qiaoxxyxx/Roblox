@@ -1,20 +1,55 @@
 -- ==================== 防多开检查 ====================
-if game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup") then
-    game:GetService("Players").LocalPlayer:Kick("Script already running!")
+local function AntiMultiOpen()
+    local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
+    if existingGui then
+        game:GetService("Players").LocalPlayer:Kick("Script already running! Please wait.")
+        return false
+    end
+    
+    local antiDupGui = Instance.new("ScreenGui")
+    antiDupGui.Name = "KJY_Team_AntiDup"
+    antiDupGui.Parent = game:GetService("CoreGui")
+    
+    game:GetService("Players").PlayerRemoving:Connect(function(player)
+        if player == game:GetService("Players").LocalPlayer then
+            antiDupGui:Destroy()
+        end
+    end)
+    
+    return true
+end
+
+if not AntiMultiOpen() then
     return
 end
-Instance.new("ScreenGui", game:GetService("CoreGui")).Name = "KJY_Team_AntiDup"
 
--- ==================== WindUI库 ====================
+-- ==================== 嵌入完整的WindUI库 ====================
 local WindUI = (function()
     local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
     for _, gui in ipairs(playerGui:GetChildren()) do
-        if gui:IsA("ScreenGui") and gui.Name == "WindUI" then gui:Destroy() end
+        if gui:IsA("ScreenGui") and gui.Name == "WindUI" then
+            gui:Destroy()
+        end
     end
 
-    local player = game:GetService("Players").LocalPlayer
+    -- 初始化
+    local Players = game:GetService("Players")
+    local UserInputService = game:GetService("UserInputService")
+    local TweenService = game:GetService("TweenService")
+    local RunService = game:GetService("RunService")
+
+    local player = Players.LocalPlayer
+    local username = player.Name
     local screenSize = workspace.CurrentCamera.ViewportSize
+
+    -- 分类数据
+    local categories = {{name = "Combat", color = Color3.fromRGB(255, 80, 80), features = {}}}
+
+    -- 窗口参数
     local windowWidth = math.min(160, screenSize.X * 0.35)
+    local windowHeight = 200
+    local startX, startY = 10, 50
+    categories[1].position = Vector2.new(startX, startY)
 
     -- 创建GUI
     local screenGui = Instance.new("ScreenGui")
@@ -22,92 +57,399 @@ local WindUI = (function()
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     screenGui.Parent = playerGui
 
-    -- 欢迎文字
-    local welcomeFrame = Instance.new("Frame", screenGui)
-    welcomeFrame.Size = UDim2.new(0, math.min(250, screenSize.X * 0.6), 0, 35)
-    welcomeFrame.Position = UDim2.new(1, -math.min(250, screenSize.X * 0.6) - 10, 0, 10)
+    -- 背景（更黑）
+    local background = Instance.new("Frame")
+    background.Size = UDim2.new(1, 0, 1, 0)
+    background.BackgroundColor3 = Color3.fromRGB(5, 2, 8)
+    background.BackgroundTransparency = 0.6
+    background.ZIndex = -10
+    background.Parent = screenGui
+
+    local starGradient = Instance.new("UIGradient")
+    starGradient.Rotation = 90
+    starGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(10, 5, 15)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(8, 3, 12)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 1, 8))
+    })
+    starGradient.Parent = background
+
+    -- 欢迎语在中间
+    local welcomeFrame = Instance.new("Frame")
+    welcomeFrame.Size = UDim2.new(0, math.min(300, screenSize.X * 0.8), 0, 50)
+    welcomeFrame.Position = UDim2.new(0.5, -math.min(300, screenSize.X * 0.8) / 2, 0.1, 0)
     welcomeFrame.BackgroundTransparency = 1
     welcomeFrame.ZIndex = 5
+    welcomeFrame.Parent = screenGui
 
-    local welcomeText = Instance.new("TextLabel", welcomeFrame)
+    local welcomeText = Instance.new("TextLabel")
     welcomeText.Size = UDim2.new(1, 0, 1, 0)
     welcomeText.BackgroundTransparency = 1
-    welcomeText.Text = "Welcome " .. player.Name
+    welcomeText.Text = "Welcome " .. username
     welcomeText.TextColor3 = Color3.fromRGB(255, 255, 255)
-    welcomeText.TextSize = 16
+    welcomeText.TextSize = 20
     welcomeText.Font = Enum.Font.GothamBold
-    welcomeText.TextXAlignment = Enum.TextXAlignment.Right
+    welcomeText.TextXAlignment = Enum.TextXAlignment.Center
+    welcomeText.ZIndex = 5
+    welcomeText.Parent = welcomeFrame
 
-    -- Strength窗口
-    local window = Instance.new("Frame", screenGui)
-    window.Size = UDim2.new(0, windowWidth, 0, 200)
-    window.Position = UDim2.new(0, 10, 0, 50)
-    window.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
-    window.BackgroundTransparency = 0.2
+    -- 粉白渐变效果
+    local textGradient = Instance.new("UIGradient")
+    textGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
+        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
+        ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
+    })
+    textGradient.Rotation = 90
+    textGradient.Parent = welcomeText
 
-    local titleBar = Instance.new("TextButton", window)
-    titleBar.Size = UDim2.new(1, 0, 0, 25)
-    titleBar.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
-    titleBar.Text = ""
-    titleBar.AutoButtonColor = false
+    -- 文字描边
+    local textStroke = Instance.new("UIStroke")
+    textStroke.Color = Color3.fromRGB(255, 150, 200)
+    textStroke.Thickness = 2
+    textStroke.Transparency = 0.3
+    textStroke.Parent = welcomeText
 
-    local titleLabel = Instance.new("TextLabel", titleBar)
-    titleLabel.Size = UDim2.new(1, -40, 1, 0)
-    titleLabel.Position = UDim2.new(0, 8, 0, 0)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Text = "Strength"
-    titleLabel.TextColor3 = Color3.fromRGB(255, 200, 255)
-    titleLabel.TextSize = 12
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    -- 闪烁动画（更快）
+    spawn(function()
+        while welcomeText and welcomeText.Parent do
+            local tweenIn = TweenService:Create(welcomeText, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                TextTransparency = 0.1,
+                TextStrokeTransparency = 0.5
+            })
+            tweenIn:Play()
+            tweenIn.Completed:Wait()
+            
+            local tweenOut = TweenService:Create(welcomeText, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                TextTransparency = 0.5,
+                TextStrokeTransparency = 0.8
+            })
+            tweenOut:Play()
+            tweenOut.Completed:Wait()
+            
+            local colors1 = {
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 250, 255)),
+                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 230, 240)),
+                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 210, 230)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 190, 220))
+            }
+            
+            local colors2 = {
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
+                ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
+                ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
+            }
+            
+            textGradient.Color = ColorSequence.new(colors1)
+            wait(0.2)
+            textGradient.Color = ColorSequence.new(colors2)
+            
+            textStroke.Transparency = 0.2
+            wait(0.1)
+            textStroke.Transparency = 0.4
+        end
+    end)
 
-    local contentFrame = Instance.new("ScrollingFrame", window)
-    contentFrame.Size = UDim2.new(1, -6, 1, -31)
-    contentFrame.Position = UDim2.new(0, 3, 0, 28)
-    contentFrame.BackgroundTransparency = 1
-    contentFrame.ScrollBarThickness = 3
-    contentFrame.ScrollBarImageColor3 = Color3.fromRGB(180, 120, 255)
+    -- 窗口创建
+    local windows = {}
+    local minimizedWindows = {}
+    local functionStates = {}
+
+    for i, category in ipairs(categories) do
+        local window = Instance.new("Frame")
+        window.Size = UDim2.new(0, windowWidth, 0, windowHeight)
+        window.Position = UDim2.new(0, category.position.X, 0, category.position.Y)
+        window.BackgroundColor3 = Color3.fromRGB(20, 12, 28)
+        window.BackgroundTransparency = 0.1
+        window.ZIndex = 1
+        window.Parent = screenGui
+        
+        local border = Instance.new("Frame")
+        border.Size = UDim2.new(1, 3, 1, 3)
+        border.Position = UDim2.new(0, -1.5, 0, -1.5)
+        border.BackgroundColor3 = Color3.fromRGB(100, 60, 150)
+        border.ZIndex = 0
+        border.Parent = window
+        
+        local innerBorder = Instance.new("Frame")
+        innerBorder.Size = UDim2.new(1, -3, 1, -3)
+        innerBorder.Position = UDim2.new(0, 1.5, 0, 1.5)
+        innerBorder.BackgroundColor3 = Color3.fromRGB(18, 10, 25)
+        innerBorder.BackgroundTransparency = 0.2
+        innerBorder.Parent = border
+        
+        local titleBar = Instance.new("TextButton")
+        titleBar.Size = UDim2.new(1, 0, 0, 25)
+        titleBar.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+        titleBar.Text = ""
+        titleBar.AutoButtonColor = false
+        titleBar.ZIndex = 2
+        titleBar.Parent = innerBorder
+        
+        local titleLabel = Instance.new("TextLabel")
+        titleLabel.Size = UDim2.new(1, -40, 1, 0)
+        titleLabel.Position = UDim2.new(0, 8, 0, 0)
+        titleLabel.BackgroundTransparency = 1
+        titleLabel.Text = category.name
+        titleLabel.TextColor3 = Color3.fromRGB(255, 180, 230)
+        titleLabel.TextSize = 12
+        titleLabel.Font = Enum.Font.GothamBold
+        titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+        titleLabel.ZIndex = 2
+        titleLabel.Parent = titleBar
+        
+        local minimizeButton = Instance.new("TextButton")
+        minimizeButton.Size = UDim2.new(0, 20, 0, 20)
+        minimizeButton.Position = UDim2.new(1, -22, 0.5, -10)
+        minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+        minimizeButton.BackgroundColor3 = Color3.fromRGB(45, 25, 65)
+        minimizeButton.Text = "─"
+        minimizeButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+        minimizeButton.TextSize = 16
+        minimizeButton.Font = Enum.Font.GothamBold
+        minimizeButton.AutoButtonColor = false
+        minimizeButton.ZIndex = 2
+        minimizeButton.Parent = titleBar
+        
+        local contentFrame = Instance.new("ScrollingFrame")
+        contentFrame.Size = UDim2.new(1, -6, 1, -31)
+        contentFrame.Position = UDim2.new(0, 3, 0, 28)
+        contentFrame.BackgroundTransparency = 1
+        contentFrame.ScrollBarThickness = 3
+        contentFrame.ScrollBarImageColor3 = Color3.fromRGB(150, 90, 210)
+        contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+        contentFrame.ZIndex = 2
+        contentFrame.Parent = innerBorder
+        
+        local windowInfo = {
+            frame = window,
+            originalSize = UDim2.new(0, windowWidth, 0, windowHeight),
+            originalPosition = UDim2.new(0, category.position.X, 0, category.position.Y),
+            minimized = false,
+            contentFrame = contentFrame,
+            categoryName = category.name,
+            featuresCount = 0
+        }
+        
+        -- 拖动功能
+        local isDragging = false
+        local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
+        
+        titleBar.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                isDragging = true
+                dragStart = input.Position
+                windowStart = Vector2.new(window.Position.X.Offset, window.Position.Y.Offset)
+                window.ZIndex = 10
+                border.ZIndex = 9
+            end
+        end)
+        
+        UserInputService.InputChanged:Connect(function(input)
+            if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                local delta = input.Position - dragStart
+                window.Position = UDim2.new(0, windowStart.X + delta.X, 0, windowStart.Y + delta.Y)
+            end
+        end)
+        
+        UserInputService.InputEnded:Connect(function(input)
+            if isDragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+                isDragging = false
+                window.ZIndex = 1
+                border.ZIndex = 0
+                
+                local currentPos = window.Position
+                local newX = math.max(5, math.min(currentPos.X.Offset, screenSize.X - windowWidth - 5))
+                local newY = math.max(10, math.min(currentPos.Y.Offset, screenSize.Y - windowHeight - 10))
+                
+                window.Position = UDim2.new(0, newX, 0, newY)
+                windowInfo.originalPosition = window.Position
+            end
+        end)
+        
+        -- 收纳功能
+        minimizeButton.MouseButton1Click:Connect(function()
+            windowInfo.minimized = not windowInfo.minimized
+            
+            if windowInfo.minimized then
+                window.Size = UDim2.new(0, windowWidth, 0, 25)
+                contentFrame.Visible = false
+                minimizeButton.Text = "+"
+                table.insert(minimizedWindows, windowInfo)
+            else
+                window.Size = windowInfo.originalSize
+                contentFrame.Visible = true
+                minimizeButton.Text = "─"
+                for idx, win in ipairs(minimizedWindows) do
+                    if win.frame == window then
+                        table.remove(minimizedWindows, idx)
+                        break
+                    end
+                end
+            end
+        end)
+        
+        table.insert(windows, windowInfo)
+    end
 
     -- API
     local WindUI = {}
-    local functionStates = {}
-    local featuresCount = 0
 
     function WindUI.AddFunction(categoryName, functionName, callback)
-        if categoryName ~= "Strength" then return false end
-        
-        local button = Instance.new("TextButton")
-        button.Name = functionName
-        button.Size = UDim2.new(1, -4, 0, 26)
-        button.Position = UDim2.new(0, 2, 0, 5 + (featuresCount * 30))
-        button.BackgroundColor3 = Color3.fromRGB(40, 25, 60)
-        button.Text = functionName
-        button.TextColor3 = Color3.fromRGB(220, 180, 255)
-        button.TextSize = 12
-        button.Font = Enum.Font.Gotham
-        button.Parent = contentFrame
-        
-        functionStates[functionName] = false
-        
-        button.MouseButton1Click:Connect(function()
-            functionStates[functionName] = not functionStates[functionName]
-            button.BackgroundColor3 = functionStates[functionName] and Color3.fromRGB(255, 150, 200) or Color3.fromRGB(40, 25, 60)
-            button.TextColor3 = functionStates[functionName] and Color3.fromRGB(255, 240, 245) or Color3.fromRGB(220, 180, 255)
-            
-            if callback then callback(functionStates[functionName]) end
-        end)
-        
-        featuresCount = featuresCount + 1
-        contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (featuresCount * 30))
-        return true
+        for _, windowInfo in ipairs(windows) do
+            if windowInfo.categoryName == categoryName then
+                local contentFrame = windowInfo.contentFrame
+                if contentFrame then
+                    local functionButton = Instance.new("TextButton")
+                    functionButton.Name = functionName
+                    functionButton.Size = UDim2.new(1, -4, 0, 26)
+                    functionButton.Position = UDim2.new(0, 2, 0, 5 + (windowInfo.featuresCount * 30))
+                    functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                    functionButton.Text = functionName
+                    functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                    functionButton.TextSize = 12
+                    functionButton.Font = Enum.Font.Gotham
+                    functionButton.AutoButtonColor = true
+                    functionButton.Parent = contentFrame
+                    
+                    functionStates[functionName] = false
+                    
+                    functionButton.MouseEnter:Connect(function()
+                        if functionStates[functionName] then
+                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 150, 200)
+                        else
+                            functionButton.BackgroundColor3 = Color3.fromRGB(40, 22, 55)
+                        end
+                        functionButton.TextColor3 = Color3.fromRGB(240, 200, 255)
+                    end)
+                    
+                    functionButton.MouseLeave:Connect(function()
+                        if functionStates[functionName] then
+                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
+                        else
+                            functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                        end
+                        functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                    end)
+                    
+                    functionButton.MouseButton1Down:Connect(function()
+                        if functionStates[functionName] then
+                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 100, 170)
+                        else
+                            functionButton.BackgroundColor3 = Color3.fromRGB(25, 14, 35)
+                        end
+                    end)
+                    
+                    functionButton.MouseButton1Up:Connect(function()
+                        functionStates[functionName] = not functionStates[functionName]
+                        
+                        if functionStates[functionName] then
+                            functionButton.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
+                            functionButton.TextColor3 = Color3.fromRGB(255, 240, 245)
+                            print(functionName .. " 已开启")
+                        else
+                            functionButton.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                            functionButton.TextColor3 = Color3.fromRGB(200, 150, 235)
+                            print(functionName .. " 已关闭")
+                        end
+                        
+                        if callback then
+                            callback(functionStates[functionName])
+                        end
+                    end)
+                    
+                    windowInfo.featuresCount = windowInfo.featuresCount + 1
+                    local newHeight = math.max(200, 65 + (windowInfo.featuresCount * 30))
+                    windowInfo.originalSize = UDim2.new(0, windowWidth, 0, newHeight)
+                    window.Size = windowInfo.originalSize
+                    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 10 + (windowInfo.featuresCount * 30))
+                    
+                    print("已添加功能到 " .. categoryName .. ": " .. functionName)
+                    return true
+                end
+            end
+        end
+        return false
     end
+
+    function WindUI.AddFunctions(categoryName, functionsTable)
+        local successCount = 0
+        for functionName, callback in pairs(functionsTable) do
+            if WindUI.AddFunction(categoryName, functionName, callback) then
+                successCount = successCount + 1
+            end
+        end
+        return successCount > 0
+    end
+
+    function WindUI.GetWindow(categoryName)
+        for _, windowInfo in ipairs(windows) do
+            if windowInfo.categoryName == categoryName then
+                return windowInfo
+            end
+        end
+        return nil
+    end
+
+    function WindUI.GetAllWindows() return windows end
+
+    function WindUI.RemoveWelcomeText()
+        if welcomeFrame and welcomeFrame.Parent then
+            welcomeFrame:Destroy()
+        end
+    end
+
+    function WindUI.ShowWelcomeText()
+        if welcomeFrame then
+            welcomeFrame.Visible = true
+        end
+    end
+
+    function WindUI.SetWelcomeText(newText)
+        if welcomeText then
+            welcomeText.Text = newText
+        end
+    end
+
+    function WindUI.GetFunctionState(functionName)
+        return functionStates[functionName] or false
+    end
+
+    function WindUI.SetFunctionState(functionName, state)
+        if functionStates[functionName] ~= nil then
+            functionStates[functionName] = state
+            
+            for _, windowInfo in ipairs(windows) do
+                local button = windowInfo.contentFrame:FindFirstChild(functionName)
+                if button then
+                    if state then
+                        button.BackgroundColor3 = Color3.fromRGB(255, 130, 190)
+                        button.TextColor3 = Color3.fromRGB(255, 240, 245)
+                    else
+                        button.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+                        button.TextColor3 = Color3.fromRGB(200, 150, 235)
+                    end
+                    
+                    return true
+                end
+            end
+        end
+        return false
+    end
+
+    print("WindUI 已加载")
+    print("中央: 快速闪烁的粉白渐变欢迎文字")
+    print("左侧: 可拖动、可收纳的Combat窗口")
+    print("使用 WindUI.AddFunction('Combat', '功能名', 回调函数) 来添加功能")
 
     return WindUI
 end)()
 
--- ==================== 基础设置 ====================
-local e = game:GetService("Players").LocalPlayer
-e.Idled:Connect(function()
+-- ==================== 防挂机 ====================
+local player = game:GetService("Players").LocalPlayer
+player.Idled:Connect(function()
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
     wait(1)
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
@@ -115,7 +457,7 @@ end)
 
 -- ==================== 白名单验证 ====================
 local function checkWhitelist()
-    local playerName = game.Players.LocalPlayer.Name
+    local playerName = player.Name
     local success, isWhitelisted = pcall(function()
         local list = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
         local whitelist = {}
@@ -124,7 +466,7 @@ local function checkWhitelist()
     end)
     
     if not success or not isWhitelisted then
-        game.Players.LocalPlayer:Kick("未授权用户")
+        player:Kick("未授权用户")
         return false
     end
     return true
@@ -132,41 +474,61 @@ end
 
 if not checkWhitelist() then return end
 
--- ==================== 添加功能 ====================
-local spamTraining = false
+-- ==================== 数值格式化函数 ====================
+local function formatNumber(value, decimals)
+    if value == 0 then return "0" end
+    local units = {"", "K", "M", "B", "T", "Qa", "Qi"}
+    local order = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+    local unit = units[order + 1] or ("e" .. order)
+    local scaledValue = math.floor(value * ((10 ^ decimals) / (1000 ^ order))) / (10 ^ decimals)
+    return string.format("%." .. decimals .. "f%s", scaledValue, unit)
+end
 
--- 极速锻炼
-WindUI.AddFunction("Strength", "极速锻炼", function(state)
-    spamTraining = state
-    if state then
-        task.spawn(function()
-            while spamTraining do
-                pcall(function()
-                    for i = 0, 20 do
-                        e.muscleEvent:FireServer("rep")
-                    end
-                end)
-                task.wait(0.01)
+-- ==================== 添加所有功能到Combat分类 ====================
+
+-- 1. 极速锻炼功能
+local spamTraining = false
+local batchSize = 20
+
+local function spamExerciseEvents()
+    while spamTraining do
+        pcall(function()
+            local muscleEvent = player.muscleEvent
+            for i = 0, batchSize do
+                muscleEvent:FireServer("rep")
             end
         end)
+        task.wait(0.01)
+    end
+end
+
+WindUI.AddFunction("Combat", "极速锻炼", function(state)
+    spamTraining = state
+    if state then
+        task.spawn(spamExerciseEvents)
+        print("极速锻炼已开启")
+    else
+        print("极速锻炼已关闭")
     end
 end)
 
--- 自动蛋白蛋
-WindUI.AddFunction("Strength", "自动蛋白蛋", function(state)
-    _G.AutoProtein = state
+-- 2. 自动蛋白蛋功能
+local autoProtein = false
+
+WindUI.AddFunction("Combat", "自动蛋白蛋", function(state)
+    autoProtein = state
     if state then
         task.spawn(function()
-            while _G.AutoProtein do
+            while autoProtein do
                 pcall(function()
-                    if not e.boostTimersFolder:FindFirstChild("Protein Egg") then
-                        local egg = e.Backpack:FindFirstChild("Protein Egg")
+                    if not player.boostTimersFolder:FindFirstChild("Protein Egg") then
+                        local egg = player.Backpack:FindFirstChild("Protein Egg")
                         if egg then
-                            e.Character.Humanoid:EquipTool(egg)
+                            player.Character.Humanoid:EquipTool(egg)
                             wait(0.1)
-                            if e.Character:FindFirstChild("Protein Egg") then
-                                e.muscleEvent:FireServer("proteinEgg", e.Character:FindFirstChild("Protein Egg"))
-                                e.Character.Humanoid:UnequipTools()
+                            if player.Character:FindFirstChild("Protein Egg") then
+                                player.muscleEvent:FireServer("proteinEgg", player.Character:FindFirstChild("Protein Egg"))
+                                player.Character.Humanoid:UnequipTools()
                             end
                         end
                     end
@@ -177,8 +539,8 @@ WindUI.AddFunction("Strength", "自动蛋白蛋", function(state)
     end
 end)
 
--- 清除增益UI
-WindUI.AddFunction("Strength", "清除增益UI", function()
+-- 3. 清除增益UI功能
+WindUI.AddFunction("Combat", "清除增益UI", function()
     local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
     local protected = {"WindUI","Crazy Top","Rayfield"}
     
@@ -210,23 +572,26 @@ WindUI.AddFunction("Strength", "清除增益UI", function()
     end
     
     cleanGui(game:GetService("CoreGui"))
-    cleanGui(e:FindFirstChild("PlayerGui"))
+    cleanGui(player:FindFirstChild("PlayerGui"))
+    print("增益UI已清除")
 end)
 
--- 自动热带奶昔
-WindUI.AddFunction("Strength", "自动热带奶昔", function(state)
-    _G.AutoShake = state
+-- 4. 自动热带奶昔功能
+local autoShake = false
+
+WindUI.AddFunction("Combat", "自动热带奶昔", function(state)
+    autoShake = state
     if state then
         task.spawn(function()
-            while _G.AutoShake do
+            while autoShake do
                 pcall(function()
-                    local shake = e.Backpack:FindFirstChild("Tropical Shake")
+                    local shake = player.Backpack:FindFirstChild("Tropical Shake")
                     if shake then
-                        e.Character.Humanoid:EquipTool(shake)
+                        player.Character.Humanoid:EquipTool(shake)
                         wait(0.05)
-                        if e.Character:FindFirstChild("Tropical Shake") then
-                            e.muscleEvent:FireServer("tropicalShake", e.Character:FindFirstChild("Tropical Shake"))
-                            e.Character.Humanoid:UnequipTools()
+                        if player.Character:FindFirstChild("Tropical Shake") then
+                            player.muscleEvent:FireServer("tropicalShake", player.Character:FindFirstChild("Tropical Shake"))
+                            player.Character.Humanoid:UnequipTools()
                         end
                     end
                 end)
@@ -236,4 +601,85 @@ WindUI.AddFunction("Strength", "自动热带奶昔", function(state)
     end
 end)
 
+-- 5. 显示当前耐久度功能
+WindUI.AddFunction("Combat", "显示耐久度", function(state)
+    if state then
+        -- 创建一个耐久度显示标签
+        local durabilityDisplay = Instance.new("TextLabel")
+        durabilityDisplay.Name = "DurabilityDisplay"
+        durabilityDisplay.Size = UDim2.new(0, 200, 0, 40)
+        durabilityDisplay.Position = UDim2.new(1, -210, 0.3, 0)
+        durabilityDisplay.BackgroundColor3 = Color3.fromRGB(30, 18, 40)
+        durabilityDisplay.BackgroundTransparency = 0.3
+        durabilityDisplay.Text = "耐久度: 获取中..."
+        durabilityDisplay.TextColor3 = Color3.fromRGB(150, 255, 150)
+        durabilityDisplay.TextSize = 14
+        durabilityDisplay.Font = Enum.Font.GothamBold
+        durabilityDisplay.TextXAlignment = Enum.TextXAlignment.Center
+        durabilityDisplay.ZIndex = 5
+        durabilityDisplay.Parent = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
+        
+        local uiCorner = Instance.new("UICorner")
+        uiCorner.CornerRadius = UDim.new(0, 8)
+        uiCorner.Parent = durabilityDisplay
+        
+        local uiStroke = Instance.new("UIStroke")
+        uiStroke.Color = Color3.fromRGB(100, 255, 100)
+        uiStroke.Thickness = 2
+        uiStroke.Parent = durabilityDisplay
+        
+        -- 更新耐久度的函数
+        local function getDurability()
+            local success, durability = pcall(function()
+                -- 尝试不同的耐久度路径
+                if player.Character then
+                    -- 尝试humanoid的耐久度
+                    local humanoid = player.Character:FindFirstChild("Humanoid")
+                    if humanoid and humanoid:FindFirstChild("Durability") then
+                        return humanoid.Durability.Value
+                    end
+                    
+                    -- 尝试找其他耐久度属性
+                    for _, obj in pairs(player.Character:GetDescendants()) do
+                        if obj.Name == "Durability" and obj:IsA("NumberValue") then
+                            return obj.Value
+                        end
+                    end
+                end
+                
+                -- 尝试背包中的工具耐久度
+                for _, tool in pairs(player.Backpack:GetChildren()) do
+                    if tool:FindFirstChild("Durability") then
+                        return tool.Durability.Value
+                    end
+                end
+                
+                return 0
+            end)
+            
+            return success and durability or 0
+        end
+        
+        -- 更新耐久度显示的协程
+        spawn(function()
+            while durabilityDisplay and durabilityDisplay.Parent do
+                local durability = getDurability()
+                durabilityDisplay.Text = "耐久度: " .. formatNumber(durability, 1)
+                wait(1)  -- 每秒更新一次
+            end
+        end)
+        
+        print("耐久度显示已开启")
+    else
+        -- 关闭时移除显示
+        local windUI = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WindUI") or game.CoreGui
+        local display = windUI:FindFirstChild("DurabilityDisplay")
+        if display then
+            display:Destroy()
+        end
+        print("耐久度显示已关闭")
+    end
+end)
+
 print("脚本加载完成！所有功能可用。")
+print("Combat窗口包含：极速锻炼、自动蛋白蛋、清除增益UI、自动热带奶昔、显示耐久度")
