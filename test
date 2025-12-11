@@ -1,29 +1,20 @@
--- ==================== 防多开检查 ====================
 local function AntiMultiOpen()
     local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
     if existingGui then
         game:GetService("Players").LocalPlayer:Kick("Script already running! Please wait.")
         return false
     end
-    
     local antiDupGui = Instance.new("ScreenGui")
     antiDupGui.Name = "KJY_Team_AntiDup"
     antiDupGui.Parent = game:GetService("CoreGui")
-    
     game:GetService("Players").PlayerRemoving:Connect(function(player)
-        if player == game:GetService("Players").LocalPlayer then
-            antiDupGui:Destroy()
-        end
+        if player == game:GetService("Players").LocalPlayer then antiDupGui:Destroy() end
     end)
-    
     return true
 end
 
-if not AntiMultiOpen() then
-    return
-end
+if not AntiMultiOpen() then return end
 
--- ==================== 白名单验证 ====================
 local player = game:GetService("Players").LocalPlayer
 local function checkWhitelist()
     local playerName = player.Name
@@ -33,7 +24,6 @@ local function checkWhitelist()
         for name in list:gmatch("[^,]+") do whitelist[name:gsub("%s+","")] = true end
         return whitelist[playerName]
     end)
-    
     if not success or not isWhitelisted then
         player:Kick("未授权用户")
         return false
@@ -43,33 +33,27 @@ end
 
 if not checkWhitelist() then return end
 
--- ==================== 防挂机 ====================
 player.Idled:Connect(function()
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
     wait(1)
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
 end)
 
--- ==================== 创建支持手机触摸的简化UI ====================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileWindUI"
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
--- 获取屏幕尺寸
 local viewportSize = workspace.CurrentCamera.ViewportSize
-
--- 主窗口（更紧凑的尺寸）
 local mainWindow = Instance.new("Frame")
 mainWindow.Name = "MainWindow"
-mainWindow.Size = UDim2.new(0, 380, 0, 400)  -- 固定尺寸，更紧凑
-mainWindow.Position = UDim2.new(0, 20, 0, 50)  -- 从更上方开始
+mainWindow.Size = UDim2.new(0, 380, 0, 400)
+mainWindow.Position = UDim2.new(0, 20, 0, 50)
 mainWindow.BackgroundColor3 = Color3.fromRGB(255, 240, 245)
 mainWindow.BorderSizePixel = 0
 mainWindow.ZIndex = 10
 mainWindow.Parent = screenGui
 
--- 粉色渐变背景
 local backgroundGradient = Instance.new("UIGradient")
 backgroundGradient.Rotation = 90
 backgroundGradient.Color = ColorSequence.new({
@@ -80,21 +64,18 @@ backgroundGradient.Color = ColorSequence.new({
 })
 backgroundGradient.Parent = mainWindow
 
--- 圆角
 local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 16)
 uiCorner.Parent = mainWindow
 
--- 边框
 local uiStroke = Instance.new("UIStroke")
 uiStroke.Color = Color3.fromRGB(255, 160, 200)
 uiStroke.Thickness = 3
 uiStroke.Parent = mainWindow
 
--- 标题栏（可触摸拖拽区域）
 local titleBar = Instance.new("TextButton")
 titleBar.Name = "TitleBar"
-titleBar.Size = UDim2.new(1, 0, 0, 35)  -- 更矮的标题栏
+titleBar.Size = UDim2.new(1, 0, 0, 35)
 titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
 titleBar.Text = ""
 titleBar.AutoButtonColor = false
@@ -117,7 +98,6 @@ titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.ZIndex = 12
 titleLabel.Parent = titleBar
 
--- 当前力量显示在标题栏右侧
 local strengthLabel = Instance.new("TextLabel")
 strengthLabel.Size = UDim2.new(0.4, 0, 1, 0)
 strengthLabel.Position = UDim2.new(0.6, -10, 0, 0)
@@ -130,7 +110,6 @@ strengthLabel.TextXAlignment = Enum.TextXAlignment.Right
 strengthLabel.ZIndex = 12
 strengthLabel.Parent = titleBar
 
--- 最小化按钮
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
 minimizeButton.Size = UDim2.new(0, 28, 0, 28)
@@ -149,7 +128,6 @@ local minimizeCorner = Instance.new("UICorner")
 minimizeCorner.CornerRadius = UDim.new(0, 6)
 minimizeCorner.Parent = minimizeButton
 
--- 关闭按钮
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 28, 0, 28)
@@ -168,11 +146,9 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 6)
 closeCorner.Parent = closeButton
 
--- ==================== 紧凑的统计数据区域 ====================
--- 顶部数据区域（两列紧凑布局）
 local statsFrame = Instance.new("Frame")
 statsFrame.Name = "StatsFrame"
-statsFrame.Size = UDim2.new(1, -20, 0, 90)  -- 紧凑高度
+statsFrame.Size = UDim2.new(1, -20, 0, 90)
 statsFrame.Position = UDim2.new(0, 10, 0, 40)
 statsFrame.BackgroundColor3 = Color3.fromRGB(255, 245, 250)
 statsFrame.BorderSizePixel = 0
@@ -188,7 +164,6 @@ statsStroke.Color = Color3.fromRGB(255, 180, 210)
 statsStroke.Thickness = 2
 statsStroke.Parent = statsFrame
 
--- 左侧列：实时数据
 local leftColumn = Instance.new("Frame")
 leftColumn.Name = "LeftColumn"
 leftColumn.Size = UDim2.new(0.5, -5, 1, 0)
@@ -203,7 +178,6 @@ leftGrid.CellPadding = UDim2.new(0, 0, 0, 2)
 leftGrid.StartCorner = Enum.StartCorner.TopLeft
 leftGrid.Parent = leftColumn
 
--- 实时数据项
 local leftItems = {
     {id = "current_speed", name = "⚡ 当前速度:", color = Color3.fromRGB(100, 220, 150)},
     {id = "avg_speed_20s", name = "⏱️ 20秒均速:", color = Color3.fromRGB(255, 140, 100)},
@@ -216,7 +190,6 @@ for i, item in ipairs(leftItems) do
     itemFrame.Name = item.id
     itemFrame.BackgroundTransparency = 1
     itemFrame.Parent = leftColumn
-    
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
     nameLabel.BackgroundTransparency = 1
@@ -226,7 +199,6 @@ for i, item in ipairs(leftItems) do
     nameLabel.Font = Enum.Font.Gotham
     nameLabel.TextXAlignment = Enum.TextXAlignment.Left
     nameLabel.Parent = itemFrame
-    
     local valueLabel = Instance.new("TextLabel")
     valueLabel.Name = "Value"
     valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
@@ -238,11 +210,9 @@ for i, item in ipairs(leftItems) do
     valueLabel.Font = Enum.Font.GothamBold
     valueLabel.TextXAlignment = Enum.TextXAlignment.Right
     valueLabel.Parent = itemFrame
-    
     leftLabels[item.id] = valueLabel
 end
 
--- 右侧列：统计预测
 local rightColumn = Instance.new("Frame")
 rightColumn.Name = "RightColumn"
 rightColumn.Size = UDim2.new(0.5, -5, 1, 0)
@@ -257,7 +227,6 @@ rightGrid.CellPadding = UDim2.new(0, 0, 0, 2)
 rightGrid.StartCorner = Enum.StartCorner.TopLeft
 rightGrid.Parent = rightColumn
 
--- 统计预测项
 local rightItems = {
     {id = "current_strength", name = "💪 当前力量:", color = Color3.fromRGB(220, 100, 150)},
     {id = "daily_gain", name = "📅 今日预计:", color = Color3.fromRGB(100, 180, 255)},
@@ -270,7 +239,6 @@ for i, item in ipairs(rightItems) do
     itemFrame.Name = item.id
     itemFrame.BackgroundTransparency = 1
     itemFrame.Parent = rightColumn
-    
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
     nameLabel.BackgroundTransparency = 1
@@ -280,7 +248,6 @@ for i, item in ipairs(rightItems) do
     nameLabel.Font = Enum.Font.Gotham
     nameLabel.TextXAlignment = Enum.TextXAlignment.Left
     nameLabel.Parent = itemFrame
-    
     local valueLabel = Instance.new("TextLabel")
     valueLabel.Name = "Value"
     valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
@@ -292,20 +259,17 @@ for i, item in ipairs(rightItems) do
     valueLabel.Font = Enum.Font.GothamBold
     valueLabel.TextXAlignment = Enum.TextXAlignment.Right
     valueLabel.Parent = itemFrame
-    
     rightLabels[item.id] = valueLabel
 end
 
--- ==================== 功能按钮区域 ====================
 local buttonsFrame = Instance.new("Frame")
 buttonsFrame.Name = "ButtonsFrame"
-buttonsFrame.Size = UDim2.new(1, -20, 0, 230)  -- 足够的高度
+buttonsFrame.Size = UDim2.new(1, -20, 0, 230)
 buttonsFrame.Position = UDim2.new(0, 10, 0, 140)
 buttonsFrame.BackgroundTransparency = 1
 buttonsFrame.ZIndex = 11
 buttonsFrame.Parent = mainWindow
 
--- 按钮容器
 local buttonContainer = Instance.new("ScrollingFrame")
 buttonContainer.Name = "ButtonContainer"
 buttonContainer.Size = UDim2.new(1, 0, 1, 0)
@@ -317,17 +281,14 @@ buttonContainer.ZIndex = 12
 buttonContainer.Parent = buttonsFrame
 
 local buttonList = Instance.new("UIListLayout")
-buttonList.Padding = UDim.new(0, 6)  -- 更小的间距
+buttonList.Padding = UDim.new(0, 6)
 buttonList.Parent = buttonContainer
 
--- UI状态变量
 local isMinimized = false
 local originalSize = mainWindow.Size
 local isDragging = false
 local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
 
--- ==================== 改进的触摸拖拽功能 ====================
--- 允许拖动到屏幕顶部
 titleBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or 
        input.UserInputType == Enum.UserInputType.Touch then
@@ -345,13 +306,8 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
         local delta = input.Position - dragStart
         local newX = windowStart.X + delta.X
         local newY = windowStart.Y + delta.Y
-        
-        -- 允许移动到屏幕顶部（负值）
-        newX = math.max(-mainWindow.Size.X.Offset * 0.5, 
-                       math.min(newX, viewportSize.X - mainWindow.Size.X.Offset * 0.5))
-        newY = math.max(-mainWindow.Size.Y.Offset * 0.5, 
-                       math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset * 0.5))
-        
+        newX = math.max(-mainWindow.Size.X.Offset * 0.5, math.min(newX, viewportSize.X - mainWindow.Size.X.Offset * 0.5))
+        newY = math.max(-mainWindow.Size.Y.Offset * 0.5, math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset * 0.5))
         mainWindow.Position = UDim2.new(0, newX, 0, newY)
     end
 end)
@@ -365,10 +321,8 @@ game:GetService("UserInputService").InputEnded:Connect(function(input)
     end
 end)
 
--- ==================== 最小化功能 ====================
 local function toggleMinimize()
     isMinimized = not isMinimized
-    
     if isMinimized then
         mainWindow.Size = UDim2.new(0, mainWindow.Size.X.Offset, 0, 35)
         statsFrame.Visible = false
@@ -400,18 +354,13 @@ minimizeButton.InputEnded:Connect(function(input)
 end)
 
 minimizeButton.MouseEnter:Connect(function()
-    if not isDragging then
-        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
-    end
+    if not isDragging then minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215) end
 end)
 
 minimizeButton.MouseLeave:Connect(function()
-    if not isDragging then
-        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
-    end
+    if not isDragging then minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220) end
 end)
 
--- ==================== 关闭功能 ====================
 closeButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or 
        input.UserInputType == Enum.UserInputType.Touch then
@@ -441,29 +390,24 @@ closeButton.MouseLeave:Connect(function()
     end
 end)
 
--- ==================== 创建功能按钮 ====================
 local buttonStates = {}
-
 local function createToggleButton(name, desc, toggleFunction)
     local buttonActive = false
     local buttonFrame = Instance.new("TextButton")
     buttonFrame.Name = name .. "Button"
-    buttonFrame.Size = UDim2.new(1, 0, 0, 45)  -- 更矮的按钮
+    buttonFrame.Size = UDim2.new(1, 0, 0, 45)
     buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
     buttonFrame.Text = ""
     buttonFrame.AutoButtonColor = false
     buttonFrame.ZIndex = 12
     buttonFrame.Parent = buttonContainer
-    
     local buttonCorner = Instance.new("UICorner")
     buttonCorner.CornerRadius = UDim.new(0, 8)
     buttonCorner.Parent = buttonFrame
-    
     local buttonStroke = Instance.new("UIStroke")
     buttonStroke.Color = Color3.fromRGB(255, 180, 210)
     buttonStroke.Thickness = 2
     buttonStroke.Parent = buttonFrame
-    
     local buttonTitle = Instance.new("TextLabel")
     buttonTitle.Size = UDim2.new(1, -20, 0.7, 0)
     buttonTitle.Position = UDim2.new(0, 10, 0, 0)
@@ -475,7 +419,6 @@ local function createToggleButton(name, desc, toggleFunction)
     buttonTitle.TextXAlignment = Enum.TextXAlignment.Left
     buttonTitle.ZIndex = 13
     buttonTitle.Parent = buttonFrame
-    
     local buttonDesc = Instance.new("TextLabel")
     buttonDesc.Size = UDim2.new(1, -20, 0.3, 0)
     buttonDesc.Position = UDim2.new(0, 10, 0.7, 0)
@@ -487,8 +430,6 @@ local function createToggleButton(name, desc, toggleFunction)
     buttonDesc.TextXAlignment = Enum.TextXAlignment.Left
     buttonDesc.ZIndex = 13
     buttonDesc.Parent = buttonFrame
-    
-    -- 状态指示器
     local statusIndicator = Instance.new("Frame")
     statusIndicator.Name = "StatusIndicator"
     statusIndicator.Size = UDim2.new(0, 6, 0, 6)
@@ -498,22 +439,17 @@ local function createToggleButton(name, desc, toggleFunction)
     statusIndicator.BorderSizePixel = 0
     statusIndicator.ZIndex = 13
     statusIndicator.Parent = buttonFrame
-    
     local indicatorCorner = Instance.new("UICorner")
     indicatorCorner.CornerRadius = UDim.new(1, 0)
     indicatorCorner.Parent = statusIndicator
-    
-    -- 更新按钮颜色函数
     local function updateButtonColors()
         if buttonActive then
-            -- 激活状态：紫粉色
             buttonFrame.BackgroundColor3 = Color3.fromRGB(220, 180, 255)
             buttonStroke.Color = Color3.fromRGB(180, 120, 240)
             buttonTitle.TextColor3 = Color3.fromRGB(140, 80, 200)
             buttonDesc.TextColor3 = Color3.fromRGB(160, 120, 210)
             statusIndicator.BackgroundColor3 = Color3.fromRGB(160, 100, 220)
         else
-            -- 非激活状态：粉色
             buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
             buttonStroke.Color = Color3.fromRGB(255, 180, 210)
             buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
@@ -521,11 +457,7 @@ local function createToggleButton(name, desc, toggleFunction)
             statusIndicator.BackgroundColor3 = Color3.fromRGB(220, 150, 180)
         end
     end
-    
-    -- 初始化颜色
     updateButtonColors()
-    
-    -- 触摸交互
     buttonFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
@@ -538,26 +470,15 @@ local function createToggleButton(name, desc, toggleFunction)
             end
         end
     end)
-    
     buttonFrame.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
-            -- 切换状态
             buttonActive = not buttonActive
-            
-            -- 更新颜色
             updateButtonColors()
-            
-            -- 执行功能
-            if toggleFunction then
-                pcall(toggleFunction, buttonActive)
-            end
-            
-            -- 存储状态
+            if toggleFunction then pcall(toggleFunction, buttonActive) end
             buttonStates[name] = buttonActive
         end
     end)
-    
     buttonFrame.MouseEnter:Connect(function()
         if not isDragging then
             if buttonActive then
@@ -569,30 +490,16 @@ local function createToggleButton(name, desc, toggleFunction)
             end
         end
     end)
-    
     buttonFrame.MouseLeave:Connect(function()
-        if not isDragging then
-            updateButtonColors()
-        end
+        if not isDragging then updateButtonColors() end
     end)
-    
-    -- 存储按钮引用
-    buttonStates[name] = {
-        frame = buttonFrame,
-        active = buttonActive,
-        update = updateButtonColors
-    }
-    
-    -- 更新滚动区域大小
+    buttonStates[name] = {frame = buttonFrame, active = buttonActive, update = updateButtonColors}
     buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 51)
-    
     return {
         toggle = function()
             buttonActive = not buttonActive
             updateButtonColors()
-            if toggleFunction then
-                pcall(toggleFunction, buttonActive)
-            end
+            if toggleFunction then pcall(toggleFunction, buttonActive) end
             buttonStates[name].active = buttonActive
         end,
         setState = function(state)
@@ -600,25 +507,19 @@ local function createToggleButton(name, desc, toggleFunction)
             updateButtonColors()
             buttonStates[name].active = buttonActive
         end,
-        getState = function()
-            return buttonActive
-        end
+        getState = function() return buttonActive end
     }
 end
 
--- ==================== 核心功能 ====================
 local spamTraining = false
 local batchSize = 20
 local autoProtein = false
 local autoShake = false
 local lastStrength = 0
+local strengthSamples = {}
+local sampleInterval = 1
+local sampleDuration = 20
 
--- 统计相关变量
-local strengthSamples = {}  -- 存储20秒内的力量样本
-local sampleInterval = 1    -- 采样间隔（秒）
-local sampleDuration = 20   -- 采样持续时间（秒）
-
--- 格式化数字
 local function formatNumber(value)
     if value < 1000 then return string.format("%.0f", value) end
     local suffixes = {"K", "M", "B", "T", "Qa", "Qi"}
@@ -627,20 +528,16 @@ local function formatNumber(value)
     return string.format("%.2f%s", scaled, suffixes[order] or "")
 end
 
--- 极速锻炼功能
 local function spamExerciseEvents()
     while spamTraining do
         pcall(function()
             local muscleEvent = player.muscleEvent
-            for i = 0, batchSize do
-                muscleEvent:FireServer("rep")
-            end
+            for i = 0, batchSize do muscleEvent:FireServer("rep") end
         end)
         task.wait(0.01)
     end
 end
 
--- 自动蛋白蛋功能
 local function proteinLoop()
     while autoProtein do
         pcall(function()
@@ -660,7 +557,6 @@ local function proteinLoop()
     end
 end
 
--- 自动热带奶昔功能
 local function shakeLoop()
     while autoShake do
         pcall(function()
@@ -678,30 +574,21 @@ local function shakeLoop()
     end
 end
 
--- 清除增益UI功能
 local function cleanUI()
     local keywords = {"+","Coins","Coin","Strength","Exp","Experience","Level","Damage","Health"}
     local protected = {"MobileWindUI","Crazy Top","Rayfield", "KJY_Team_AntiDup"}
-    
     local function cleanGui(parent)
         for _, gui in ipairs(parent:GetChildren()) do
             if gui:IsA("ScreenGui") then
                 local shouldRemove = true
                 for _, name in ipairs(protected) do
-                    if gui.Name:find(name) then
-                        shouldRemove = false
-                        break
-                    end
+                    if gui.Name:find(name) then shouldRemove = false break end
                 end
-                
                 if shouldRemove then
                     for _, element in ipairs(gui:GetDescendants()) do
                         if (element:IsA("TextLabel") or element:IsA("TextButton")) and element.Text then
                             for _, keyword in ipairs(keywords) do
-                                if element.Text:find(keyword) then
-                                    gui:Destroy()
-                                    break
-                                end
+                                if element.Text:find(keyword) then gui:Destroy() break end
                             end
                         end
                     end
@@ -709,37 +596,25 @@ local function cleanUI()
             end
         end
     end
-    
     cleanGui(game:GetService("CoreGui"))
     cleanGui(player:FindFirstChild("PlayerGui"))
 end
 
--- ==================== 创建功能按钮 ====================
--- 极速锻炼开关
 local speedToggle = createToggleButton("⚡ 极速锻炼", "20倍速度快速锻炼", function(state)
     spamTraining = state
-    if state then
-        task.spawn(spamExerciseEvents)
-    end
+    if state then task.spawn(spamExerciseEvents) end
 end)
 
--- 自动蛋白蛋开关
 local proteinToggle = createToggleButton("🥚 自动蛋白蛋", "自动使用蛋白蛋增益", function(state)
     autoProtein = state
-    if state then
-        task.spawn(proteinLoop)
-    end
+    if state then task.spawn(proteinLoop) end
 end)
 
--- 自动热带奶昔开关
 local shakeToggle = createToggleButton("🍹 自动奶昔", "自动使用热带奶昔", function(state)
     autoShake = state
-    if state then
-        task.spawn(shakeLoop)
-    end
+    if state then task.spawn(shakeLoop) end
 end)
 
--- 清除UI按钮（普通按钮，无切换效果）
 local cleanButton = Instance.new("TextButton")
 cleanButton.Name = "CleanUIButton"
 cleanButton.Size = UDim2.new(1, 0, 0, 45)
@@ -782,7 +657,6 @@ cleanDesc.TextXAlignment = Enum.TextXAlignment.Left
 cleanDesc.ZIndex = 13
 cleanDesc.Parent = cleanButton
 
--- 触摸交互
 cleanButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or 
        input.UserInputType == Enum.UserInputType.Touch then
@@ -814,66 +688,37 @@ cleanButton.MouseLeave:Connect(function()
     end
 end)
 
--- 更新滚动区域
 buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 51)
 
--- ==================== 数据更新协程 ====================
 spawn(function()
     while screenGui and screenGui.Parent do
         task.wait(sampleInterval)
-        
         pcall(function()
-            -- 获取当前力量
             local currentStrength = player.leaderstats.Strength.Value
-            
-            -- 更新标题栏力量显示
             strengthLabel.Text = "💪 " .. formatNumber(currentStrength)
-            
-            -- 更新当前力量显示
             rightLabels.current_strength.Text = formatNumber(currentStrength)
-            
-            -- 计算速度并采样
             if lastStrength > 0 then
                 local gain = currentStrength - lastStrength
                 local currentSpeed = gain / sampleInterval
                 local currentTime = tick()
-                
-                -- 添加到采样数组
-                table.insert(strengthSamples, {
-                    time = currentTime,
-                    strength = currentStrength
-                })
-                
-                -- 保持20秒内的数据
+                table.insert(strengthSamples, {time = currentTime, strength = currentStrength})
                 while #strengthSamples > 0 and (currentTime - strengthSamples[1].time) > sampleDuration do
                     table.remove(strengthSamples, 1)
                 end
-                
-                -- 计算20秒平均速度
                 local avgSpeed20s = 0
                 if #strengthSamples >= 2 then
                     local first = strengthSamples[1]
                     local last = strengthSamples[#strengthSamples]
                     local timeDiff = last.time - first.time
-                    if timeDiff > 0 then
-                        avgSpeed20s = (last.strength - first.strength) / timeDiff
-                    end
+                    if timeDiff > 0 then avgSpeed20s = (last.strength - first.strength) / timeDiff end
                 end
-                
-                -- 显示当前速度
                 leftLabels.current_speed.Text = string.format("%.1f/s", currentSpeed)
-                
-                -- 显示20秒均速
                 leftLabels.avg_speed_20s.Text = string.format("%.1f/s", avgSpeed20s)
-                
-                -- 计算每日/每月预计收益
                 if avgSpeed20s > 0 then
                     local secondsPerDay = 24 * 60 * 60
-                    local secondsPerMonth = 30 * secondsPerDay  -- 按30天计算
-                    
+                    local secondsPerMonth = 30 * secondsPerDay
                     local dailyGain = avgSpeed20s * secondsPerDay
                     local monthlyGain = avgSpeed20s * secondsPerMonth
-                    
                     rightLabels.daily_gain.Text = formatNumber(dailyGain)
                     rightLabels.monthly_gain.Text = formatNumber(monthlyGain)
                 else
@@ -886,21 +731,14 @@ spawn(function()
                 rightLabels.daily_gain.Text = "0"
                 rightLabels.monthly_gain.Text = "0"
             end
-            
-            -- 更新蛋白蛋状态
             local hasProtein = false
             if player.boostTimersFolder then
                 hasProtein = player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
             end
             leftLabels.protein_status.Text = hasProtein and "✅ 激活" or "❌ 未激活"
-            
             lastStrength = currentStrength
         end)
     end
 end)
 
-print("📱 紧凑版WindUI已加载！")
-print("📊 两列紧凑数据显示")
-print("⏱️ 基于20秒平均速度计算")
-print("📈 显示今日/本月预计收益")
-print("🔄 允许拖拽到屏幕顶部")
+print("📱 极速锻炼UI已加载！")
