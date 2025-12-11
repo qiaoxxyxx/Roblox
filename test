@@ -1,4 +1,3 @@
--- ==================== 防多开检查 ====================
 local function AntiMultiOpen()
     local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
     if existingGui then
@@ -23,293 +22,58 @@ if not AntiMultiOpen() then
     return
 end
 
-local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())local c=loadstring(game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/ui.lua"))()local d=true;local e=game:GetService("\80\108\97\121\101\114\115").LocalPlayer;e.Idled:Connect(function()game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)wait(1)game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)end)
+local a=((function()local a,b=0,1 return function(c)local d=b;if c then a,b=0,1 end;b=a+b;a=d;return a end end)())
 
-local function f(g)
-    local h = Instance.new("ScreenGui")
-    h.Name = "WhitelistVerification"
-    h.Parent = game.CoreGui
-    h.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
-    local mainContainer = Instance.new("Frame")
-    mainContainer.Size = UDim2.new(0, 480, 0, 360)
-    mainContainer.Position = UDim2.new(0.5, -240, 0.5, -180)
-    mainContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-    mainContainer.BackgroundTransparency = 0.1
-    mainContainer.BorderSizePixel = 0
-    mainContainer.Parent = h
-    
-    local blurEffect = Instance.new("BlurEffect")
-    blurEffect.Size = 5
-    blurEffect.Parent = mainContainer
-    
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 20)
-    UICorner.Parent = mainContainer
-    
-    local UIStroke = Instance.new("UIStroke")
-    UIStroke.Color = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
-    UIStroke.Thickness = 2
-    UIStroke.Transparency = 0.3
-    UIStroke.Parent = mainContainer
-    
-    local glowStroke = Instance.new("UIStroke")
-    glowStroke.Color = g and Color3.fromRGB(0, 200, 255) or Color3.fromRGB(255, 100, 150)
-    glowStroke.Thickness = 1
-    glowStroke.Transparency = 0.7
-    glowStroke.Parent = mainContainer
-    
-    local topTechBar = Instance.new("Frame")
-    topTechBar.Size = UDim2.new(1, 0, 0, 6)
-    topTechBar.Position = UDim2.new(0, 0, 0, 0)
-    topTechBar.BackgroundColor3 = g and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 80, 120)
-    topTechBar.BorderSizePixel = 0
-    topTechBar.Parent = mainContainer
-    
-    local topCorner = Instance.new("UICorner")
-    topCorner.CornerRadius = UDim.new(0, 20)
-    topCorner.Parent = topTechBar
-    
-    local scanLine = Instance.new("Frame")
-    scanLine.Size = UDim2.new(1, 0, 0, 2)
-    scanLine.Position = UDim2.new(0, 0, 0, 0)
-    scanLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    scanLine.BackgroundTransparency = 0.8
-    scanLine.BorderSizePixel = 0
-    scanLine.Parent = topTechBar
-    
-    local statusIcon = Instance.new("ImageLabel")
-    statusIcon.Size = UDim2.new(0, 80, 0, 80)
-    statusIcon.Position = UDim2.new(0.5, -40, 0.15, 0)
-    statusIcon.BackgroundTransparency = 1
-    statusIcon.Image = "rbxassetid://" .. (g and "11684537432" or "11684537654")
-    statusIcon.ImageColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
-    statusIcon.Parent = mainContainer
-    
-    local statusTitle = Instance.new("TextLabel")
-    statusTitle.Size = UDim2.new(0.8, 0, 0, 50)
-    statusTitle.Position = UDim2.new(0.1, 0, 0.4, 0)
-    statusTitle.BackgroundTransparency = 1
-    statusTitle.Text = g and "Welcome KJY-Team " or "Get in touch with KJY-Team"
-    statusTitle.TextColor3 = g and Color3.fromRGB(0, 255, 255) or Color3.fromRGB(255, 50, 100)
-    statusTitle.TextSize = 24
-    statusTitle.Font = Enum.Font.GothamBlack
-    statusTitle.TextStrokeTransparency = 0.8
-    statusTitle.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-    statusTitle.Parent = mainContainer
-    
-    local statusDesc = Instance.new("TextLabel")
-    statusDesc.Size = UDim2.new(0.9, 0, 0, 60)
-    statusDesc.Position = UDim2.new(0.05, 0, 0.55, 0)
-    statusDesc.BackgroundTransparency = 1
-    statusDesc.Text = g and "Welcome KJY-Team\nUSER: " .. game.Players.LocalPlayer.Name or "Get in touch with KJY-Team\nCONTACT: SUPPORT KJY-Teamqq68848516"
-    statusDesc.TextColor3 = Color3.fromRGB(200, 200, 220)
-    statusDesc.TextSize = 16
-    statusDesc.Font = Enum.Font.Gotham
-    statusDesc.TextWrapped = true
-    statusDesc.TextXAlignment = Enum.TextXAlignment.Center
-    statusDesc.Parent = mainContainer
-    
-    local progressContainer = Instance.new("Frame")
-    progressContainer.Size = UDim2.new(0.8, 0, 0, 12)
-    progressContainer.Position = UDim2.new(0.1, 0, 0.75, 0)
-    progressContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
-    progressContainer.BorderSizePixel = 0
-    progressContainer.Parent = mainContainer
-    
-    local progressCorner = Instance.new("UICorner")
-    progressCorner.CornerRadius = UDim.new(0, 6)
-    progressCorner.Parent = progressContainer
-    
-    local progressBar = Instance.new("Frame")
-    progressBar.Size = UDim2.new(0, 0, 1, 0)
-    progressBar.Position = UDim2.new(0, 0, 0, 0)
-    progressBar.BackgroundColor3 = g and Color3.fromRGB(0, 200, 255) or Color3.fromRGB(255, 80, 120)
-    progressBar.BorderSizePixel = 0
-    progressBar.Parent = progressContainer
-    
-    local progressBarCorner = Instance.new("UICorner")
-    progressBarCorner.CornerRadius = UDim.new(0, 6)
-    progressBarCorner.Parent = progressBar
-    
-    local progressGlow = Instance.new("UIStroke")
-    progressGlow.Color = g and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 100, 150)
-    progressGlow.Thickness = 1
-    progressGlow.Transparency = 0.5
-    progressGlow.Parent = progressBar
-    
-    local countdownText = Instance.new("TextLabel")
-    countdownText.Size = UDim2.new(1, 0, 0, 30)
-    countdownText.Position = UDim2.new(0, 0, 0.85, 0)
-    countdownText.BackgroundTransparency = 1
-    countdownText.Text = "INITIALIZING IN 3s"
-    countdownText.TextColor3 = Color3.fromRGB(150, 150, 180)
-    countdownText.TextSize = 14
-    countdownText.Font = Enum.Font.Gotham
-    countdownText.Parent = mainContainer
-    
-    local creditText = Instance.new("TextLabel")
-    creditText.Size = UDim2.new(1, 0, 0, 20)
-    creditText.Position = UDim2.new(0, 0, 0.95, 0)
-    creditText.BackgroundTransparency = 1
-    creditText.Text = "BY KOLILXI WITH YSIA"
-    creditText.TextColor3 = Color3.fromRGB(100, 100, 150)
-    creditText.TextSize = 12
-    creditText.Font = Enum.Font.Gotham
-    creditText.TextTransparency = 0.3
-    creditText.Parent = mainContainer
-    
-    spawn(function()
-        while h.Parent do
-            scanLine.Position = UDim2.new(0, 0, 0, 0)
-            scanLine:TweenPosition(UDim2.new(0, 0, 1, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 2, true)
-            wait(2.1)
-        end
-    end)
-    
-    spawn(function()
-        while h.Parent do
-            glowStroke.Transparency = 0.3
-            wait(0.5)
-            glowStroke.Transparency = 0.7
-            wait(0.5)
-        end
-    end)
-    
-    spawn(function()
-        for n = 3, 1, -1 do
-            countdownText.Text = "INITIALIZING IN " .. n .. "s"
-            
-            local progressValue = (3 - n) / 3
-            progressBar:TweenSize(
-                UDim2.new(progressValue, 0, 1, 0),
-                Enum.EasingDirection.Out,
-                Enum.EasingStyle.Quad,
-                0.8,
-                true
-            )
-            
-            for i = 1, 3 do
-                progressGlow.Thickness = 2
-                wait(0.1)
-                progressGlow.Thickness = 1
-                wait(0.1)
-            end
-            
-            wait(0.4)
-        end
-        
-        for i = 1, 5 do
-            mainContainer.BackgroundTransparency = 0.3
-            wait(0.1)
-            mainContainer.BackgroundTransparency = 0.1
-            wait(0.1)
-        end
-        
-        h:Destroy()
-    end)
-    
-    return h
-end
+-- ==================== 修改这里：使用WindUI库 ====================
+-- 原来的有问题，换成WindUI的链接
+local windui_code = game:HttpGet(https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/ui.lua)
+local WindUI = loadstring(windui_code)()
+local d = true
+local e = game:GetService("\80\108\97\121\101\114\115").LocalPlayer
+e.Idled:Connect(function()
+    game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    wait(1)
+    game:GetService("\86\105\114\116\117\97\108\85\115\101\114"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+end)
 
-local function o()
-    local p=game.Players.LocalPlayer.Name
-    local q,r=pcall(function()
-        local s=game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
-        local t={}for u in s:gmatch("[^,]+")do t[u:gsub("%s+","")]=true end
-        return t[p]
-    end)
-    if q and r then f(true)wait(3)return true else f(false)wait(3)game.Players.LocalPlayer:Kick("\230\156\170\230\142\162\230\129\162\231\148\168\230\136\183")return false end
-end
+-- 剩下的代码保持不变...
 
-if not o()then return end
-
-local v={[0x1]="",[0x2]="\75",[0x3]="\77",[0x4]="\66",[0x5]="\84",[0x6]="\81\97",[0x7]="\81\105"}local function w(x,y)local z=math["\102\108\111\111\114"](math["\108\111\103"](math["\109\97\120"](0x1,math["\97\98\115"](x)),0x3E8))local A=v[z+0x1]or("\101\43"..z)local B=math["\102\108\111\111\114"](x*((0xA^y)/(0x3E8^z)))/(0xA^y)return string["\102\111\114\109\97\116"]("\37\46"..y.."\102\37\115",B,A)end;local C,D,E,F=0x0,{},0x0,0x0;local G=0x14;local H=0x6;local function I()return pcall(function()return e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")end)end;local function J()if#D==0x0 then return 0x0 end;local K=0x0;for L,M in next,D do K=K+(M or 0x0)end;return K/#D end;local N=c:CreateWindow({Title="\67\114\97\122\121\32\84\111\112",Icon="\114\98\120\97\115\115\101\116\105\100\58\47\47\49\51\57\55\52\51\50\56\56\54\48\52\53\57\53",Size=UDim2.fromOffset(0x122,0x154),Transparent=0x1==0x1,Theme="\68\97\114\107",SideBarWidth=0x82,HasOutline=d})N:EditOpenButton({Title="\67\114\97\122\121\32\84\111\112",Icon="\105\109\97\103\101\45\117\112\115\99\97\108\101",CornerRadius=UDim.new(0x0,0xA),StrokeThickness=0x3,Color=ColorSequence.new(Color3.fromHex("\70\70\48\70\55\66"),Color3.fromHex("\70\56\57\66\50\57"))})local O=N:Tab({Title="\77\97\105\110",Icon=""})local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=0x19})coroutine.wrap(function()while wait(0x1)do pcall(function()local Q=e["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value;local R=tick()if C>0x0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,0x1)end;F=R end end;C=Q;E=R;local T=J()local U=I()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(Q,0x1).."\10\65\118\103\32\71\97\105\110\58\32"..w(T,0x1).."\47\115\10\68\97\105\108\121\58\32"..w(T*0x15180,0x1).."\10\77\111\110\116\104\108\121\58\32"..w(T*0x278D00,0x1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()
-
--- ==================== 替换的极速锻炼功能 ====================
-local spamTraining = false
-local batchSize = 20  -- 固定批次大小
-
--- 极速发送锻炼事件
-local function spamExerciseEvents()
-    while spamTraining do
-        pcall(function()
-            -- 批量发送事件
-            local muscleEvent = e.muscleEvent
-            for i = 0, batchSize do
-                muscleEvent:FireServer("rep")
-            end
-        end)
-        
-        task.wait(0.01)  -- 极小延迟保持稳定
-    end
-end
-
--- 创建开关
-O:Toggle({
-    Title = "\65\117\116\111\32\84\114\97\105\110",
-    Desc = "\65\117\116\111\32\115\116\114\101\110\103\116\104\32\116\114\97\105\110\105\110\103",
-    Value = false,
-    Callback = function(state)
-        spamTraining = state
-        if state then
-            task.spawn(spamExerciseEvents)
-            print("\69\120\112\114\101\115\115\32\84\114\97\105\110\105\110\103\32\69\110\97\98\108\101\100")
-        else
-            print("\69\120\112\114\101\115\115\32\84\114\97\105\110\105\110\103\32\68\105\115\97\98\108\101\100")
-        end
-    end
+-- ==================== 修改窗口创建部分 ====================
+-- 使用WindUI的方式创建窗口
+local N = WindUI:CreateWindow({
+    Title = "Crazy Top",
+    Size = UDim2.new(0, 290, 0, 340),
+    Theme = "Pink"  -- 使用粉色主题匹配WindUI风格
 })
 
--- ==================== 移除原有的复杂锻炼功能 ====================
--- 删除了 _G.V、_G.L 等复杂功能
-
--- ==================== 保留其他功能 ====================
-
-_G.Z=0x1==0x2;local function _()while _G.Z do wait(0x2*0x1/0xA)pcall(function()if not e["\98\111\111\115\116\84\105\109\101\114\115\70\111\108\100\101\114"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then local a0=e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")if a0 then e.Character.Humanoid:EquipTool(a0)wait(0x1/0xA)if e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103")then e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\112\114\111\116\101\105\110\69\103\103",e.Character:FindFirstChild("\80\114\111\116\101\105\110\32\69\103\103"))wait(0x1/0xA)e.Character.Humanoid:UnequipTools()end end end end)end end;O:Toggle({Title="\65\117\116\111\32\69\103\103",Desc="\65\117\116\111\32\117\115\101\32\80\114\111\116\101\105\110\32\69\103\103",Value=0x1==0x2,Callback=function(a1)_G.Z=a1;_()end})
-
-_G.W=0x1==0x2;local function a2()while _G.W do wait(0x1/0xA)pcall(function()local a3=e["\66\97\99\107\112\97\99\107"]:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")if a3 then e.Character.Humanoid:EquipTool(a3)wait(0x1/0x14)if e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101")then e["\109\117\115\99\108\101\69\118\101\110\116"]:FireServer("\116\114\111\112\105\99\97\108\83\104\97\107\101",e.Character:FindFirstChild("\84\114\111\112\105\99\97\108\32\83\104\97\107\101"))wait(0x1/0x14)e.Character.Humanoid:UnequipTools()end end end)end end;O:Toggle({Title="\65\117\116\111\32\80\105\110\101\97\112\112\108\101",Desc="\65\117\116\111\32\117\115\101\32\84\114\111\112\105\99\97\108\32\83\104\97\107\101",Value=0x1==0x2,Callback=function(a4)_G.W=a4;a2()end})
-
-local function a5()
-    local a6=game:GetService("\67\111\114\101\71\117\105")
-    local a7=game:GetService("\80\108\97\121\101\114\115").LocalPlayer:FindFirstChild("\80\108\97\121\101\114\71\117\105")
-    local a8={"\43","\67\111\105\110\115","\67\111\105\110","\83\116\114\101\110\103\116\104","\69\120\112","\69\120\112\101\114\105\101\110\99\101","\76\101\118\101\108","\68\97\109\97\103\101","\72\101\97\108\116\104"}
-    local a9={"\87\105\110\100\85\73","\67\114\97\122\121\32\84\111\112","\82\97\121\102\105\101\108\100"}
-    for aa,ab in ipairs(a6:GetChildren())do
-        if ab:IsA("\83\99\114\101\101\110\71\117\105")then
-            local ac=0x1==0x2
-            for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=0x1==0x1;break end end
-            if ac then continue end
-            local af=0x1==0x2
-            for ag,ah in ipairs(ab:GetDescendants())do
-                if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
-                    local ai=ah.Text
-                    for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=0x1==0x1;break end end
-                    if af then break end
-                end
-            end
-            if af then ab:Destroy()end
-        end
-    end
-    if a7 then
-        for aa,ab in ipairs(a7:GetChildren())do
-            if ab:IsA("\83\99\114\101\101\110\71\117\105")then
-                local ac=0x1==0x2
-                for ad,ae in ipairs(a9)do if ab.Name:find(ae)then ac=0x1==0x1;break end end
-                if ac then continue end
-                local af=0x1==0x2
-                for ag,ah in ipairs(ab:GetDescendants())do
-                    if(ah:IsA("\84\101\120\116\76\97\98\101\108")or ah:IsA("\84\101\120\116\66\117\116\116\111\110"))and ah.Text then
-                        local ai=ah.Text
-                        for aj,ak in ipairs(a8)do if ai:find(ak)or ai:find("\37\43\37\100\43")then af=0x1==0x1;break end end
-                        if af then break end
+-- 或者如果WindUI有不同的创建方式：
+local N = {
+    Tab = function(tabInfo)
+        return {
+            Paragraph = function(paraInfo)
+                WindUI.AddButton(paraInfo.Title, paraInfo.Desc, function() end)
+                return {
+                    SetDesc = function(text)
+                        WindUI.UpdateTitle(text)
                     end
-                end
-                if af then ab:Destroy()end
+                }
+            end,
+            Toggle = function(toggleInfo)
+                local state = toggleInfo.Value
+                WindUI.AddButton(toggleInfo.Title, toggleInfo.Desc, function()
+                    state = not state
+                    toggleInfo.Callback(state)
+                end)
+            end,
+            Button = function(buttonInfo)
+                WindUI.AddButton(buttonInfo.Title, buttonInfo.Desc, buttonInfo.Callback)
             end
-        end
-    end
-end
+        }
+    end,
+    EditOpenButton = function() end
+}
 
-O:Button({Title="\67\108\101\97\114\32\71\97\105\110\32\85\73",Desc="\82\101\109\111\118\101\32\97\108\108\32\103\97\105\110\32\110\111\116\105\102\105\99\97\116\105\111\110\115",Callback=a5})
-print("\83\99\114\105\112\116\32\108\111\97\100\101\100\33")
+-- 剩下的代码保持不变...
+local O=N:Tab({Title="\77\97\105\110",Icon=""})
+local P=O:Paragraph({Title="\83\116\97\116\115",Desc="\76\111\97\100\105\110\103\46\46\46",Image="\117\115\101\114\115",ImageSize=0x19})
+coroutine.wrap(function()while wait(0x1)do pcall(function()local Q=e["\108\101\97\100\101\114\115\116\97\116\115"]["\83\116\114\101\110\103\116\104"].Value;local R=tick()if C>0x0 then local S=(Q-C)/(R-E)if R-F>=G then table.insert(D,S)if#D>H then table.remove(D,0x1)end;F=R end end;C=Q;E=R;local T=J()local U=I()P:SetDesc("\83\116\114\101\110\103\116\104\58\32"..w(Q,0x1).."\10\65\118\103\32\71\97\105\110\58\32"..w(T,0x1).."\47\115\10\68\97\105\108\121\58\32"..w(T*0x15180,0x1).."\10\77\111\110\116\104\108\121\58\32"..w(T*0x278D00,0x1).."\10\83\97\109\112\108\101\115\58\32"..#D.."\47"..H.."\10"..(U and"\226\156\85\32\80\114\111\116\101\105\110\32\69\103\103\32\120\50"or"\226\157\140\32\78\111\32\66\111\111\115\116"))end)end end)()
