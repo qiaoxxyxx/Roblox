@@ -50,7 +50,7 @@ player.Idled:Connect(function()
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
 end)
 
--- ==================== 创建支持手机触摸的UI ====================
+-- ==================== 创建支持手机触摸的简化UI ====================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileWindUI"
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -59,11 +59,11 @@ screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGu
 -- 获取屏幕尺寸
 local viewportSize = workspace.CurrentCamera.ViewportSize
 
--- 主窗口
+-- 主窗口（横向加长）
 local mainWindow = Instance.new("Frame")
 mainWindow.Name = "MainWindow"
-mainWindow.Size = UDim2.new(0, math.min(350, viewportSize.X * 0.9), 0, 380)
-mainWindow.Position = UDim2.new(0.5, -math.min(350, viewportSize.X * 0.9)/2, 0.2, 0)
+mainWindow.Size = UDim2.new(0, math.min(450, viewportSize.X * 0.95), 0, 380)  -- 加宽到450
+mainWindow.Position = UDim2.new(0.5, -math.min(450, viewportSize.X * 0.95)/2, 0.15, 0)
 mainWindow.BackgroundColor3 = Color3.fromRGB(255, 240, 245)
 mainWindow.BorderSizePixel = 0
 mainWindow.ZIndex = 10
@@ -94,7 +94,7 @@ uiStroke.Parent = mainWindow
 -- 标题栏（可触摸拖拽区域）
 local titleBar = Instance.new("TextButton")
 titleBar.Name = "TitleBar"
-titleBar.Size = UDim2.new(1, 0, 0, 45)
+titleBar.Size = UDim2.new(1, 0, 0, 40)
 titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
 titleBar.Text = ""
 titleBar.AutoButtonColor = false
@@ -106,40 +106,40 @@ titleCorner.CornerRadius = UDim.new(0, 16, 0, 0)
 titleCorner.Parent = titleBar
 
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, -100, 1, 0)
-titleLabel.Position = UDim2.new(0, 15, 0, 0)
+titleLabel.Size = UDim2.new(1, -120, 1, 0)
+titleLabel.Position = UDim2.new(0, 12, 0, 0)
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "🌸 极速锻炼 Pro"
+titleLabel.Text = "🌸 极速锻炼 - 统计版"
 titleLabel.TextColor3 = Color3.fromRGB(200, 70, 130)
-titleLabel.TextSize = 18
+titleLabel.TextSize = 16
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.ZIndex = 12
 titleLabel.Parent = titleBar
 
--- 数据标签
-local dataLabel = Instance.new("TextLabel")
-dataLabel.Size = UDim2.new(0.6, 0, 1, 0)
-dataLabel.Position = UDim2.new(0.4, 0, 0, 0)
-dataLabel.BackgroundTransparency = 1
-dataLabel.Text = "力量: 0"
-dataLabel.TextColor3 = Color3.fromRGB(180, 100, 150)
-dataLabel.TextSize = 14
-dataLabel.Font = Enum.Font.Gotham
-dataLabel.TextXAlignment = Enum.TextXAlignment.Right
-dataLabel.ZIndex = 12
-dataLabel.Parent = titleBar
+-- 当前力量数据显示
+local strengthLabel = Instance.new("TextLabel")
+strengthLabel.Size = UDim2.new(0.4, 0, 1, 0)
+strengthLabel.Position = UDim2.new(0.6, 0, 0, 0)
+strengthLabel.BackgroundTransparency = 1
+strengthLabel.Text = "力量: 0"
+strengthLabel.TextColor3 = Color3.fromRGB(180, 100, 150)
+strengthLabel.TextSize = 13
+strengthLabel.Font = Enum.Font.Gotham
+strengthLabel.TextXAlignment = Enum.TextXAlignment.Right
+strengthLabel.ZIndex = 12
+strengthLabel.Parent = titleBar
 
 -- 最小化按钮
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
-minimizeButton.Size = UDim2.new(0, 35, 0, 35)
-minimizeButton.Position = UDim2.new(1, -80, 0.5, -17.5)
+minimizeButton.Size = UDim2.new(0, 32, 0, 32)
+minimizeButton.Position = UDim2.new(1, -72, 0.5, -16)
 minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
 minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
 minimizeButton.Text = "─"
 minimizeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
-minimizeButton.TextSize = 24
+minimizeButton.TextSize = 22
 minimizeButton.Font = Enum.Font.GothamBold
 minimizeButton.AutoButtonColor = false
 minimizeButton.ZIndex = 12
@@ -152,13 +152,13 @@ minimizeCorner.Parent = minimizeButton
 -- 关闭按钮
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
-closeButton.Size = UDim2.new(0, 35, 0, 35)
-closeButton.Position = UDim2.new(1, -35, 0.5, -17.5)
+closeButton.Size = UDim2.new(0, 32, 0, 32)
+closeButton.Position = UDim2.new(1, -32, 0.5, -16)
 closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
 closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
 closeButton.Text = "✕"
 closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
-closeButton.TextSize = 20
+closeButton.TextSize = 18
 closeButton.Font = Enum.Font.GothamBold
 closeButton.AutoButtonColor = false
 closeButton.ZIndex = 12
@@ -168,87 +168,164 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 8)
 closeCorner.Parent = closeButton
 
--- 数据展示区域
-local dataFrame = Instance.new("Frame")
-dataFrame.Name = "DataFrame"
-dataFrame.Size = UDim2.new(1, -20, 0, 90)
-dataFrame.Position = UDim2.new(0, 10, 0, 55)
-dataFrame.BackgroundColor3 = Color3.fromRGB(255, 245, 250)
-dataFrame.BorderSizePixel = 0
-dataFrame.ZIndex = 11
-dataFrame.Parent = mainWindow
+-- ==================== 扩展的数据展示区域 ====================
+-- 顶部数据区域（实时数据 + 统计）
+local topDataFrame = Instance.new("Frame")
+topDataFrame.Name = "TopDataFrame"
+topDataFrame.Size = UDim2.new(1, -20, 0, 100)  -- 增加高度显示更多数据
+topDataFrame.Position = UDim2.new(0, 10, 0, 50)
+topDataFrame.BackgroundColor3 = Color3.fromRGB(255, 245, 250)
+topDataFrame.BorderSizePixel = 0
+topDataFrame.ZIndex = 11
+topDataFrame.Parent = mainWindow
 
-local dataCorner = Instance.new("UICorner")
-dataCorner.CornerRadius = UDim.new(0, 10)
-dataCorner.Parent = dataFrame
+local topDataCorner = Instance.new("UICorner")
+topDataCorner.CornerRadius = UDim.new(0, 10)
+topDataCorner.Parent = topDataFrame
 
-local dataStroke = Instance.new("UIStroke")
-dataStroke.Color = Color3.fromRGB(255, 180, 210)
-dataStroke.Thickness = 2
-dataStroke.Parent = dataFrame
+local topDataStroke = Instance.new("UIStroke")
+topDataStroke.Color = Color3.fromRGB(255, 180, 210)
+topDataStroke.Thickness = 2
+topDataStroke.Parent = topDataFrame
 
--- 数据网格
-local dataGrid = Instance.new("UIGridLayout")
-dataGrid.CellSize = UDim2.new(0.5, -5, 0.5, -5)
-dataGrid.CellPadding = UDim2.new(0, 5, 0, 5)
-dataGrid.StartCorner = Enum.StartCorner.TopLeft
-dataGrid.Parent = dataFrame
+-- 两列数据显示
+local topDataGrid = Instance.new("UIGridLayout")
+topDataGrid.CellSize = UDim2.new(0.5, -10, 0.5, -5)
+topDataGrid.CellPadding = UDim2.new(0, 10, 0, 5)
+topDataGrid.StartCorner = Enum.StartCorner.TopLeft
+topDataGrid.Parent = topDataFrame
 
--- 数据项目
-local dataItems = {
-    {id = "strength", name = "💪 力量", color = Color3.fromRGB(220, 100, 150)},
-    {id = "durability", name = "🛡️ 耐久", color = Color3.fromRGB(150, 100, 220)},
-    {id = "protein", name = "🥚 蛋白蛋", color = Color3.fromRGB(220, 180, 100)},
-    {id = "speed", name = "⚡ 速度", color = Color3.fromRGB(100, 220, 150)}
+-- 实时数据（左侧）
+local realTimeDataFrame = Instance.new("Frame")
+realTimeDataFrame.Name = "RealTimeData"
+realTimeDataFrame.BackgroundTransparency = 1
+realTimeDataFrame.Parent = topDataFrame
+
+local realTimeTitle = Instance.new("TextLabel")
+realTimeTitle.Size = UDim2.new(1, 0, 0.25, 0)
+realTimeTitle.Position = UDim2.new(0, 5, 0, 2)
+realTimeTitle.BackgroundTransparency = 1
+realTimeTitle.Text = "📊 实时数据"
+realTimeTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+realTimeTitle.TextSize = 12
+realTimeTitle.Font = Enum.Font.GothamBold
+realTimeTitle.TextXAlignment = Enum.TextXAlignment.Left
+realTimeTitle.Parent = realTimeDataFrame
+
+local realTimeGrid = Instance.new("UIGridLayout")
+realTimeGrid.CellSize = UDim2.new(1, -10, 0.75, 0)
+realTimeGrid.CellPadding = UDim2.new(0, 0, 0, 2)
+realTimeGrid.VerticalAlignment = Enum.VerticalAlignment.Bottom
+realTimeGrid.StartCorner = Enum.StartCorner.TopLeft
+realTimeGrid.Parent = realTimeDataFrame
+
+-- 实时数据项
+local realTimeItems = {
+    {id = "current_strength", name = "💪 当前力量", color = Color3.fromRGB(220, 100, 150)},
+    {id = "speed", name = "⚡ 当前速度", color = Color3.fromRGB(100, 220, 150)},
+    {id = "protein_status", name = "🥚 蛋白状态", color = Color3.fromRGB(220, 180, 100)}
 }
 
-local dataLabels = {}
-for i, item in ipairs(dataItems) do
+local realTimeLabels = {}
+for i, item in ipairs(realTimeItems) do
     local dataItem = Instance.new("Frame")
     dataItem.Name = item.id
-    dataItem.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
-    dataItem.BackgroundTransparency = 0.5
-    dataItem.BorderSizePixel = 0
-    dataItem.ZIndex = 12
-    dataItem.Parent = dataFrame
-    
-    local itemCorner = Instance.new("UICorner")
-    itemCorner.CornerRadius = UDim.new(0, 6)
-    itemCorner.Parent = dataItem
+    dataItem.BackgroundTransparency = 1
+    dataItem.Parent = realTimeDataFrame
     
     local nameLabel = Instance.new("TextLabel")
-    nameLabel.Size = UDim2.new(1, 0, 0.4, 0)
-    nameLabel.Position = UDim2.new(0, 8, 0, 5)
+    nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
     nameLabel.BackgroundTransparency = 1
     nameLabel.Text = item.name
     nameLabel.TextColor3 = Color3.fromRGB(150, 100, 130)
-    nameLabel.TextSize = 12
+    nameLabel.TextSize = 11
     nameLabel.Font = Enum.Font.Gotham
     nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-    nameLabel.ZIndex = 13
     nameLabel.Parent = dataItem
     
     local valueLabel = Instance.new("TextLabel")
     valueLabel.Name = "Value"
-    valueLabel.Size = UDim2.new(1, -16, 0.6, 0)
-    valueLabel.Position = UDim2.new(0, 8, 0.4, 0)
+    valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
+    valueLabel.Position = UDim2.new(0.6, 0, 0, 0)
     valueLabel.BackgroundTransparency = 1
     valueLabel.Text = "0"
     valueLabel.TextColor3 = item.color
-    valueLabel.TextSize = 14
+    valueLabel.TextSize = 11
     valueLabel.Font = Enum.Font.GothamBold
-    valueLabel.TextXAlignment = Enum.TextXAlignment.Left
-    valueLabel.ZIndex = 13
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
     valueLabel.Parent = dataItem
     
-    dataLabels[item.id] = valueLabel
+    realTimeLabels[item.id] = valueLabel
+end
+
+-- 统计数据（右侧）
+local statsDataFrame = Instance.new("Frame")
+statsDataFrame.Name = "StatsData"
+statsDataFrame.BackgroundTransparency = 1
+statsDataFrame.Parent = topDataFrame
+
+local statsTitle = Instance.new("TextLabel")
+statsTitle.Size = UDim2.new(1, 0, 0.25, 0)
+statsTitle.Position = UDim2.new(0, 5, 0, 2)
+statsTitle.BackgroundTransparency = 1
+statsTitle.Text = "📈 力量统计"
+statsTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+statsTitle.TextSize = 12
+statsTitle.Font = Enum.Font.GothamBold
+statsTitle.TextXAlignment = Enum.TextXAlignment.Left
+statsTitle.Parent = statsDataFrame
+
+local statsGrid = Instance.new("UIGridLayout")
+statsGrid.CellSize = UDim2.new(1, -10, 0.75, 0)
+statsGrid.CellPadding = UDim2.new(0, 0, 0, 2)
+statsGrid.VerticalAlignment = Enum.VerticalAlignment.Bottom
+statsGrid.StartCorner = Enum.StartCorner.TopLeft
+statsGrid.Parent = statsDataFrame
+
+-- 统计数据项
+local statsItems = {
+    {id = "daily_gain", name = "📅 今日预计", color = Color3.fromRGB(100, 180, 255)},
+    {id = "monthly_gain", name = "📆 本月预计", color = Color3.fromRGB(150, 100, 220)},
+    {id = "avg_speed_20s", name = "⏱️ 20秒均速", color = Color3.fromRGB(255, 140, 100)}
+}
+
+local statsLabels = {}
+for i, item in ipairs(statsItems) do
+    local dataItem = Instance.new("Frame")
+    dataItem.Name = item.id
+    dataItem.BackgroundTransparency = 1
+    dataItem.Parent = statsDataFrame
+    
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(0.6, 0, 1, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = item.name
+    nameLabel.TextColor3 = Color3.fromRGB(150, 100, 130)
+    nameLabel.TextSize = 11
+    nameLabel.Font = Enum.Font.Gotham
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.Parent = dataItem
+    
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Name = "Value"
+    valueLabel.Size = UDim2.new(0.4, 0, 1, 0)
+    valueLabel.Position = UDim2.new(0.6, 0, 0, 0)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.Text = "0"
+    valueLabel.TextColor3 = item.color
+    valueLabel.TextSize = 11
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    valueLabel.Parent = dataItem
+    
+    statsLabels[item.id] = valueLabel
 end
 
 -- 功能按钮区域
 local contentFrame = Instance.new("Frame")
 contentFrame.Name = "Content"
-contentFrame.Size = UDim2.new(1, -20, 0, 200)
-contentFrame.Position = UDim2.new(0, 10, 0, 155)
+contentFrame.Size = UDim2.new(1, -20, 0, 200)  -- 增加高度
+contentFrame.Position = UDim2.new(0, 10, 0, 160)  -- 调整位置
 contentFrame.BackgroundTransparency = 1
 contentFrame.ZIndex = 11
 contentFrame.Parent = mainWindow
@@ -258,19 +335,18 @@ local buttonContainer = Instance.new("ScrollingFrame")
 buttonContainer.Name = "ButtonContainer"
 buttonContainer.Size = UDim2.new(1, 0, 1, 0)
 buttonContainer.BackgroundTransparency = 1
-buttonContainer.ScrollBarThickness = 4
+buttonContainer.ScrollBarThickness = 3
 buttonContainer.ScrollBarImageColor3 = Color3.fromRGB(255, 180, 210)
 buttonContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
 buttonContainer.ZIndex = 12
 buttonContainer.Parent = contentFrame
 
 local buttonList = Instance.new("UIListLayout")
-buttonList.Padding = UDim.new(0, 10)
+buttonList.Padding = UDim.new(0, 8)
 buttonList.Parent = buttonContainer
 
 -- UI状态变量
 local isMinimized = false
-local originalHeight = 380
 local originalSize = mainWindow.Size
 local isDragging = false
 local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
@@ -315,14 +391,14 @@ local function toggleMinimize()
     isMinimized = not isMinimized
     
     if isMinimized then
-        mainWindow.Size = UDim2.new(0, mainWindow.Size.X.Offset, 0, 45)
-        dataFrame.Visible = false
+        mainWindow.Size = UDim2.new(0, mainWindow.Size.X.Offset, 0, 40)
+        topDataFrame.Visible = false
         contentFrame.Visible = false
         minimizeButton.Text = "+"
         titleCorner.CornerRadius = UDim.new(0, 16)
     else
         mainWindow.Size = originalSize
-        dataFrame.Visible = true
+        topDataFrame.Visible = true
         contentFrame.Visible = true
         minimizeButton.Text = "─"
         titleCorner.CornerRadius = UDim.new(0, 16, 0, 0)
@@ -387,37 +463,35 @@ closeButton.MouseLeave:Connect(function()
 end)
 
 -- ==================== 创建带有紫粉色切换的功能按钮 ====================
--- 开关状态存储
 local buttonStates = {}
 
--- 创建触摸友好的大按钮，带有紫粉色切换效果
 local function createToggleButton(name, desc, toggleFunction)
     local buttonActive = false
     local buttonFrame = Instance.new("TextButton")
     buttonFrame.Name = name .. "Button"
-    buttonFrame.Size = UDim2.new(1, 0, 0, 55)
-    buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)  -- 初始粉色
+    buttonFrame.Size = UDim2.new(1, 0, 0, 50)
+    buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
     buttonFrame.Text = ""
     buttonFrame.AutoButtonColor = false
     buttonFrame.ZIndex = 12
     buttonFrame.Parent = buttonContainer
     
     local buttonCorner = Instance.new("UICorner")
-    buttonCorner.CornerRadius = UDim.new(0, 10)
+    buttonCorner.CornerRadius = UDim.new(0, 8)
     buttonCorner.Parent = buttonFrame
     
     local buttonStroke = Instance.new("UIStroke")
-    buttonStroke.Color = Color3.fromRGB(255, 180, 210)  -- 初始粉色边框
+    buttonStroke.Color = Color3.fromRGB(255, 180, 210)
     buttonStroke.Thickness = 2
     buttonStroke.Parent = buttonFrame
     
     local buttonTitle = Instance.new("TextLabel")
     buttonTitle.Size = UDim2.new(1, -20, 0.6, 0)
-    buttonTitle.Position = UDim2.new(0, 12, 0, 5)
+    buttonTitle.Position = UDim2.new(0, 10, 0, 4)
     buttonTitle.BackgroundTransparency = 1
     buttonTitle.Text = name
-    buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)  -- 初始粉色文字
-    buttonTitle.TextSize = 16
+    buttonTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
+    buttonTitle.TextSize = 14
     buttonTitle.Font = Enum.Font.GothamBold
     buttonTitle.TextXAlignment = Enum.TextXAlignment.Left
     buttonTitle.ZIndex = 13
@@ -425,11 +499,11 @@ local function createToggleButton(name, desc, toggleFunction)
     
     local buttonDesc = Instance.new("TextLabel")
     buttonDesc.Size = UDim2.new(1, -20, 0.4, 0)
-    buttonDesc.Position = UDim2.new(0, 12, 0.6, 0)
+    buttonDesc.Position = UDim2.new(0, 10, 0.6, 0)
     buttonDesc.BackgroundTransparency = 1
     buttonDesc.Text = desc
-    buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)  -- 初始粉色文字
-    buttonDesc.TextSize = 12
+    buttonDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
+    buttonDesc.TextSize = 11
     buttonDesc.Font = Enum.Font.Gotham
     buttonDesc.TextXAlignment = Enum.TextXAlignment.Left
     buttonDesc.ZIndex = 13
@@ -438,10 +512,10 @@ local function createToggleButton(name, desc, toggleFunction)
     -- 状态指示器
     local statusIndicator = Instance.new("Frame")
     statusIndicator.Name = "StatusIndicator"
-    statusIndicator.Size = UDim2.new(0, 10, 0, 10)
-    statusIndicator.Position = UDim2.new(1, -25, 0.5, -5)
+    statusIndicator.Size = UDim2.new(0, 8, 0, 8)
+    statusIndicator.Position = UDim2.new(1, -20, 0.5, -4)
     statusIndicator.AnchorPoint = Vector2.new(0.5, 0.5)
-    statusIndicator.BackgroundColor3 = Color3.fromRGB(220, 150, 180)  -- 初始粉色
+    statusIndicator.BackgroundColor3 = Color3.fromRGB(220, 150, 180)
     statusIndicator.BorderSizePixel = 0
     statusIndicator.ZIndex = 13
     statusIndicator.Parent = buttonFrame
@@ -454,11 +528,11 @@ local function createToggleButton(name, desc, toggleFunction)
     local function updateButtonColors()
         if buttonActive then
             -- 激活状态：紫粉色
-            buttonFrame.BackgroundColor3 = Color3.fromRGB(220, 180, 255)  -- 紫粉色背景
-            buttonStroke.Color = Color3.fromRGB(180, 120, 240)  -- 紫色边框
-            buttonTitle.TextColor3 = Color3.fromRGB(140, 80, 200)  -- 紫色文字
-            buttonDesc.TextColor3 = Color3.fromRGB(160, 120, 210)  -- 浅紫色文字
-            statusIndicator.BackgroundColor3 = Color3.fromRGB(160, 100, 220)  -- 紫色指示器
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(220, 180, 255)
+            buttonStroke.Color = Color3.fromRGB(180, 120, 240)
+            buttonTitle.TextColor3 = Color3.fromRGB(140, 80, 200)
+            buttonDesc.TextColor3 = Color3.fromRGB(160, 120, 210)
+            statusIndicator.BackgroundColor3 = Color3.fromRGB(160, 100, 220)
         else
             -- 非激活状态：粉色
             buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
@@ -477,11 +551,9 @@ local function createToggleButton(name, desc, toggleFunction)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
             if buttonActive then
-                -- 激活状态下按下的颜色（深紫色）
                 buttonFrame.BackgroundColor3 = Color3.fromRGB(200, 160, 240)
                 buttonStroke.Color = Color3.fromRGB(160, 100, 220)
             else
-                -- 非激活状态下按下的颜色（深粉色）
                 buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 210, 230)
                 buttonStroke.Color = Color3.fromRGB(255, 140, 180)
             end
@@ -533,7 +605,7 @@ local function createToggleButton(name, desc, toggleFunction)
     }
     
     -- 更新滚动区域大小
-    buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 65)
+    buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 58)
     
     return {
         toggle = function()
@@ -561,8 +633,12 @@ local batchSize = 20
 local autoProtein = false
 local autoShake = false
 local lastStrength = 0
-local strengthHistory = {}
-local startTime = tick()
+
+-- 统计相关变量
+local strengthSamples = {}  -- 存储20秒内的力量样本
+local sampleInterval = 1    -- 采样间隔（秒）
+local sampleDuration = 20   -- 采样持续时间（秒）
+local maxSamples = math.floor(sampleDuration / sampleInterval)  -- 最大样本数
 
 -- 格式化数字
 local function formatNumber(value)
@@ -573,18 +649,23 @@ local function formatNumber(value)
     return string.format("%.2f%s", scaled, suffixes[order] or "")
 end
 
--- 获取耐久度
-local function getDurability()
-    local durability = 0
-    pcall(function()
-        if player.Character then
-            local humanoid = player.Character:FindFirstChild("Humanoid")
-            if humanoid and humanoid:FindFirstChild("Durability") then
-                durability = humanoid.Durability.Value
-            end
+-- 计算平均值
+local function calculateAverage(samples)
+    if #samples < 2 then return 0 end
+    
+    local totalGain = 0
+    local validCount = 0
+    
+    for i = 2, #samples do
+        local gain = samples[i] - samples[i-1]
+        if gain > 0 then
+            totalGain = totalGain + gain
+            validCount = validCount + 1
         end
-    end)
-    return durability
+    end
+    
+    if validCount == 0 then return 0 end
+    return totalGain / validCount
 end
 
 -- 极速锻炼功能
@@ -674,15 +755,12 @@ local function cleanUI()
     cleanGui(player:FindFirstChild("PlayerGui"))
 end
 
--- ==================== 创建带有紫粉色切换的按钮 ====================
+-- ==================== 创建简化按钮 ====================
 -- 极速锻炼开关
 local speedToggle = createToggleButton("⚡ 极速锻炼", "20倍速度快速锻炼", function(state)
     spamTraining = state
     if state then
         task.spawn(spamExerciseEvents)
-        print("极速锻炼已开启")
-    else
-        print("极速锻炼已关闭")
     end
 end)
 
@@ -691,9 +769,6 @@ local proteinToggle = createToggleButton("🥚 自动蛋白蛋", "自动使用�
     autoProtein = state
     if state then
         task.spawn(proteinLoop)
-        print("自动蛋白蛋已开启")
-    else
-        print("自动蛋白蛋已关闭")
     end
 end)
 
@@ -702,17 +777,13 @@ local shakeToggle = createToggleButton("🍹 自动奶昔", "自动使用热带�
     autoShake = state
     if state then
         task.spawn(shakeLoop)
-        print("自动奶昔已开启")
-    else
-        print("自动奶昔已关闭")
     end
 end)
 
--- ==================== 普通按钮（无切换效果） ====================
--- 清除UI按钮
+-- 清除UI按钮（普通按钮，无切换效果）
 local cleanButton = Instance.new("TextButton")
 cleanButton.Name = "CleanUIButton"
-cleanButton.Size = UDim2.new(1, 0, 0, 55)
+cleanButton.Size = UDim2.new(1, 0, 0, 50)
 cleanButton.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
 cleanButton.Text = ""
 cleanButton.AutoButtonColor = false
@@ -720,7 +791,7 @@ cleanButton.ZIndex = 12
 cleanButton.Parent = buttonContainer
 
 local cleanCorner = Instance.new("UICorner")
-cleanCorner.CornerRadius = UDim.new(0, 10)
+cleanCorner.CornerRadius = UDim.new(0, 8)
 cleanCorner.Parent = cleanButton
 
 local cleanStroke = Instance.new("UIStroke")
@@ -730,11 +801,11 @@ cleanStroke.Parent = cleanButton
 
 local cleanTitle = Instance.new("TextLabel")
 cleanTitle.Size = UDim2.new(1, -20, 0.6, 0)
-cleanTitle.Position = UDim2.new(0, 12, 0, 5)
+cleanTitle.Position = UDim2.new(0, 10, 0, 4)
 cleanTitle.BackgroundTransparency = 1
 cleanTitle.Text = "🧹 清除UI"
 cleanTitle.TextColor3 = Color3.fromRGB(180, 60, 120)
-cleanTitle.TextSize = 16
+cleanTitle.TextSize = 14
 cleanTitle.Font = Enum.Font.GothamBold
 cleanTitle.TextXAlignment = Enum.TextXAlignment.Left
 cleanTitle.ZIndex = 13
@@ -742,11 +813,11 @@ cleanTitle.Parent = cleanButton
 
 local cleanDesc = Instance.new("TextLabel")
 cleanDesc.Size = UDim2.new(1, -20, 0.4, 0)
-cleanDesc.Position = UDim2.new(0, 12, 0.6, 0)
+cleanDesc.Position = UDim2.new(0, 10, 0.6, 0)
 cleanDesc.BackgroundTransparency = 1
-cleanDesc.Text = "清理屏幕上的增益提示"
+cleanDesc.Text = "清理屏幕增益提示"
 cleanDesc.TextColor3 = Color3.fromRGB(150, 90, 120)
-cleanDesc.TextSize = 12
+cleanDesc.TextSize = 11
 cleanDesc.Font = Enum.Font.Gotham
 cleanDesc.TextXAlignment = Enum.TextXAlignment.Left
 cleanDesc.ZIndex = 13
@@ -767,7 +838,6 @@ cleanButton.InputEnded:Connect(function(input)
         cleanButton.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
         cleanStroke.Color = Color3.fromRGB(255, 160, 200)
         cleanUI()
-        print("增益UI已清除")
     end
 end)
 
@@ -786,56 +856,93 @@ cleanButton.MouseLeave:Connect(function()
 end)
 
 -- 更新滚动区域
-buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 65)
+buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 58)
 
--- ==================== 数据更新协程 ====================
+-- ==================== 扩展数据更新协程 ====================
 spawn(function()
+    local lastSampleTime = tick()
+    
     while screenGui and screenGui.Parent do
-        task.wait(1)
+        task.wait(sampleInterval)
         
         pcall(function()
-            -- 更新力量
+            -- 获取当前力量
             local currentStrength = player.leaderstats.Strength.Value
-            dataLabels.strength.Text = formatNumber(currentStrength)
-            dataLabel.Text = "力量: " .. formatNumber(currentStrength)
             
-            -- 更新耐久度
-            local durability = getDurability()
-            dataLabels.durability.Text = formatNumber(durability)
+            -- 更新标题栏力量显示
+            strengthLabel.Text = "力量: " .. formatNumber(currentStrength)
             
-            -- 计算力量增长
+            -- 更新实时数据
+            realTimeLabels.current_strength.Text = formatNumber(currentStrength)
+            
+            -- 计算速度并采样
             if lastStrength > 0 then
                 local gain = currentStrength - lastStrength
-                table.insert(strengthHistory, gain)
-                if #strengthHistory > 5 then
-                    table.remove(strengthHistory, 1)
+                local currentTime = tick()
+                
+                -- 添加到采样数组
+                table.insert(strengthSamples, {
+                    time = currentTime,
+                    strength = currentStrength
+                })
+                
+                -- 保持最多20秒的数据
+                while #strengthSamples > 0 and (currentTime - strengthSamples[1].time) > sampleDuration do
+                    table.remove(strengthSamples, 1)
                 end
                 
-                -- 计算平均速度
-                local totalGain = 0
-                for _, g in ipairs(strengthHistory) do
-                    totalGain = totalGain + g
+                -- 计算20秒平均速度
+                local avgSpeed20s = 0
+                if #strengthSamples >= 2 then
+                    local first = strengthSamples[1]
+                    local last = strengthSamples[#strengthSamples]
+                    local timeDiff = last.time - first.time
+                    if timeDiff > 0 then
+                        avgSpeed20s = (last.strength - first.strength) / timeDiff
+                    end
                 end
-                local avgSpeed = #strengthHistory > 0 and totalGain / #strengthHistory or 0
-                dataLabels.speed.Text = string.format("%.2f/s", avgSpeed)
+                
+                -- 显示当前速度
+                realTimeLabels.speed.Text = string.format("%.1f/s", gain / sampleInterval)
+                
+                -- 显示20秒均速
+                statsLabels.avg_speed_20s.Text = string.format("%.1f/s", avgSpeed20s)
+                
+                -- 计算每日/每月预计收益
+                if avgSpeed20s > 0 then
+                    local secondsPerDay = 24 * 60 * 60
+                    local secondsPerMonth = 30 * secondsPerDay  -- 按30天计算
+                    
+                    local dailyGain = avgSpeed20s * secondsPerDay
+                    local monthlyGain = avgSpeed20s * secondsPerMonth
+                    
+                    statsLabels.daily_gain.Text = formatNumber(dailyGain)
+                    statsLabels.monthly_gain.Text = formatNumber(monthlyGain)
+                else
+                    statsLabels.daily_gain.Text = "0"
+                    statsLabels.monthly_gain.Text = "0"
+                end
             else
-                dataLabels.speed.Text = "0/s"
+                realTimeLabels.speed.Text = "0/s"
+                statsLabels.avg_speed_20s.Text = "0/s"
+                statsLabels.daily_gain.Text = "0"
+                statsLabels.monthly_gain.Text = "0"
             end
-            
-            lastStrength = currentStrength
             
             -- 更新蛋白蛋状态
             local hasProtein = false
             if player.boostTimersFolder then
                 hasProtein = player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
             end
-            dataLabels.protein.Text = hasProtein and "✅ 激活" or "❌ 未激活"
+            realTimeLabels.protein_status.Text = hasProtein and "✅ 激活" or "❌ 未激活"
+            
+            lastStrength = currentStrength
         end)
     end
 end)
 
-print("📱 移动版WindUI已加载！")
-print("✅ 支持手机触摸拖动")
+print("📱 横向加宽版WindUI已加载！")
+print("📊 新增每日/每月力量统计")
+print("⏱️ 基于20秒平均速度计算")
 print("🎨 紫粉色切换按钮效果")
-print("📊 实时数据显示")
 print("⚡ 极速锻炼功能就绪")
