@@ -1,6 +1,10 @@
+-- WindUI Library v1.0
+-- 包含粉白渐变闪烁欢迎语的自定义GUI框架
+
 local WindUILibrary = {}
 
 function WindUILibrary.CreateWindow(options)
+    -- 移除所有现有的UI
     local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
     for _, gui in ipairs(playerGui:GetChildren()) do
         if gui:IsA("ScreenGui") and (gui.Name == "WindUI" or gui.Name == options.Title or gui.Name:find("WindUI_")) then
@@ -8,6 +12,7 @@ function WindUILibrary.CreateWindow(options)
         end
     end
 
+    -- 初始化
     local Players = game:GetService("Players")
     local UserInputService = game:GetService("UserInputService")
     local TweenService = game:GetService("TweenService")
@@ -17,6 +22,7 @@ function WindUILibrary.CreateWindow(options)
     local username = player.Name
     local screenSize = workspace.CurrentCamera.ViewportSize
 
+    -- 解析选项
     local config = {
         Title = options.Title or "WindUI",
         Size = options.Size or UDim2.fromOffset(290, 340),
@@ -28,11 +34,13 @@ function WindUILibrary.CreateWindow(options)
         Icon = options.Icon or nil
     }
 
+    -- 创建GUI
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "WindUI_" .. config.Title
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     screenGui.Parent = playerGui
 
+    -- [新增] 粉白渐变闪烁欢迎文字
     local welcomeFrame = Instance.new("Frame")
     welcomeFrame.Size = UDim2.new(0, math.min(250, screenSize.X * 0.6), 0, 35)
     welcomeFrame.Position = UDim2.new(1, -math.min(250, screenSize.X * 0.6) - 10, 0, 10)
@@ -43,7 +51,7 @@ function WindUILibrary.CreateWindow(options)
     local welcomeText = Instance.new("TextLabel")
     welcomeText.Size = UDim2.new(1, 0, 1, 0)
     welcomeText.BackgroundTransparency = 1
-    welcomeText.Text = "Welcome  " .. username
+    welcomeText.Text = "Welcome " .. username
     welcomeText.TextColor3 = Color3.fromRGB(255, 255, 255)
     welcomeText.TextSize = 16
     welcomeText.Font = Enum.Font.GothamBold
@@ -51,36 +59,42 @@ function WindUILibrary.CreateWindow(options)
     welcomeText.ZIndex = 5
     welcomeText.Parent = welcomeFrame
 
+    -- 粉白渐变效果
     local textGradient = Instance.new("UIGradient")
     textGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)), 
-        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)), 
-        ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210)) 
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)), -- 浅粉色
+        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)), -- 粉色
+        ColorSequenceKeypoint.new(0.6, Color3.fromRGB(255, 200, 220)), -- 亮粉色
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))  -- 深粉色
     })
     textGradient.Rotation = 90
     textGradient.Parent = welcomeText
 
+    -- 文字描边
     local textStroke = Instance.new("UIStroke")
     textStroke.Color = Color3.fromRGB(255, 150, 200)
     textStroke.Thickness = 2
     textStroke.Transparency = 0.3
     textStroke.Parent = welcomeText
 
+    -- 闪烁动画
     spawn(function()
         while welcomeText and welcomeText.Parent do
+            -- 淡入
             local tweenIn = TweenService:Create(welcomeText, TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                TextTransparency = 0.4
+                TextTransparency = 0.2
             })
             tweenIn:Play()
             tweenIn.Completed:Wait()
             
+            -- 淡出
             local tweenOut = TweenService:Create(welcomeText, TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
                 TextTransparency = 0.5
             })
             tweenOut:Play()
             tweenOut.Completed:Wait()
             
+            -- 渐变颜色变化
             local currentColors = {
                 ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 245)),
                 ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 220, 230)),
@@ -88,6 +102,7 @@ function WindUILibrary.CreateWindow(options)
                 ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 180, 210))
             }
             
+            -- 轻微调整渐变颜色
             local newColors = {
                 ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 250, 255)), -- 更白
                 ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 230, 240)),
@@ -101,6 +116,7 @@ function WindUILibrary.CreateWindow(options)
         end
     end)
 
+    -- 主窗口
     local mainWindow = Instance.new("Frame")
     mainWindow.Size = config.Size
     mainWindow.Position = config.Position
@@ -129,6 +145,7 @@ function WindUILibrary.CreateWindow(options)
         corner.Parent = mainWindow
     end
 
+    -- 标题栏
     local titleBar = Instance.new("TextButton")
     titleBar.Size = UDim2.new(1, 0, 0, 30)
     titleBar.BackgroundColor3 = Color3.fromRGB(40, 25, 55)
@@ -149,6 +166,7 @@ function WindUILibrary.CreateWindow(options)
     titleLabel.ZIndex = 2
     titleLabel.Parent = titleBar
 
+    -- 如果提供了图标
     if config.Icon then
         local iconLabel = Instance.new("TextLabel")
         iconLabel.Size = UDim2.new(0, 20, 0, 20)
@@ -160,6 +178,7 @@ function WindUILibrary.CreateWindow(options)
         iconLabel.Parent = titleLabel
     end
 
+    -- 最小化按钮
     local minimizeButton = Instance.new("TextButton")
     minimizeButton.Size = UDim2.new(0, 24, 0, 24)
     minimizeButton.Position = UDim2.new(1, -28, 0.5, -12)
@@ -172,6 +191,7 @@ function WindUILibrary.CreateWindow(options)
     minimizeButton.ZIndex = 2
     minimizeButton.Parent = titleBar
 
+    -- 内容区域
     local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Size = UDim2.new(1, -10, 1, -35)
     contentFrame.Position = UDim2.new(0, 5, 0, 32)
@@ -182,6 +202,7 @@ function WindUILibrary.CreateWindow(options)
     contentFrame.ZIndex = 2
     contentFrame.Parent = mainWindow
 
+    -- 窗口状态
     local windowState = {
         frame = mainWindow,
         titleBar = titleBar,
@@ -189,12 +210,13 @@ function WindUILibrary.CreateWindow(options)
         minimized = false,
         originalSize = config.Size,
         originalPosition = config.Position,
-        welcomeFrame = welcomeFrame, 
-        welcomeText = welcomeText, 
+        welcomeFrame = welcomeFrame, -- 保存欢迎语引用
+        welcomeText = welcomeText,   -- 保存欢迎文字引用
         elements = {},
         tabs = {}
     }
 
+    -- 拖动功能
     local isDragging = false
     local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
     
@@ -221,6 +243,7 @@ function WindUILibrary.CreateWindow(options)
         end
     end)
 
+    -- 最小化功能
     minimizeButton.MouseButton1Click:Connect(function()
         windowState.minimized = not windowState.minimized
         
@@ -235,11 +258,13 @@ function WindUILibrary.CreateWindow(options)
         end
     end)
 
+    -- API 方法
     local windowAPI = {}
 
     function windowAPI:Tab(options)
         local tabName = options.Title or "Tab"
         
+        -- 创建标签容器
         local tabFrame = Instance.new("Frame")
         tabFrame.Size = UDim2.new(1, 0, 1, 0)
         tabFrame.BackgroundTransparency = 1
@@ -306,10 +331,12 @@ function WindUILibrary.CreateWindow(options)
             indicatorCorner.CornerRadius = UDim.new(1, 0)
             indicatorCorner.Parent = stateIndicator
             
+            -- 更新内容区域大小
             contentFrame.CanvasSize = UDim2.new(0, 0, 0, 50 + (#windowState.tabs[tabName].elements * 45))
             
             table.insert(windowState.tabs[tabName].elements, toggleFrame)
             
+            -- 点击事件
             toggleButton.MouseButton1Click:Connect(function()
                 toggleState = not toggleState
                 stateIndicator.BackgroundColor3 = toggleState and Color3.fromRGB(255, 150, 200) or Color3.fromRGB(60, 40, 90)
@@ -319,6 +346,7 @@ function WindUILibrary.CreateWindow(options)
                 end
             end)
             
+            -- 添加交互效果
             toggleButton.MouseEnter:Connect(function()
                 toggleFrame.BackgroundColor3 = Color3.fromRGB(45, 30, 70)
             end)
@@ -368,10 +396,12 @@ function WindUILibrary.CreateWindow(options)
             descLabel.TextXAlignment = Enum.TextXAlignment.Center
             descLabel.Parent = buttonFrame
             
+            -- 更新内容区域大小
             contentFrame.CanvasSize = UDim2.new(0, 0, 0, 50 + (#windowState.tabs[tabName].elements * 45))
             
             table.insert(windowState.tabs[tabName].elements, buttonFrame)
             
+            -- 交互效果
             button.MouseEnter:Connect(function()
                 buttonFrame.BackgroundColor3 = Color3.fromRGB(60, 40, 100)
             end)
@@ -423,6 +453,7 @@ function WindUILibrary.CreateWindow(options)
             descLabel.TextWrapped = true
             descLabel.Parent = paragraphFrame
             
+            -- 更新内容区域大小
             contentFrame.CanvasSize = UDim2.new(0, 0, 0, 50 + (#windowState.tabs[tabName].elements * 45))
             
             table.insert(windowState.tabs[tabName].elements, paragraphFrame)
@@ -441,6 +472,8 @@ function WindUILibrary.CreateWindow(options)
     end
 
     function windowAPI:EditOpenButton(options)
+        -- 这里可以添加打开按钮的自定义逻辑
+        -- 比如修改欢迎文字等
         if options.Title and windowState.welcomeText then
             windowState.welcomeText.Text = options.Title
         end
