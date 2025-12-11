@@ -1,4 +1,5 @@
 local player = game:GetService("Players").LocalPlayer
+local UserInputService = game:GetService("UserInputService")
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileWindUI"
@@ -245,6 +246,91 @@ local buttonList = Instance.new("UIListLayout")
 buttonList.Padding = UDim.new(0, 6)
 buttonList.Parent = buttonContainer
 
+local isDragging = false
+local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
+local isMinimized = false
+local originalSize = mainWindow.Size
+local originalPosition = mainWindow.Position
+
+titleBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        isDragging = true
+        dragStart = input.Position
+        windowStart = Vector2.new(mainWindow.Position.X.Offset, mainWindow.Position.Y.Offset)
+        mainWindow.ZIndex = 20
+        titleBar.BackgroundColor3 = Color3.fromRGB(255, 215, 230)
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or 
+       input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        local newX = windowStart.X + delta.X
+        local newY = windowStart.Y + delta.Y
+        
+        newX = math.max(0, math.min(newX, viewportSize.X - mainWindow.Size.X.Offset))
+        newY = math.max(0, math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset))
+        
+        mainWindow.Position = UDim2.new(0, newX, 0, newY)
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if isDragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch) then
+        isDragging = false
+        mainWindow.ZIndex = 10
+        titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
+    end
+end)
+
+local function toggleMinimize()
+    isMinimized = not isMinimized
+    
+    if isMinimized then
+        mainWindow.Size = UDim2.new(0, mainWindow.Size.X.Offset, 0, 35)
+        statsFrame.Visible = false
+        buttonsFrame.Visible = false
+        minimizeButton.Text = "+"
+        titleCorner.CornerRadius = UDim.new(0, 16)
+    else
+        mainWindow.Size = originalSize
+        statsFrame.Visible = true
+        buttonsFrame.Visible = true
+        minimizeButton.Text = "─"
+        titleCorner.CornerRadius = UDim.new(0, 16, 0, 0)
+    end
+end
+
+minimizeButton.MouseButton1Click:Connect(toggleMinimize)
+
+minimizeButton.MouseEnter:Connect(function()
+    minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+end)
+
+minimizeButton.MouseLeave:Connect(function()
+    minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+end)
+
+-- 关闭功能
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+    game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup"):Destroy()
+end)
+
+closeButton.MouseEnter:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+    closeButton.TextColor3 = Color3.fromRGB(200, 40, 100)
+end)
+
+closeButton.MouseLeave:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+    closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+end)
+
+-- ==================== 导出API供外部使用 ====================
 if not _G.WindUI then _G.WindUI = {} end
 
 _G.WindUI.UpdateTitle = function(text)
@@ -316,4 +402,4 @@ _G.WindUI.AddButton = function(name, desc, callback)
     buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() * 51)
 end
 
-print("WindUI")
+print("WindUI Loaded")
