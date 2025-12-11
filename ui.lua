@@ -246,12 +246,14 @@ local buttonList = Instance.new("UIListLayout")
 buttonList.Padding = UDim.new(0, 6)
 buttonList.Parent = buttonContainer
 
+-- ==================== 移动、最小化、关闭功能 ====================
 local isDragging = false
 local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
 local isMinimized = false
 local originalSize = mainWindow.Size
 local originalPosition = mainWindow.Position
 
+-- 移动功能 - 可以移动到任何位置（包括屏幕外）
 titleBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or 
        input.UserInputType == Enum.UserInputType.Touch then
@@ -270,9 +272,8 @@ UserInputService.InputChanged:Connect(function(input)
         local newX = windowStart.X + delta.X
         local newY = windowStart.Y + delta.Y
         
-        newX = math.max(0, math.min(newX, viewportSize.X - mainWindow.Size.X.Offset))
-        newY = math.max(0, math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset))
-        
+        -- 移除限制，允许移动到任何位置
+        -- 甚至可以移动到屏幕外
         mainWindow.Position = UDim2.new(0, newX, 0, newY)
     end
 end)
@@ -286,6 +287,7 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
+-- 最小化功能
 local function toggleMinimize()
     isMinimized = not isMinimized
     
@@ -306,28 +308,62 @@ end
 
 minimizeButton.MouseButton1Click:Connect(toggleMinimize)
 
+minimizeButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 180, 200)
+    end
+end)
+
+minimizeButton.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+        toggleMinimize()
+    end
+end)
+
 minimizeButton.MouseEnter:Connect(function()
-    minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+    if not isDragging then
+        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+    end
 end)
 
 minimizeButton.MouseLeave:Connect(function()
-    minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+    if not isDragging then
+        minimizeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+    end
 end)
 
 -- 关闭功能
-closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
-    game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup"):Destroy()
+closeButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        closeButton.BackgroundColor3 = Color3.fromRGB(255, 180, 200)
+    end
+end)
+
+closeButton.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+        screenGui:Destroy()
+        game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup"):Destroy()
+    end
 end)
 
 closeButton.MouseEnter:Connect(function()
-    closeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
-    closeButton.TextColor3 = Color3.fromRGB(200, 40, 100)
+    if not isDragging then
+        closeButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+        closeButton.TextColor3 = Color3.fromRGB(200, 40, 100)
+    end
 end)
 
 closeButton.MouseLeave:Connect(function()
-    closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
-    closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+    if not isDragging then
+        closeButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+        closeButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+    end
 end)
 
 -- ==================== 导出API供外部使用 ====================
@@ -390,12 +426,37 @@ _G.WindUI.AddButton = function(name, desc, callback)
     buttonDesc.ZIndex = 13
     buttonDesc.Parent = buttonFrame
     
+    -- 按钮交互效果
+    buttonFrame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+           input.UserInputType == Enum.UserInputType.Touch then
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 210, 230)
+            buttonStroke.Color = Color3.fromRGB(255, 140, 180)
+        end
+    end)
+    
     buttonFrame.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+            buttonStroke.Color = Color3.fromRGB(255, 180, 210)
             if callback then
                 callback()
             end
+        end
+    end)
+    
+    buttonFrame.MouseEnter:Connect(function()
+        if not isDragging then
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 225, 240)
+            buttonStroke.Color = Color3.fromRGB(255, 160, 200)
+        end
+    end)
+    
+    buttonFrame.MouseLeave:Connect(function()
+        if not isDragging then
+            buttonFrame.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+            buttonStroke.Color = Color3.fromRGB(255, 180, 210)
         end
     end)
     
