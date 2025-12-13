@@ -1,8 +1,42 @@
-local player = game:GetService("Players").LocalPlayer
+-- 防多开功能
+local function AntiMultiOpen()
+    local existingGui = game:GetService("CoreGui"):FindFirstChild("KJY_Team_AntiDup")
+    if existingGui then
+        game:GetService("Players").LocalPlayer:Kick("Script already running! Please wait.")
+        return false
+    end
+    local antiDupGui = Instance.new("ScreenGui")
+    antiDupGui.Name = "KJY_Team_AntiDup"
+    antiDupGui.Parent = game:GetService("CoreGui")
+    game:GetService("Players").PlayerRemoving:Connect(function(player)
+        if player == game:GetService("Players").LocalPlayer then antiDupGui:Destroy() end
+    end)
+    return true
+end
 
--- 安全地设置防AFK，不等待
+if not AntiMultiOpen() then return end
+
+-- 白名单验证
+local player = game:GetService("Players").LocalPlayer
+local function checkWhitelist()
+    local playerName = player.Name
+    local success, isWhitelisted = pcall(function()
+        local list = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
+        local whitelist = {}
+        for name in list:gmatch("[^,]+") do whitelist[name:gsub("%s+","")] = true end
+        return whitelist[playerName]
+    end)
+    if not success or not isWhitelisted then
+        player:Kick("Unauthorized user")
+        return false
+    end
+    return true
+end
+
+if not checkWhitelist() then return end
+
+-- 防AFK功能
 local function setupAntiAFK()
-    -- 使用pcall防止错误
     local success, err = pcall(function()
         if player and player.Idled then
             player.Idled:Connect(function()
@@ -15,15 +49,14 @@ local function setupAntiAFK()
     end)
     
     if not success then
-        warn("Anti-AFK setup failed (non-critical): " .. tostring(err))
+        warn("Anti-AFK setup failed: " .. tostring(err))
     else
         print("Anti-AFK active")
     end
 end
-
--- 立即尝试设置，不等待
 setupAntiAFK()
 
+-- 创建UI
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileWindUI"
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -58,6 +91,7 @@ uiStroke.Color = Color3.fromRGB(255, 160, 200)
 uiStroke.Thickness = 3
 uiStroke.Parent = mainWindow
 
+-- 粒子效果
 local particleContainer = Instance.new("Frame")
 particleContainer.Name = "ParticleContainer"
 particleContainer.Size = UDim2.new(1, 0, 1, 0)
@@ -66,59 +100,82 @@ particleContainer.ZIndex = 1
 particleContainer.Parent = mainWindow
 
 local function createParticles()
-    for i = 1, 20 do
-        local particle = Instance.new("Frame")
+    for i = 1, 30 do
+        local particle = Instance.new("TextLabel")
         particle.Name = "Particle_" .. i
-        particle.Size = UDim2.new(0, math.random(4, 10), 0, math.random(4, 10))
-        particle.BackgroundColor3 = Color3.fromRGB(
+        particle.Size = UDim2.new(0, 30, 0, 30)
+        particle.BackgroundTransparency = 1
+        particle.Text = "Ysia"
+        particle.TextColor3 = Color3.fromRGB(
             math.random(200, 255),
-            math.random(160, 220),
-            math.random(180, 240)
+            math.random(100, 200),
+            math.random(150, 220)
         )
-        particle.BackgroundTransparency = 0.6
-        particle.BorderSizePixel = 0
+        particle.TextTransparency = 0.7
+        particle.TextSize = math.random(12, 16)
+        particle.Font = Enum.Font.GothamBold
         particle.ZIndex = 1
         
-        local particleCorner = Instance.new("UICorner")
-        particleCorner.CornerRadius = UDim.new(1, 0)
-        particleCorner.Parent = particle
+        local centerX = 0.5
+        local centerY = 0.5
+        local startDistance = math.random() * 0.3
+        local startAngle = math.random() * 2 * math.pi
         
-        local startPos = UDim2.new(
-            math.random() * 0.8 + 0.1,
-            0,
-            math.random() * 0.8 + 0.1,
-            0
-        )
+        local startX = centerX + math.cos(startAngle) * startDistance
+        local startY = centerY + math.sin(startAngle) * startDistance
         
-        particle.Position = startPos
+        particle.Position = UDim2.new(startX, -15, startY, -15)
         particle.Parent = particleContainer
         
+        local speed = math.random(0.5, 1.5) * 0.003
+        local angle = math.random() * 2 * math.pi
+        local moveX = math.cos(angle) * speed
+        local moveY = math.sin(angle) * speed
+        
+        local fadeSpeed = math.random(0.02, 0.05)
+        local rotationSpeed = math.random(-2, 2)
+        
         coroutine.wrap(function()
-            while particle and particle.Parent do
-                local moveX = (math.random() - 0.5) * 0.4
-                local moveY = (math.random() - 0.5) * 0.4
+            local transparency = 0.7
+            local rotation = 0
+            
+            while particle and particle.Parent and transparency < 1 do
+                local currentX = particle.Position.X.Scale + moveX
+                local currentY = particle.Position.Y.Scale + moveY
                 
-                for t = 0, 1, 0.05 do
-                    if not particle or not particle.Parent then break end
-                    particle.Position = UDim2.new(
-                        startPos.X.Scale + moveX * t,
-                        0,
-                        startPos.Y.Scale + moveY * t,
-                        0
-                    )
-                    particle.BackgroundTransparency = 0.3 + 0.4 * math.abs(math.sin(t * math.pi))
-                    wait(0.05)
+                particle.Position = UDim2.new(currentX, -15, currentY, -15)
+                
+                transparency = transparency + fadeSpeed
+                particle.TextTransparency = transparency
+                
+                rotation = rotation + rotationSpeed
+                particle.Rotation = rotation
+                
+                if currentX < -0.5 or currentX > 1.5 or currentY < -0.5 or currentY > 1.5 then
+                    particle:Destroy()
+                    break
                 end
                 
-                startPos = particle.Position
-                wait(math.random(1, 3))
+                task.wait(0.02)
+            end
+            
+            if particle and particle.Parent then
+                particle:Destroy()
             end
         end)()
     end
 end
 
 createParticles()
+task.spawn(function()
+    while task.wait(2) do
+        if #particleContainer:GetChildren() < 20 then
+            createParticles()
+        end
+    end
+end)
 
+-- 标题栏
 local titleBar = Instance.new("TextButton")
 titleBar.Name = "TitleBar"
 titleBar.Size = UDim2.new(1, 0, 0, 35)
@@ -192,6 +249,7 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 6)
 closeCorner.Parent = closeButton
 
+-- 统计框
 local statsFrame = Instance.new("Frame")
 statsFrame.Name = "StatsFrame"
 statsFrame.Size = UDim2.new(1, -20, 0, 90)
@@ -224,10 +282,11 @@ leftGrid.CellPadding = UDim2.new(0, 0, 0, 2)
 leftGrid.StartCorner = Enum.StartCorner.TopLeft
 leftGrid.Parent = leftColumn
 
+-- 左侧项目：当前速度、日增、月增
 local leftItems = {
     {id = "current_speed", name = "Current Speed:", color = Color3.fromRGB(100, 220, 150)},
-    {id = "avg_speed_20s", name = "20s Avg Speed:", color = Color3.fromRGB(255, 140, 100)},
-    {id = "protein_status", name = "Protein Status:", color = Color3.fromRGB(220, 180, 100)}
+    {id = "daily_gain", name = "Daily Est:", color = Color3.fromRGB(255, 140, 100)},
+    {id = "monthly_gain", name = "Monthly Est:", color = Color3.fromRGB(220, 180, 100)}
 }
 
 local leftLabels = {}
@@ -273,10 +332,11 @@ rightGrid.CellPadding = UDim2.new(0, 0, 0, 2)
 rightGrid.StartCorner = Enum.StartCorner.TopLeft
 rightGrid.Parent = rightColumn
 
+-- 右侧项目：当前力量、年增、总力量
 local rightItems = {
-    {id = "current_strength", name = "Current Strength:", color = Color3.fromRGB(220, 100, 150)},
-    {id = "daily_gain", name = "Daily Estimated:", color = Color3.fromRGB(100, 180, 255)},
-    {id = "monthly_gain", name = "Monthly Estimated:", color = Color3.fromRGB(150, 100, 220)}
+    {id = "current_strength", name = "Current Str:", color = Color3.fromRGB(220, 100, 150)},
+    {id = "yearly_gain", name = "Yearly Est:", color = Color3.fromRGB(100, 180, 255)},
+    {id = "total_1year", name = "1 Year Total:", color = Color3.fromRGB(150, 100, 220)}
 }
 
 local rightLabels = {}
@@ -308,6 +368,7 @@ for i, item in ipairs(rightItems) do
     rightLabels[item.id] = valueLabel
 end
 
+-- 按钮框
 local buttonsFrame = Instance.new("Frame")
 buttonsFrame.Name = "ButtonsFrame"
 buttonsFrame.Size = UDim2.new(1, -20, 0, 280)
@@ -330,43 +391,108 @@ local buttonList = Instance.new("UIListLayout")
 buttonList.Padding = UDim.new(0, 6)
 buttonList.Parent = buttonContainer
 
+-- 拖拽功能
 local isMinimized = false
 local originalSize = mainWindow.Size
 local isDragging = false
 local dragStart, windowStart = Vector2.new(0, 0), Vector2.new(0, 0)
 
-titleBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
-       input.UserInputType == Enum.UserInputType.Touch then
-        isDragging = true
-        dragStart = input.Position
-        windowStart = Vector2.new(mainWindow.Position.X.Offset, mainWindow.Position.Y.Offset)
-        mainWindow.ZIndex = 20
-        titleBar.BackgroundColor3 = Color3.fromRGB(255, 215, 230)
+local function setupDragging()
+    local dragInput
+    local dragStart
+    local startPos
+    
+    local function beginDrag(input)
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or 
+            input.UserInputType == Enum.UserInputType.Touch) then
+            isDragging = true
+            dragStart = input.Position
+            startPos = Vector2.new(mainWindow.Position.X.Offset, mainWindow.Position.Y.Offset)
+            mainWindow.ZIndex = 20
+            
+            mainWindow.BackgroundColor3 = Color3.fromRGB(255, 230, 240)
+            uiStroke.Color = Color3.fromRGB(255, 140, 180)
+            
+            local connection
+            connection = input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    isDragging = false
+                    connection:Disconnect()
+                    mainWindow.BackgroundColor3 = Color3.fromRGB(255, 240, 245)
+                    uiStroke.Color = Color3.fromRGB(255, 160, 200)
+                    mainWindow.ZIndex = 10
+                end
+            end)
+        end
     end
-end)
-
-game:GetService("UserInputService").InputChanged:Connect(function(input)
-    if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or 
-       input.UserInputType == Enum.UserInputType.Touch) then
-        local delta = input.Position - dragStart
-        local newX = windowStart.X + delta.X
-        local newY = windowStart.Y + delta.Y
-        newX = math.max(-mainWindow.Size.X.Offset * 0.5, math.min(newX, viewportSize.X - mainWindow.Size.X.Offset * 0.5))
-        newY = math.max(-mainWindow.Size.Y.Offset * 0.5, math.min(newY, viewportSize.Y - mainWindow.Size.Y.Offset * 0.5))
-        mainWindow.Position = UDim2.new(0, newX, 0, newY)
+    
+    local function endDrag(input)
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or 
+            input.UserInputType == Enum.UserInputType.Touch) then
+            isDragging = false
+        end
     end
-end)
-
-game:GetService("UserInputService").InputEnded:Connect(function(input)
-    if isDragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or 
-       input.UserInputType == Enum.UserInputType.Touch) then
-        isDragging = false
-        mainWindow.ZIndex = 10
-        titleBar.BackgroundColor3 = Color3.fromRGB(255, 225, 235)
+    
+    local function updateDrag(input)
+        if not isDragging then return end
+        
+        if input.UserInputType == Enum.UserInputType.MouseMovement or 
+           input.UserInputType == Enum.UserInputType.Touch then
+            local delta = input.Position - dragStart
+            local newX = startPos.X + delta.X
+            local newY = startPos.Y + delta.Y
+            
+            local windowWidth = mainWindow.Size.X.Offset
+            local windowHeight = mainWindow.Size.Y.Offset
+            
+            newX = math.max(0, math.min(newX, viewportSize.X - windowWidth))
+            newY = math.max(0, math.min(newY, viewportSize.Y - windowHeight))
+            
+            mainWindow.Position = UDim2.new(0, newX, 0, newY)
+        end
     end
-end)
+    
+    local function makeDraggable(frame)
+        frame.InputBegan:Connect(function(input)
+            beginDrag(input)
+        end)
+        
+        frame.InputEnded:Connect(function(input)
+            endDrag(input)
+        end)
+        
+        if frame:IsA("GuiButton") then
+            frame.MouseEnter:Connect(function()
+                if not isDragging then
+                    frame.BackgroundColor3 = Color3.fromRGB(255, 245, 250)
+                end
+            end)
+            
+            frame.MouseLeave:Connect(function()
+                if not isDragging then
+                    frame.BackgroundColor3 = Color3.fromRGB(255, 240, 245)
+                end
+            end)
+        end
+    end
+    
+    makeDraggable(mainWindow)
+    makeDraggable(titleBar)
+    makeDraggable(statsFrame)
+    makeDraggable(buttonsFrame)
+    
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        updateDrag(input)
+    end)
+    
+    game:GetService("UserInputService").InputEnded:Connect(function(input)
+        endDrag(input)
+    end)
+end
 
+setupDragging()
+
+-- 窗口控制
 local function toggleMinimize()
     isMinimized = not isMinimized
     if isMinimized then
@@ -436,6 +562,7 @@ closeButton.MouseLeave:Connect(function()
     end
 end)
 
+-- 功能按钮创建
 local buttonStates = {}
 
 local function createToggleButton(name, desc, toggleFunction)
@@ -560,15 +687,11 @@ end
 
 -- ========== 主要功能 ==========
 local spamTraining = false
-local batchSize = 19
+local batchSize = 20
 local autoEgg = false
 local autoShake = false
 local lastStrength = 0
-local strengthSamples = {}
 local sampleInterval = 1
-local sampleDuration = 20
-local eggInterval = 1801
-local lastEggTime = 0
 
 local function formatNumber(value)
     if value < 1000 then return string.format("%.0f", value) end
@@ -591,40 +714,70 @@ local function spamExerciseEvents()
     end
 end
 
--- 自动吃蛋功能
-local function findEggInBackpack()
-    pcall(function()
-        for _, item in ipairs(player.Backpack:GetChildren()) do
-            if item.Name == "Protein Egg" and item:IsA("Tool") then
-                return item
-            end
-        end
+-- 检查是否有蛋白蛋buff
+local function hasProteinBuff()
+    local success, hasBuff = pcall(function()
+        return player.boostTimersFolder:FindFirstChild("Protein Egg") ~= nil
     end)
-    return nil
+    return success and hasBuff
+end
+
+-- 自动吃蛋功能（只在buff消失后才吃）
+local speedSamples = {}
+local maxSamples = 6
+
+local function getAvgSpeed()
+    if #speedSamples == 0 then return 0 end
+    local total = 0
+    for _, speed in ipairs(speedSamples) do
+        total = total + (speed or 0)
+    end
+    return total / #speedSamples
 end
 
 local function eggLoop()
     while autoEgg do
+        task.wait(1)  -- 每秒检查一次
+        
         pcall(function()
-            local currentTime = tick()
-            if lastEggTime == 0 or (currentTime - lastEggTime) >= eggInterval then
-                local egg = findEggInBackpack()
+            -- 检查是否有蛋白蛋buff
+            if not hasProteinBuff() then
+                -- buff已消失，可以吃蛋
+                local egg = player.Backpack:FindFirstChild("Protein Egg")
                 if egg and player.Character then
                     local humanoid = player.Character:FindFirstChild("Humanoid")
                     if humanoid then
+                        -- 装备蛋白蛋
                         humanoid:EquipTool(egg)
                         task.wait(0.2)
-                        if player.Character:FindFirstChild("Protein Egg") then
-                            player.muscleEvent:FireServer("proteinEgg", player.Character:FindFirstChild("Protein Egg"))
-                            lastEggTime = currentTime
-                            leftLabels.protein_status.Text = "✅ Active"
+                        
+                        -- 检查是否装备成功
+                        local equippedEgg = player.Character:FindFirstChild("Protein Egg")
+                        if equippedEgg then
+                            -- 使用蛋白蛋
+                            player.muscleEvent:FireServer("proteinEgg", equippedEgg)
+                            task.wait(0.2)
+                            
+                            -- 卸下工具
+                            humanoid:UnequipTools()
+                            print("Protein egg used (buff was missing)")
+                        else
                             humanoid:UnequipTools()
                         end
                     end
+                else
+                    -- 没有蛋白蛋在背包中
+                    if autoEgg then
+                        print("No protein egg in backpack")
+                    end
+                end
+            else
+                -- 还有buff，等待buff消失
+                if autoEgg then
+                    print("Protein buff active, waiting...")
                 end
             end
         end)
-        task.wait(1)
     end
 end
 
@@ -680,7 +833,7 @@ local function cleanUI()
     end
 end
 
--- 创建按钮
+-- 创建功能按钮
 local speedToggle = createToggleButton("Speed Training", "Rapid batch training", function(state)
     spamTraining = state
     if state then
@@ -688,12 +841,13 @@ local speedToggle = createToggleButton("Speed Training", "Rapid batch training",
     end
 end)
 
-local eggToggle = createToggleButton("Auto Protein Egg", "Auto use protein egg", function(state)
+local eggToggle = createToggleButton("Auto Protein Egg", "Auto use protein egg (when buff ends)", function(state)
     autoEgg = state
     if state then
+        print("Auto egg enabled - will use when protein buff ends")
         task.spawn(eggLoop)
     else
-        pcall(function() leftLabels.protein_status.Text = "❌ Inactive" end)
+        print("Auto egg disabled")
     end
 end)
 
@@ -782,56 +936,74 @@ buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #buttonContainer:GetChildren() *
 
 -- 更新统计信息
 task.spawn(function()
+    local lastSampleTime = tick()
+    
     while screenGui and screenGui.Parent do
         task.wait(sampleInterval)
+        
         pcall(function()
             if player and player.leaderstats then
                 local strengthStat = player.leaderstats:FindFirstChild("Strength")
                 if strengthStat then
                     local currentStrength = strengthStat.Value
+                    local currentTime = tick()
+                    
+                    -- 更新标题栏力量显示
                     strengthLabel.Text = "💪 " .. formatNumber(currentStrength)
+                    
+                    -- 更新统计框力量显示
                     rightLabels.current_strength.Text = formatNumber(currentStrength)
                     
                     if lastStrength > 0 then
+                        -- 计算当前速度
                         local gain = currentStrength - lastStrength
-                        local currentSpeed = gain / sampleInterval
-                        local currentTime = tick()
+                        local timeDiff = currentTime - lastSampleTime
+                        local currentSpeed = gain / math.max(0.1, timeDiff)
                         
-                        table.insert(strengthSamples, {time = currentTime, strength = currentStrength})
-                        while #strengthSamples > 0 and (currentTime - strengthSamples[1].time) > sampleDuration do
-                            table.remove(strengthSamples, 1)
+                        -- 添加速度样本
+                        table.insert(speedSamples, currentSpeed)
+                        while #speedSamples > maxSamples do
+                            table.remove(speedSamples, 1)
                         end
                         
-                        local avgSpeed20s = 0
-                        if #strengthSamples >= 2 then
-                            local first = strengthSamples[1]
-                            local last = strengthSamples[#strengthSamples]
-                            local timeDiff = last.time - first.time
-                            if timeDiff > 0 then avgSpeed20s = (last.strength - first.strength) / timeDiff end
-                        end
+                        -- 计算平均速度
+                        local avgSpeed = getAvgSpeed()
                         
+                        -- 更新左侧统计
                         leftLabels.current_speed.Text = string.format("%.1f/s", currentSpeed)
-                        leftLabels.avg_speed_20s.Text = string.format("%.1f/s", avgSpeed20s)
                         
-                        if avgSpeed20s > 0 then
+                        -- 计算日增、月增、年增
+                        if avgSpeed > 0 then
                             local secondsPerDay = 24 * 60 * 60
                             local secondsPerMonth = 30 * secondsPerDay
-                            local dailyGain = avgSpeed20s * secondsPerDay
-                            local monthlyGain = avgSpeed20s * secondsPerMonth
-                            rightLabels.daily_gain.Text = formatNumber(dailyGain)
-                            rightLabels.monthly_gain.Text = formatNumber(monthlyGain)
+                            local secondsPerYear = 365 * secondsPerDay
+                            
+                            local dailyGain = avgSpeed * secondsPerDay
+                            local monthlyGain = avgSpeed * secondsPerMonth
+                            local yearlyGain = avgSpeed * secondsPerYear
+                            local totalOneYear = currentStrength + yearlyGain
+                            
+                            leftLabels.daily_gain.Text = formatNumber(dailyGain)
+                            leftLabels.monthly_gain.Text = formatNumber(monthlyGain)
+                            rightLabels.yearly_gain.Text = formatNumber(yearlyGain)
+                            rightLabels.total_1year.Text = formatNumber(totalOneYear)
                         else
-                            rightLabels.daily_gain.Text = "0"
-                            rightLabels.monthly_gain.Text = "0"
+                            leftLabels.daily_gain.Text = "0"
+                            leftLabels.monthly_gain.Text = "0"
+                            rightLabels.yearly_gain.Text = "0"
+                            rightLabels.total_1year.Text = formatNumber(currentStrength)
                         end
                     else
+                        -- 首次运行
                         leftLabels.current_speed.Text = "0/s"
-                        leftLabels.avg_speed_20s.Text = "0/s"
-                        rightLabels.daily_gain.Text = "0"
-                        rightLabels.monthly_gain.Text = "0"
+                        leftLabels.daily_gain.Text = "0"
+                        leftLabels.monthly_gain.Text = "0"
+                        rightLabels.yearly_gain.Text = "0"
+                        rightLabels.total_1year.Text = formatNumber(currentStrength)
                     end
                     
                     lastStrength = currentStrength
+                    lastSampleTime = currentTime
                 end
             end
         end)
