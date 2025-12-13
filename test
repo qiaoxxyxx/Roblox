@@ -12,7 +12,7 @@ local MainTab = Window:Tab({
 })
 
 local spamTraining = false
-local batchSize = 20
+local batchSize = 19
 
 local function spamExerciseEvents()
     while spamTraining do
