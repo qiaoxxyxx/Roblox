@@ -439,15 +439,12 @@ local function setupDragging()
         if input.UserInputType == Enum.UserInputType.MouseMovement or 
            input.UserInputType == Enum.UserInputType.Touch then
             local delta = input.Position - dragStart
+            
+            -- 允许移动到屏幕外
             local newX = startPos.X + delta.X
             local newY = startPos.Y + delta.Y
             
-            local windowWidth = mainWindow.Size.X.Offset
-            local windowHeight = mainWindow.Size.Y.Offset
-            
-            newX = math.max(0, math.min(newX, viewportSize.X - windowWidth))
-            newY = math.max(0, math.min(newY, viewportSize.Y - windowHeight))
-            
+            -- 移除边界限制，允许任意位置
             mainWindow.Position = UDim2.new(0, newX, 0, newY)
         end
     end
@@ -476,21 +473,84 @@ local function setupDragging()
         end
     end
     
+    -- 为多个区域添加拖拽功能
     makeDraggable(mainWindow)
     makeDraggable(titleBar)
     makeDraggable(statsFrame)
     makeDraggable(buttonsFrame)
     
+    -- 处理拖拽移动
     game:GetService("UserInputService").InputChanged:Connect(function(input)
         updateDrag(input)
     end)
     
+    -- 处理拖拽结束
     game:GetService("UserInputService").InputEnded:Connect(function(input)
         endDrag(input)
+    end)
+    
+    -- 添加键盘快捷键：按R键重置窗口位置
+    game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+        if not gameProcessed then
+            if input.KeyCode == Enum.KeyCode.R then
+                -- 重置窗口到初始位置
+                mainWindow.Position = UDim2.new(0, 20, 0, 50)
+                print("Window position reset to (20, 50)")
+            elseif input.KeyCode == Enum.KeyCode.T then
+                -- 将窗口移动到屏幕中心
+                local windowWidth = mainWindow.Size.X.Offset
+                local windowHeight = mainWindow.Size.Y.Offset
+                local centerX = (viewportSize.X - windowWidth) / 2
+                local centerY = (viewportSize.Y - windowHeight) / 2
+                mainWindow.Position = UDim2.new(0, centerX, 0, centerY)
+                print("Window moved to center")
+            end
+        end
     end)
 end
 
 setupDragging()
+
+-- 添加一个小的重置位置按钮（可选）
+local resetButton = Instance.new("TextButton")
+resetButton.Name = "ResetPositionButton"
+resetButton.Size = UDim2.new(0, 20, 0, 20)
+resetButton.Position = UDim2.new(1, -25, 1, -25)
+resetButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+resetButton.Text = "R"
+resetButton.TextColor3 = Color3.fromRGB(180, 60, 120)
+resetButton.TextSize = 10
+resetButton.Font = Enum.Font.GothamBold
+resetButton.AutoButtonColor = false
+resetButton.ZIndex = 20
+resetButton.Parent = mainWindow
+
+local resetCorner = Instance.new("UICorner")
+resetCorner.CornerRadius = UDim.new(0, 4)
+resetCorner.Parent = resetButton
+
+resetButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        resetButton.BackgroundColor3 = Color3.fromRGB(255, 180, 200)
+    end
+end)
+
+resetButton.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+       input.UserInputType == Enum.UserInputType.Touch then
+        resetButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+        mainWindow.Position = UDim2.new(0, 20, 0, 50)
+    end
+end)
+
+resetButton.MouseEnter:Connect(function()
+    resetButton.BackgroundColor3 = Color3.fromRGB(255, 190, 215)
+end)
+
+resetButton.MouseLeave:Connect(function()
+    resetButton.BackgroundColor3 = Color3.fromRGB(255, 200, 220)
+end)
 
 -- 窗口控制
 local function toggleMinimize()
@@ -562,7 +622,6 @@ closeButton.MouseLeave:Connect(function()
     end
 end)
 
--- 功能按钮创建
 local buttonStates = {}
 
 local function createToggleButton(name, desc, toggleFunction)
