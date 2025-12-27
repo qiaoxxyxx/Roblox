@@ -1,0 +1,209 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AutoEzUI"
+screenGui.Parent = playerGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 250, 0, 150)
+mainFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = mainFrame
+
+local titleBar = Instance.new("Frame")
+titleBar.Size = UDim2.new(1, 0, 0, 40)
+titleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleBar.BorderSizePixel = 0
+titleBar.Parent = mainFrame
+
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 8)
+titleCorner.Parent = titleBar
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 1, 0)
+title.Text = "auto ez"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.Parent = titleBar
+
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 180, 0, 50)
+toggleButton.Position = UDim2.new(0.5, -90, 0.5, -25)
+toggleButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+toggleButton.Text = "autoEz"
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.Font = Enum.Font.Gotham
+toggleButton.TextSize = 16
+toggleButton.Parent = mainFrame
+
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 6)
+buttonCorner.Parent = toggleButton
+
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, -20, 0, 20)
+statusLabel.Position = UDim2.new(0, 10, 1, -30)
+statusLabel.Text = "good bye reb"
+statusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Font = Enum.Font.Gotham
+statusLabel.TextSize = 14
+statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+statusLabel.Parent = mainFrame
+
+local isRunning = false
+local rebirthThread = nil
+local debounce = false
+
+function performRebirth()
+    if debounce then return end
+    debounce = true
+    
+    local args = {
+        [1] = "rebirthRequest"
+    }
+    
+    local success, errorMsg = pcall(function()
+        ReplicatedStorage.rEvents.rebirthRemote:InvokeServer(unpack(args))
+    end)
+    
+    if not success then
+        warn("重生请求失败:", errorMsg)
+    end
+    
+    debounce = false
+end
+
+function startAutoRebirth()
+    isRunning = true
+    toggleButton.Text = "Ez"
+    toggleButton.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+    statusLabel.Text = "Ez"
+    statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+    
+    rebirthThread = coroutine.create(function()
+        while isRunning do
+            performRebirth()
+            wait(0.5) 
+        end
+    end)
+    
+    coroutine.resume(rebirthThread)
+end
+
+function stopAutoRebirth()
+    isRunning = false
+    toggleButton.Text = "auto Ez"
+    toggleButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    statusLabel.Text = " LoL"
+    statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+    
+    if rebirthThread then
+        coroutine.close(rebirthThread)
+        rebirthThread = nil
+    end
+end
+
+toggleButton.MouseButton1Click:Connect(function()
+    if isRunning then
+        stopAutoRebirth()
+    else
+        startAutoRebirth()
+    end
+end)
+
+local dragging = false
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+titleBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+titleBar.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 100, 100)
+closeButton.BackgroundTransparency = 1
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextSize = 16
+closeButton.Parent = titleBar
+
+closeButton.MouseButton1Click:Connect(function()
+    stopAutoRebirth()
+    screenGui:Destroy()
+end)
+
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Size = UDim2.new(0, 30, 0, 30)
+minimizeButton.Position = UDim2.new(1, -70, 0, 5)
+minimizeButton.Text = "_"
+minimizeButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+minimizeButton.BackgroundTransparency = 1
+minimizeButton.Font = Enum.Font.GothamBold
+minimizeButton.TextSize = 20
+minimizeButton.Parent = titleBar
+
+local minimized = false
+local originalSize = mainFrame.Size
+local minimizedSize = UDim2.new(0, 250, 0, 40)
+
+minimizeButton.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    
+    if minimized then
+        mainFrame.Size = minimizedSize
+        toggleButton.Visible = false
+        statusLabel.Visible = false
+    else
+        mainFrame.Size = originalSize
+        toggleButton.Visible = true
+        statusLabel.Visible = true
+    end
+end)
+
+wait(0.2)
+startAutoRebirth()
