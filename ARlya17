@@ -200,32 +200,6 @@ local function ShowWhitelistVerification(isVerified)
 end
 
 local player = game:GetService("Players").LocalPlayer
-
-local function checkWhitelist()
-    local playerName = player.Name
-    local success, isWhitelisted = pcall(function()
-        local list = game:HttpGet("https://raw.githubusercontent.com/qiaoxxyxx/Roblox/refs/heads/main/whitelist.txt")
-        local whitelist = {}
-        for name in list:gmatch("[^,]+") do 
-            whitelist[name:gsub("%s+", "")] = true 
-        end
-        return whitelist[playerName]
-    end)
-    
-    ShowWhitelistVerification(success and isWhitelisted)
-    
-    if not success or not isWhitelisted then
-        player:Kick("未授权用户")
-        return false
-    end
-    
-    return true
-end
-
-task.wait(3)
-
-if not checkWhitelist() then return end
-
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MobileWindUI"
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
